@@ -1,8 +1,11 @@
 package experiment;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoard {
+	
+	Set <TestBoardCell> targets = new HashSet<TestBoardCell>();
 
 	public TestBoard() {
 		super();
@@ -15,10 +18,10 @@ public class TestBoard {
 	
 	
 	Set <TestBoardCell> getTargets(){
-		return null;
+		return targets;
 	}
 	
 	public TestBoardCell getCell(int row, int col) {
-		return null;
+		return new TestBoardCell(-1, -1);
 	}
 }
