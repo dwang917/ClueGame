@@ -42,7 +42,7 @@ public class TestBoard {
 		return targets;
 	}
 	
-	TestBoardCell getCell(int row, int col) {
+	public TestBoardCell getCell(int row, int col) {
 		TestBoardCell cell = new TestBoardCell(row,col);
 		for(TestBoardCell current : board) {
 			if(current.equals(cell)) {

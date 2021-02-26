@@ -17,11 +17,11 @@ public class TestBoardCell {
 	}
 	
 
-	void addAdjacency(TestBoardCell cell) {
+	public void addAdjacency(TestBoardCell cell) {
 		adjacent.add(cell);
 	}
 	
-	Set <TestBoardCell> getAdjList(){
+	public Set <TestBoardCell> getAdjList(){
 		return adjacent;
 	}
 	
