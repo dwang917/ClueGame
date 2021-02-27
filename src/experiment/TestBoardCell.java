@@ -5,6 +5,10 @@ import java.util.Set;
 
 public class TestBoardCell {
 	
+	/*
+	 * TestBoardCell classes with stub functions
+	 */
+	
 	private int row;
 	private int col;
 	private Set <TestBoardCell> adjList = new HashSet<TestBoardCell>();
@@ -15,11 +19,12 @@ public class TestBoardCell {
 		this.col = col;
 	}
 	
-
+	
 	public void addAdjacency(TestBoardCell cell) {
 	}
 	
 	public Set <TestBoardCell> getAdjList(){
+		//return an empty set
 		return adjList;
 	}
 	
