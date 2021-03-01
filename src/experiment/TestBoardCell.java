@@ -4,14 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoardCell {
-	
-	/*
-	 * TestBoardCell classes with stub functions
-	 */
-	
 	private int row;
 	private int col;
-	private Set <TestBoardCell> adjList = new HashSet<TestBoardCell>();
+	private boolean room;
+	private boolean occupied;
+	private Set <TestBoardCell> adjacent = new HashSet <TestBoardCell>();
 	
 	public TestBoardCell(int row, int col) {
 		super();
@@ -19,30 +16,40 @@ public class TestBoardCell {
 		this.col = col;
 	}
 	
-	
+
 	public void addAdjacency(TestBoardCell cell) {
+		adjacent.add(cell);
 	}
 	
 	public Set <TestBoardCell> getAdjList(){
-		//return an empty set
-		return adjList;
+		return adjacent;
 	}
 	
-	public void setRoom(boolean b) {
+	void setRoom(boolean b) {
+		room = b;
+	}
+	
+	boolean IsRoom() {
+		return room;
+	}
+	
+	void setOccupied(boolean b) {
+		occupied = b;
+	}
+	
+	boolean getOccupied() {
+		return occupied;
 		
 	}
-	
-	public boolean IsRoom() {
-		return false;
+
+
+	public int getRow() {
+		return row;
 	}
-	
-	public void setOccupied(boolean b) {
-	
-	}
-	
-	public boolean getOccupied() {
-		return false;
-		
+
+
+	public int getCol() {
+		return col;
 	}
 	
 }
