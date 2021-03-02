@@ -55,6 +55,9 @@ public class TestBoard {
 			if(adjCell.getOccupied()) {
 				visited.add(adjCell);
 			}
+			if(adjCell.IsRoom()) {
+				targets.add(adjCell);
+			}
 			if(!(visited.contains(adjCell))) {
 				visited.add(adjCell);
 				if(numSteps == 1) {

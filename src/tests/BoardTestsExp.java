@@ -137,7 +137,7 @@ class BoardTestsExp {
 	@Test
 	public void TestTargetsRoom1() {
 		TestBoardCell cell = board.getCell(1, 3);
-		board.getCell(1,2).IsRoom();
+		board.getCell(1,2).setRoom(true);
 		board.calcTargets(cell, 2);
 		Set<TestBoardCell> targets = board.getTargets();
 		Assert.assertEquals(5, targets.size());
@@ -151,7 +151,7 @@ class BoardTestsExp {
 	@Test
 	public void TestTargetsRoom2() {
 		TestBoardCell cell = board.getCell(0, 0);
-		board.getCell(0,1).IsRoom();
+		board.getCell(0,1).setRoom(true);
 		board.calcTargets(cell, 2);
 		Set<TestBoardCell> targets = board.getTargets();
 		Assert.assertEquals(4, targets.size());
