@@ -3,6 +3,9 @@ package clueGame;
 import java.util.Set;
 
 public class BoardCell {
+	/*
+	 * stubs for BoardCell class and attribtes from the UML 
+	 */
 	
 	private int row;
 	private int col;
@@ -26,6 +29,7 @@ public class BoardCell {
 		this.adjList = adjList;
 	}
 
+	//Default Constructor
 	public BoardCell() {
 		super();
 		// TODO Auto-generated constructor stub

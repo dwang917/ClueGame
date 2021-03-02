@@ -4,6 +4,9 @@ import java.util.Map;
 
 public class Board {
 
+	/*
+	 * Stubs for Board class with attributes from the UML
+	 */
 	private BoardCell[][] grid;
 	private int numRows;
 	private int numColumns;

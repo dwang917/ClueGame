@@ -2,6 +2,9 @@ package clueGame;
 
 public class Room {
 
+	/*
+	 * Stubs for Room class
+	 */
 	public Room() {
 		super();
 		// TODO Auto-generated constructor stub
