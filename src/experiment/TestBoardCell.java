@@ -26,7 +26,7 @@ public class TestBoardCell {
 		return adjList;
 	}
 	
-	public void setIsRoom(boolean b) {
+	public void setRoom(boolean b) {
 		isRoom = b;
 	}
 	
