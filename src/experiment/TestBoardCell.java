@@ -4,41 +4,43 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoardCell {
-	private int row;
-	private int col;
-	private boolean room;
-	private boolean occupied;
-	private Set <TestBoardCell> adjacent = new HashSet <TestBoardCell>();
+	private int row, col;
+	private Boolean isRoom, isOccupied;
+	private Set <TestBoardCell> adjList = new HashSet <TestBoardCell>();
 	
 	public TestBoardCell(int row, int col) {
 		super();
 		this.row = row;
 		this.col = col;
+		this.isRoom = false;
+		this.isOccupied = false;
+		
 	}
 	
 
 	public void addAdjacency(TestBoardCell cell) {
-		adjacent.add(cell);
+		adjList.add(cell);
 	}
 	
 	public Set <TestBoardCell> getAdjList(){
-		return adjacent;
+		return adjList;
 	}
 	
-	void setRoom(boolean b) {
-		room = b;
+	public void setRoom(boolean b) {
+		isRoom = b;
 	}
 	
-	boolean IsRoom() {
-		return room;
+	public boolean IsRoom() {
+		return isRoom;
 	}
 	
-	void setOccupied(boolean b) {
-		occupied = b;
+	public void setOccupied(boolean b) {
+		isOccupied = b;
+		
 	}
 	
-	boolean getOccupied() {
-		return occupied;
+	public boolean getOccupied() {
+		return isOccupied;
 		
 	}
 
@@ -50,6 +52,12 @@ public class TestBoardCell {
 
 	public int getCol() {
 		return col;
+	}
+
+
+	@Override
+	public String toString() {
+		return "TestBoardCell [row=" + row + ", col=" + col + "]";
 	}
 	
 }

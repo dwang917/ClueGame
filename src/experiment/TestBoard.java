@@ -4,51 +4,76 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoard {
-	private int size = 4;
-	Set <TestBoardCell> board;
-	Set <TestBoardCell> targets;
+	final static int COLS = 4;
+	final static int ROWS = 4;
+	private TestBoardCell [][] grid;
+	private Set <TestBoardCell> targets;
+	private Set <TestBoardCell> visited;
 
 	public TestBoard() {
 		super();
-		this.board = new HashSet <TestBoardCell>();
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j<size; j++) {
-				board.add(new TestBoardCell(i,j));
+		this.grid = new TestBoardCell [ROWS][COLS];
+		
+		for(int row = 0; row < ROWS; row++) {
+			for(int col = 0; col < COLS; col++) {
+				grid[row][col] = new TestBoardCell(row, col);
 			}
 		}
-		for(TestBoardCell cell : board) {
-			setAdjacent(cell);
+		
+		for(int row = 0; row < ROWS; row++) {
+			for(int col = 0; col < COLS; col++) {
+				setAdjacent(grid[row][col]);
+			}
 		}
 	}
-	void setAdjacent(TestBoardCell cell) {
-			if(cell.getRow()+1 < size)
-				cell.addAdjacency(new TestBoardCell(cell.getCol(),cell.getRow()+1));
-			if(cell.getRow()-1 > -1)
-				cell.addAdjacency(new TestBoardCell(cell.getCol(),cell.getRow()-1));
-			if(cell.getCol()+1 < size)
-				cell.addAdjacency(new TestBoardCell(cell.getCol()+1,cell.getRow()));
-			if(cell.getCol()-1 > -1)
-				cell.addAdjacency(new TestBoardCell(cell.getCol()-1,cell.getRow()));
+	
+	public void setAdjacent(TestBoardCell cell) {
+			if(cell.getCol()+1 < COLS)
+				cell.addAdjacency(getCell(cell.getRow(),cell.getCol()+1));
+			if(cell.getCol() > 0)
+				cell.addAdjacency(getCell(cell.getRow(),cell.getCol()-1));
+			if(cell.getRow()+1 < ROWS)
+				cell.addAdjacency(getCell(cell.getRow()+1,cell.getCol()));
+			if(cell.getRow() > 0)
+				cell.addAdjacency(getCell(cell.getRow()-1,cell.getCol()));
 
 		}
 
-	void calcTargets(TestBoardCell startCell, int pathlength) {
-		//int left = pathlength;
-		//targets = new HashSet<TestBoardCell>();
+	public void calcTargets(TestBoardCell startCell, int pathlength) {
+		targets = new HashSet<TestBoardCell>();
+		visited = new HashSet<TestBoardCell>();
+		visited.add(startCell);
+		System.out.println("New find: ");
+		findAllTargets(startCell,pathlength);
+		for(TestBoardCell cell:targets)
+			System.out.println(cell);
+		System.out.println("\n");
 	}
 	
+	public void findAllTargets(TestBoardCell thisCell, int numSteps) {
+		for(TestBoardCell adjCell: thisCell.getAdjList()) {
+			if(adjCell.getOccupied()) {
+				visited.add(adjCell);
+			}
+			if(!(visited.contains(adjCell))) {
+				visited.add(adjCell);
+				if(numSteps == 1) {
+					targets.add(adjCell);
+				}
+				else {
+					findAllTargets(adjCell,numSteps - 1);
+				}
+				visited.remove(adjCell);
+			}
+		}
+		
+	}
 	
-	Set <TestBoardCell> getTargets(){
+	public Set <TestBoardCell> getTargets(){
 		return targets;
 	}
 	
 	public TestBoardCell getCell(int row, int col) {
-		TestBoardCell cell = new TestBoardCell(row,col);
-		for(TestBoardCell current : board) {
-			if(current.equals(cell)) {
-				return current;
-			}
-		}
-		return null;
+		return grid[row][col];
 	}
 }
