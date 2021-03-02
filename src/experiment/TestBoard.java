@@ -52,16 +52,15 @@ public class TestBoard {
 	
 	public void findAllTargets(TestBoardCell thisCell, int numSteps) {
 		for(TestBoardCell adjCell: thisCell.getAdjList()) {
-			if(adjCell.getOccupied()) {
-				visited.add(adjCell);
-			}
 			if(adjCell.IsRoom()) {
 				targets.add(adjCell);
 			}
 			if(!(visited.contains(adjCell))) {
 				visited.add(adjCell);
 				if(numSteps == 1) {
-					targets.add(adjCell);
+					if(!adjCell.getOccupied()) {
+						targets.add(adjCell);
+					}
 				}
 				else {
 					findAllTargets(adjCell,numSteps - 1);
