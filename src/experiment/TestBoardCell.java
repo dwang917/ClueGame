@@ -12,14 +12,14 @@ public class TestBoardCell {
 		super();
 		this.row = row;
 		this.col = col;
-		this.isRoom = false;
-		this.isOccupied = false;
+		this.isRoom = false; //default room to not a room
+		this.isOccupied = false; //default to not occupied
 		
 	}
 	
 
 	public void addAdjacency(TestBoardCell cell) {
-		adjList.add(cell);
+		adjList.add(cell); //add the parameter cell to the set of adjacent cells
 	}
 	
 	public Set <TestBoardCell> getAdjList(){
@@ -55,6 +55,7 @@ public class TestBoardCell {
 	}
 
 
+	//created toString for testing
 	@Override
 	public String toString() {
 		return "TestBoardCell [row=" + row + ", col=" + col + "]";
