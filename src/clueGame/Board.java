@@ -27,10 +27,6 @@ public class Board {
 		
 	}
 	
-	public void loadConfigFiles() {
-		
-	}
-	
 	public void loadSetupConfig() {
 		
 	}
