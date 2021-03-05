@@ -19,7 +19,7 @@ public class Room {
 	private BoardCell centerCell;
 	private BoardCell labelCell;
 	
-	public Object getName() {
+	public String getName() {
 		return name;
 	}
 	public BoardCell getCenterCell() {

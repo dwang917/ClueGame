@@ -12,7 +12,7 @@ public class TestBoardCell {
 		super();
 		this.row = row;
 		this.col = col;
-		this.isRoom = false; //default room to not a room
+		this.isRoom = false; //default to not a room
 		this.isOccupied = false; //default to not occupied
 		
 	}
