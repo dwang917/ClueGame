@@ -92,7 +92,7 @@ public class FileInitTests {
 			BoardCell cell = board.getCell( 2, 11);
 			Room room = board.getRoom( cell ) ;
 			assertTrue( room != null );
-			assertEquals( room.getName(), "Recreation" ) ;
+			assertEquals( "Recreation",room.getName() ) ;
 			assertFalse( cell.isLabel() );
 			assertFalse( cell.isRoomCenter() ) ;
 			assertFalse( cell.isDoorway()) ;
