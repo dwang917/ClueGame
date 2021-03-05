@@ -10,8 +10,9 @@ public class BoardCell {
 	
 	private int row;
 	private int col;
-	private char room;
+	private char initial;
 	private DoorDirection doorDirection;
+	private Room inRoom;
 	private boolean roomLabel;
 	private boolean roomCenter;
 	private char secretPassage;
@@ -22,7 +23,7 @@ public class BoardCell {
 		super();
 		this.row = row;
 		this.col = col;
-		this.room = ' ';
+		this.initial = ' ';
 		this.doorDirection = null;
 		this.roomLabel = false;
 		this.roomCenter = false;
@@ -33,7 +34,7 @@ public class BoardCell {
 		super();
 		this.row = row;
 		this.col = col;
-		this.room = ' ';
+		this.initial = ' ';
 		this.doorDirection = null;
 		this.roomLabel = roomLabel;
 		this.roomCenter = false;
@@ -46,7 +47,7 @@ public class BoardCell {
 		super();
 		this.row = row;
 		this.col = col;
-		this.room = initial;
+		this.initial = initial;
 		this.doorDirection = doorDirection;
 		this.roomLabel = roomLabel;
 		this.roomCenter = roomCenter;
@@ -78,6 +79,10 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public Room getRoom() {
+		return inRoom;
+	}
 
 	public boolean isDoorway() {
 		// TODO Auto-generated method stub
@@ -88,9 +93,10 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	void setRoom(char charAt) {
+	void setRoom(Room newRoom, char charAt) {
 		// TODO Auto-generated method stub
-		this.room = charAt;
+		this.initial = charAt;
+		this.inRoom = newRoom;
 	}
 	public void setSPassage(char c) {
 		// TODO Auto-generated method stub

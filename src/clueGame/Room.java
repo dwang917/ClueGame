@@ -15,6 +15,13 @@ public class Room {
 		this.centerCell = centerCell;
 		this.labelCell = labelCell;
 	}
+	
+	public Room(String name) {
+		super();
+		this.name = name;
+		
+	}
+	
 	private String name;
 	private BoardCell centerCell;
 	private BoardCell labelCell;
