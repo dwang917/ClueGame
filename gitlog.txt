@@ -1,0 +1,23 @@
+commit 81876f33c252219b28fe379e2b9984b7d99cf080 (HEAD -> main, origin/main, origin/HEAD)
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Mon Mar 1 23:44:56 2021 -0700
+
+    Commented
+
+commit 0b88f5f81adf5de4ff5de80012cb70652a97cbae
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Mon Mar 1 23:20:44 2021 -0700
+
+    Finished all the tests
+
+commit ce1df6ad0c60ab9b95efcb12f4da57e54fc78441
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Mon Mar 1 21:59:50 2021 -0700
+
+    Added stubs
+
+commit 9036c75a23f5aa5a5fdeb1e8266d14418fd4d288
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Mon Mar 1 21:35:01 2021 -0700
+
+    Created the package

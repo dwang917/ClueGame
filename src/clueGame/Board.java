@@ -89,6 +89,8 @@ public class Board {
 			}
 			reader2.close();
 			
+			String stringCol = boardStrings.get(0);
+		
 			numRows = boardStrings.size();
 			numCols = boardStrings.get(0).length();
 			grid = new BoardCell [numRows][numCols];
@@ -102,12 +104,11 @@ public class Board {
 		
 				col = 0;
 				for(int charLoc = 0; charLoc < line.length(); charLoc++) {
-					if(line.charAt(charLoc) == ',' && col+1 < numCols) {
+					if(line.charAt(charLoc) == ',' && col < numCols) {
 						grid[row][col] = cell;
 						System.out.print(grid[row][col].getInitial() + " ");
 						col++;
 						cell = new BoardCell(row,col);
-						continue;
 					}
 					else {
 						cell.setInitial(line.charAt(charLoc));
@@ -146,14 +147,15 @@ public class Board {
 				System.out.println();
 
 			}
-			//for(int i = 0; i < numRows; i++) {
-			//	System.out.print(i);
-			//	for(int j = 0; j < numCols; j++) {
-			//		System.out.print(grid[i][j].getInitial());
-			//	}
-			//	System.out.println();
-			//}
-			
+			grid[numRows -1][numCols-1] = cell;
+			/*for(int i = 0; i < numRows; i++) {
+				System.out.print(i);
+				for(int j = 0; j < numCols; j++) {
+					System.out.print(grid[i][j].getInitial());
+				}
+				System.out.println();
+			}
+			*/
 			for(row = 0; row < numRows; row++) {
 				for(col = 0; col < numCols; col++) {
 					if(grid[row][col].isRoomCenter()) {
