@@ -13,8 +13,8 @@ public class BoardCell {
 	private char initial;
 	private DoorDirection doorDirection;
 	private Room inRoom;
-	private boolean roomLabel;
-	private boolean roomCenter;
+	private boolean roomLabel = false;
+	private boolean roomCenter = false;
 	private char secretPassage;
 	Set<BoardCell> adjList;
 	
@@ -30,6 +30,7 @@ public class BoardCell {
 		this.secretPassage = ' ';
 		this.adjList = new HashSet <BoardCell>();
 	}
+	
 	public BoardCell(int row, int col, boolean roomLabel) {
 		super();
 		this.row = row;
@@ -62,22 +63,29 @@ public class BoardCell {
 	}
 
 	public void addAdj(BoardCell adj) {
-		
+		adjList.add(adj);
 	}
 
+	public void setRoomCenter(boolean b) {
+		roomCenter = b;
+	}
 	public boolean isRoomCenter() {
 		// TODO Auto-generated method stub
-		return false;
+		return roomCenter;
 	}
 
+	public void setLabel(boolean b) {
+		roomLabel = b;
+	}
+	
 	public boolean isLabel() {
 		// TODO Auto-generated method stub
-		return false;
+		return roomLabel;
 	}
 
 	public char getSecretPassage() {
 		// TODO Auto-generated method stub
-		return 0;
+		return secretPassage;
 	}
 	
 	public Room getRoom() {
@@ -86,12 +94,14 @@ public class BoardCell {
 
 	public boolean isDoorway() {
 		// TODO Auto-generated method stub
+		if(doorDirection != null)
+			return true;
 		return false;
 	}
 
 	public DoorDirection getDoorDirection() {
 		// TODO Auto-generated method stub
-		return null;
+		return doorDirection;
 	}
 	void setRoom(Room newRoom, char charAt) {
 		// TODO Auto-generated method stub
@@ -102,6 +112,14 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		this.secretPassage = c;
 		
+	}
+	
+	public void setInitial(char charAt) {
+		 this.initial = charAt;
+	}
+	
+	public char getInitial() {
+		return initial;
 	}
 	public void setDirection(char charAt) {
 		// TODO Auto-generated method stub
@@ -114,5 +132,11 @@ public class BoardCell {
 		if(charAt == 'v')
 			doorDirection = DoorDirection.DOWN;
 		
+	}
+
+	@Override
+	public String toString() {
+		return "BoardCell [row=" + row + ", col=" + col + ", roomLabel=" + roomLabel + ", roomCenter=" + roomCenter
+				+ "]";
 	}
 }

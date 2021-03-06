@@ -18,15 +18,14 @@ public class Board {
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private Map<Character, Room> roomMap = new HashMap <Character, Room>();
+	//private Map <Character, Character> specialMap = new HashMap <Character, Character>();
 	private static Board theInstance = new Board();
 	private ArrayList<String> boardStrings = new ArrayList <String>();
-	//private ArrayList<String> roomStrings = new ArrayList <String>();
-	//private Map <String, String> roomMap = new HashMap<String,String>();
-	//private ArrayList<Room> rooms = new ArrayList <Room>();
+	private ArrayList<String> roomStrings = new ArrayList <String>();
 
 	
 	private Board() {
-        super() ;
+        super();
 	}
 	
 	public static Board getInstance() {
@@ -38,37 +37,22 @@ public class Board {
 	}
 	
 	public void loadSetupConfig() {
-		
-	}
-	
-	public void loadLayoutConfig() {
-		
-	}
-	
-	public void setConfigFiles(String string, String string2) {
-		int col = 0;
-		int row = 0;
 		String roomName;
 		char initial;
-		String line;
 		String sub;
-
+		String line;
+		
+		Room newRoom;
+		
 		try {
-			FileReader obj = new FileReader(string2);
+			FileReader obj = new FileReader(setupConfigFile);
 			Scanner reader = new Scanner(obj);
 			reader.nextLine();
-			Room newRoom;
+			//Room newRoom;
 			while(reader.hasNextLine()) {
 				line = reader.nextLine();
-				if(line.charAt(0) == 'R') {
-					sub = line.substring(line.indexOf(',')+1);
-					roomName = sub.substring(0, sub.indexOf(','));
-					sub = sub.substring(sub.indexOf(',')+1);
-					initial = sub.charAt(0);
-					//System.out.println(roomName + " and " + initial);
-					newRoom = new Room(roomName);
-					roomMap.put(initial,newRoom);
-				}
+				roomStrings.add(line);
+
 			}
 			reader.close();
 		}
@@ -76,12 +60,29 @@ public class Board {
 			e.printStackTrace();
 
 		}
+		for(String thisLine: roomStrings) {
+			if(thisLine.charAt(0) == 'R') {
+				sub = thisLine.substring(thisLine.indexOf(',')+1);
+				roomName = sub.substring(0, sub.indexOf(','));
+				sub = sub.substring(sub.indexOf(',')+1);
+				initial = sub.charAt(1);
+				newRoom = new Room(roomName);
+				roomMap.put(initial,newRoom);
+			}
+		}
+		
+	}
+	
+	public void loadLayoutConfig() {
+		int col = 0;
+		int row = 0;
+		String line;
+		Room newRoom;
 		
 		try {
-			FileReader obj2 = new FileReader(string);
+			FileReader obj2 = new FileReader(layoutConfigFile);
 			Scanner reader2 = new Scanner(obj2);
 			line = "";
-			//string content;
 			while(reader2.hasNextLine()) {
 				line = reader2.nextLine();
 				boardStrings.add(line);
@@ -93,10 +94,10 @@ public class Board {
 			grid = new BoardCell [numRows][numCols];
 			BoardCell cell;
 			cell = new BoardCell(0,0);
-			for(int i = 0; i < numRows; i++) {
-				row = i;
-				line = boardStrings.get(i);
-				
+			
+			for(row = 0; row < numRows; row++) {
+				line = boardStrings.get(row);
+				col = 0;
 				for(int charLoc = 0; charLoc < line.length(); charLoc++) {
 					if(line.charAt(charLoc) == ',' && col+1 < numCols) {
 						col++;
@@ -105,47 +106,96 @@ public class Board {
 					}
 					else if(charLoc+1 < line.length() && line.charAt(charLoc) == 'S' && line.charAt(charLoc+1) == 'O') {
 						cell.setSPassage('S');
-						charLoc++;
 					}
 					else if(charLoc+1 < line.length() && line.charAt(charLoc) == 'O' && line.charAt(charLoc+1) == 'S') {
 						cell.setSPassage('O');
-						charLoc++;
 					}
 					else if(charLoc+1 < line.length() && line.charAt(charLoc) == 'K' && line.charAt(charLoc+1) == 'M') {
 						cell.setSPassage('K');
-						charLoc++;
 					}
 					else if(charLoc+1 < line.length() && line.charAt(charLoc) == 'M' && line.charAt(charLoc+1) == 'K') {
 						cell.setSPassage('M');
-						charLoc++;
-					}
-					else if(line.charAt(charLoc) == '*' || line.charAt(charLoc) == '#') {
-						
 					}
 					else if(line.charAt(charLoc) == '<' || line.charAt(charLoc) == '>' || line.charAt(charLoc) == 'v'||line.charAt(charLoc) == '^') {
 						cell.setDirection(line.charAt(charLoc));
 					}
 					else {
-						cell.setRoom(roomMap.get(line.charAt(charLoc)), line.charAt(charLoc));
+						cell.setInitial(line.charAt(charLoc));
+						if(charLoc+1 < line.length() && line.charAt(charLoc+1) == '#') {
+							charLoc++;
+							cell.setLabel(true);
+						}
+						else if(charLoc+1 < line.length() && (line.charAt(charLoc+1) == '*' )){
+							charLoc++;
+							cell.setRoomCenter(true);
+						}
+						else if(charLoc+1 < line.length() && line.charAt(charLoc+1) != ',') {
+							charLoc++;
+							cell.setSPassage(line.charAt(charLoc));
+						}
+								if(cell.isRoomCenter()) {
+									
+									newRoom = roomMap.get(cell.getInitial());
+									newRoom.setCenterCell(cell);
+									roomMap.put(cell.getInitial(), newRoom);
+									
+									}
+								else if(cell.isLabel()) {
+									
+									newRoom = roomMap.get(cell.getInitial());
+									newRoom.setLabelCell(cell);
+									roomMap.put(cell.getInitial(), newRoom);
+									
+									}
+								
+						cell.setRoom(roomMap.get(line.charAt(charLoc)),line.charAt(charLoc));
+						
 					}
-					grid[row][col] = cell;
+					
+				
+					this.grid[row][col] = cell;
+				
+					System.out.print(grid[row][col].getInitial() + " ");
+
 				}
+				System.out.println();
 			}
-			
+			for(int i = 0; i < numRows; i++) {
+				System.out.print(i);
+				for(int j = 0; j < numCols; j++) {
+					System.out.print(grid[i][j].getInitial());
+				}
+				System.out.println();
+			}
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		//catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			//
+		
+	}
+	
+	public void setConfigFiles(String string, String string2) {
+		this.layoutConfigFile = string;
+		this.setupConfigFile = string2;
 		
 		
+		loadSetupConfig();
 		
+		
+		loadLayoutConfig();
+		
+		for(int row = 0; row < numRows; row++) {
+			System.out.print(row);
+			for(int col = 0; col < numCols; col++) {
+				System.out.print("\""+row + "," +col + "\""+ " ");
+				System.out.print(grid[row][col].getInitial());
+			}
+			System.out.println();
+		}
 
 	}
 	
 	public Room getRoom(char c) {
-		return roomMap.get;
+		return roomMap.get(c);
 	}
 	
 	public Room getRoom(BoardCell cell) {
@@ -153,16 +203,16 @@ public class Board {
 	}
 
 	public BoardCell getCell(int i, int j) {
-		return new BoardCell();
+		return grid[i][j];
 	}
 
 	public int getNumRows() {
 		// TODO Auto-generated method stub
-		return -1;
+		return numRows;
 	}
 
 	public int getNumColumns() {
 		// TODO Auto-generated method stub
-		return -1;
+		return numCols;
 	}
 }

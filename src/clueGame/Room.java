@@ -19,7 +19,6 @@ public class Room {
 	public Room(String name) {
 		super();
 		this.name = name;
-		
 	}
 	
 	private String name;
@@ -36,5 +35,18 @@ public class Room {
 	public BoardCell getLabelCell() {
 		// TODO Auto-generated method stub
 		return labelCell;
+	}
+	
+	public void setCenterCell(BoardCell cell) {
+		// TODO Auto-generated method stub
+		centerCell = cell;
+	}
+	public void setLabelCell(BoardCell cell) {
+		// TODO Auto-generated method stub
+		labelCell = cell;
+	}
+	@Override
+	public String toString() {
+		return "Room [name=" + name + ", centerCell=" + centerCell + ", labelCell=" + labelCell + "]";
 	}
 }
