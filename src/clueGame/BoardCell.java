@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class BoardCell {
@@ -11,56 +12,23 @@ public class BoardCell {
 	private int row;
 	private int col;
 	private char initial;
-	private DoorDirection doorDirection;
-	private Room inRoom;
+	private DoorDirection doorDirection = null;
 	private boolean roomLabel = false;
 	private boolean roomCenter = false;
 	private char secretPassage;
 	Set<BoardCell> adjList;
 	
 	
-	public BoardCell(int row, int col){
+	
+	public BoardCell(int row, int col, char ini){
 		super();
 		this.row = row;
 		this.col = col;
-		this.initial = ' ';
-		this.doorDirection = null;
-		this.roomLabel = false;
-		this.roomCenter = false;
+		this.initial = ini;
 		this.secretPassage = ' ';
 		this.adjList = new HashSet <BoardCell>();
 	}
 	
-	public BoardCell(int row, int col, boolean roomLabel) {
-		super();
-		this.row = row;
-		this.col = col;
-		this.initial = ' ';
-		this.doorDirection = null;
-		this.roomLabel = roomLabel;
-		this.roomCenter = false;
-		this.secretPassage = ' ';
-		this.adjList = new HashSet <BoardCell>();
-	}
-	
-	public BoardCell(int row, int col, char initial, DoorDirection doorDirection, boolean roomLabel, boolean roomCenter,
-			char secretPassage, Set<BoardCell> adjList) {
-		super();
-		this.row = row;
-		this.col = col;
-		this.initial = initial;
-		this.doorDirection = doorDirection;
-		this.roomLabel = roomLabel;
-		this.roomCenter = roomCenter;
-		this.secretPassage = secretPassage;
-		this.adjList = adjList;
-	}
-
-	//Default Constructor
-	public BoardCell() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public void addAdj(BoardCell adj) {
 		adjList.add(adj);
@@ -70,7 +38,6 @@ public class BoardCell {
 		roomCenter = b;
 	}
 	public boolean isRoomCenter() {
-		// TODO Auto-generated method stub
 		return roomCenter;
 	}
 
@@ -79,39 +46,26 @@ public class BoardCell {
 	}
 	
 	public boolean isLabel() {
-		// TODO Auto-generated method stub
 		return roomLabel;
 	}
 
 	public char getSecretPassage() {
-		// TODO Auto-generated method stub
 		return secretPassage;
 	}
 	
-	public Room getRoom() {
-		return inRoom;
-	}
 
 	public boolean isDoorway() {
-		// TODO Auto-generated method stub
 		if(doorDirection != null)
 			return true;
 		return false;
 	}
 
 	public DoorDirection getDoorDirection() {
-		// TODO Auto-generated method stub
 		return doorDirection;
 	}
-	void setRoom(Room newRoom, char charAt) {
-		// TODO Auto-generated method stub
-		this.initial = charAt;
-		this.inRoom = newRoom;
-	}
+	
 	public void setSPassage(char c) {
-		// TODO Auto-generated method stub
 		this.secretPassage = c;
-		
 	}
 	
 	public void setInitial(char charAt) {
@@ -121,8 +75,8 @@ public class BoardCell {
 	public char getInitial() {
 		return initial;
 	}
+	
 	public void setDirection(char charAt) {
-		// TODO Auto-generated method stub
 		if(charAt == '<')
 			doorDirection = DoorDirection.LEFT;
 		if(charAt == '>')
@@ -134,9 +88,22 @@ public class BoardCell {
 		
 	}
 
-	@Override
-	public String toString() {
-		return "BoardCell [row=" + row + ", col=" + col + ", roomLabel=" + roomLabel + ", roomCenter=" + roomCenter
-				+ "]";
+	
+	public void specialCell(char c, Map<Character, Room> roomMap) {
+		if(c == '<' || c == '>' || c == 'v'|| c == '^') {
+			this.setDirection(c);
+		}
+		else if(c == '#') {
+			this.setLabel(true);
+			roomMap.get(this.getInitial()).setLabelCell(this);
+			
+		}
+		else if(c == '*') {
+			this.setRoomCenter(true);
+			roomMap.get(this.getInitial()).setCenterCell(this);
+		}
+		else {
+			this.setSPassage(c);
+		}
 	}
 }

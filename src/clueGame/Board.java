@@ -9,19 +9,15 @@ import java.util.Scanner;
 
 public class Board {
 
-	/*
-	 * Stubs for Board class with attributes from the UML
-	 */
 	private BoardCell[][] grid;
 	private int numRows;
 	private int numCols;
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private Map<Character, Room> roomMap = new HashMap <Character, Room>();
-	//private Map <Character, Character> specialMap = new HashMap <Character, Character>();
 	private static Board theInstance = new Board();
-	private ArrayList<String> boardStrings = new ArrayList <String>();
-	private ArrayList<String> roomStrings = new ArrayList <String>();
+	private ArrayList<String[]> boardStrings = new ArrayList <String[]>();
+	private ArrayList<String[]> setupStrings = new ArrayList <String[]>();
 
 	
 	private Board() {
@@ -33,165 +29,68 @@ public class Board {
 	}
 	
 	public void initialize() {
-		
+		loadSetupConfig();
+		loadLayoutConfig();
 	}
 	
 	public void loadSetupConfig() {
 		String roomName;
 		char initial;
-		String sub;
-		String line;
-		
-		Room newRoom;
-		
 		try {
 			FileReader obj = new FileReader(setupConfigFile);
 			Scanner reader = new Scanner(obj);
-			reader.nextLine();
-			//Room newRoom;
 			while(reader.hasNextLine()) {
-				line = reader.nextLine();
-				roomStrings.add(line);
+				String line = reader.nextLine();
+				setupStrings.add(line.split(", "));
 
 			}
 			reader.close();
 		}
 		catch(FileNotFoundException e){
 			e.printStackTrace();
-
 		}
-		for(String thisLine: roomStrings) {
-			if(thisLine.charAt(0) == 'R') {
-				sub = thisLine.substring(thisLine.indexOf(',')+1);
-				roomName = sub.substring(0, sub.indexOf(','));
-				sub = sub.substring(sub.indexOf(',')+1);
-				initial = sub.charAt(1);
-				newRoom = new Room(roomName);
+		for(String[] thisLine: setupStrings) {
+			if(thisLine[0].equals("Room")|| thisLine[0].equals("Space")) {
+				roomName = thisLine[1];
+				initial = thisLine[2].charAt(0);
+				Room newRoom = new Room(roomName);
 				roomMap.put(initial,newRoom);
 			}
 		}
-		
 	}
 	
 	public void loadLayoutConfig() {
-		int col = 0;
-		int row = 0;
-		String line;
-		Room newRoom = new Room();
-		
 		try {
 			FileReader obj2 = new FileReader(layoutConfigFile);
 			Scanner reader2 = new Scanner(obj2);
-			line = "";
 			while(reader2.hasNextLine()) {
-				line = reader2.nextLine();
-				boardStrings.add(line);
-			}
+				String line = reader2.nextLine();
+				boardStrings.add(line.split(","));
+				}
 			reader2.close();
-			
-			String stringCol = boardStrings.get(0);
-		
+			}
+			catch(FileNotFoundException e){
+				e.printStackTrace();
+			}	
 			numRows = boardStrings.size();
-			numCols = boardStrings.get(0).length();
+			numCols = boardStrings.get(0).length;
 			grid = new BoardCell [numRows][numCols];
-			BoardCell cell;
-			cell = new BoardCell(0,0);
 			
-			for(row = 0; row < numRows; row++) {
-				line = boardStrings.get(row);
-				System.out.println();
-				System.out.println(line.replace(',', ' '));
+			for(int row = 0; row < boardStrings.size(); row++) {
+				for(int col = 0; col < boardStrings.get(0).length; col++) {
+					grid[row][col] = new BoardCell(row, col, boardStrings.get(row)[col].charAt(0));
+					if(boardStrings.get(row)[col].length() == 2) {
+						grid[row][col].specialCell(boardStrings.get(row)[col].charAt(1), roomMap);
+					}
+				}
+			}
 		
-				col = 0;
-				for(int charLoc = 0; charLoc < line.length(); charLoc++) {
-					if(line.charAt(charLoc) == ',' && col < numCols) {
-						grid[row][col] = cell;
-						System.out.print(grid[row][col].getInitial() + " ");
-						col++;
-						cell = new BoardCell(row,col);
-					}
-					else {
-						cell.setInitial(line.charAt(charLoc));
-						if(charLoc +1 < line.length()) {
-							if(line.charAt(charLoc+1) == '<' || line.charAt(charLoc+1) == '>' || line.charAt(charLoc+1) == 'v'||line.charAt(charLoc+1) == '^') {
-								cell.setDirection(line.charAt(charLoc));
-								charLoc++;
-							}
-							else if(line.charAt(charLoc+1) == '#') {
-								cell.setLabel(true);
-								charLoc++;
-							}
-							else if(line.charAt(charLoc+1) == '*' ){
-								cell.setRoomCenter(true);
-								charLoc++;
-							}
-							else if(line.charAt(charLoc) == 'S' && line.charAt(charLoc+1) == 'O') {
-								cell.setSPassage('S');
-								charLoc++;
-							}
-							else if(line.charAt(charLoc) == 'O' && line.charAt(charLoc+1) == 'S') {
-								cell.setSPassage('O');
-								charLoc++;
-							}
-							else if(line.charAt(charLoc) == 'K' && line.charAt(charLoc+1) == 'M') {
-								cell.setSPassage('K');
-								charLoc++;
-							}
-							else if(line.charAt(charLoc) == 'M' && line.charAt(charLoc+1) == 'K') {
-								cell.setSPassage('M');
-								charLoc++;
-							}
-						}	
-					}
-				}
-				System.out.println();
-
-			}
-			grid[numRows -1][numCols-1] = cell;
-			/*for(int i = 0; i < numRows; i++) {
-				System.out.print(i);
-				for(int j = 0; j < numCols; j++) {
-					System.out.print(grid[i][j].getInitial());
-				}
-				System.out.println();
-			}
-			*/
-			for(row = 0; row < numRows; row++) {
-				for(col = 0; col < numCols; col++) {
-					if(grid[row][col].isRoomCenter()) {
-						
-						newRoom = roomMap.get(grid[row][col].getInitial());
-						newRoom.setCenterCell(grid[row][col]);
-						roomMap.put(grid[row][col].getInitial(), newRoom);
-						
-						}
-					else if(grid[row][col].isLabel()) {
-						
-						newRoom = roomMap.get(grid[row][col].getInitial());
-						newRoom.setLabelCell(grid[row][col]);
-						roomMap.put(grid[row][col].getInitial(), newRoom);
-						
-						}
-					grid[row][col].setRoom(newRoom, grid[row][col].getInitial());
-				}
-			}
-		} catch(FileNotFoundException e) {
-			e.printStackTrace();
-		}
 		
 	}
 	
 	public void setConfigFiles(String string, String string2) {
 		this.layoutConfigFile = string;
 		this.setupConfigFile = string2;
-		
-		
-		loadSetupConfig();
-		
-		
-		loadLayoutConfig();
-		
-
 	}
 	
 	public Room getRoom(char c) {
@@ -199,7 +98,7 @@ public class Board {
 	}
 	
 	public Room getRoom(BoardCell cell) {
-		return cell.getRoom();
+		return roomMap.get(cell.getInitial());
 	}
 
 	public BoardCell getCell(int i, int j) {
@@ -207,12 +106,11 @@ public class Board {
 	}
 
 	public int getNumRows() {
-		// TODO Auto-generated method stub
 		return numRows;
 	}
 
 	public int getNumColumns() {
-		// TODO Auto-generated method stub
 		return numCols;
 	}
+	
 }
