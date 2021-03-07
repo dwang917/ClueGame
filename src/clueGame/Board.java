@@ -29,11 +29,22 @@ public class Board {
 	}
 	
 	public void initialize() {
-		loadSetupConfig();
-		loadLayoutConfig();
+		try{
+			loadSetupConfig();
+		}
+		catch(BadConfigFormatException e) {
+			e.getMessage();
+		}
+		
+		try{
+			loadLayoutConfig();
+		}
+		catch(BadConfigFormatException e) {
+			e.getMessage();
+		}
 	}
 	
-	public void loadSetupConfig() {
+	public void loadSetupConfig() throws BadConfigFormatException {
 		String roomName;
 		char initial;
 		try {
@@ -50,7 +61,11 @@ public class Board {
 			e.printStackTrace();
 		}
 		for(String[] thisLine: setupStrings) {
-			if(thisLine[0].equals("Room")|| thisLine[0].equals("Space")) {
+			if(thisLine.length == 3 && (!thisLine[0].equals("Room") && !thisLine[0].equals("Space"))) {
+				throw new BadConfigFormatException("Setup file does not have a proper format");
+			}
+			
+			if(thisLine.length == 3) {
 				roomName = thisLine[1];
 				initial = thisLine[2].charAt(0);
 				Room newRoom = new Room(roomName);
@@ -59,7 +74,7 @@ public class Board {
 		}
 	}
 	
-	public void loadLayoutConfig() {
+	public void loadLayoutConfig() throws BadConfigFormatException {
 		try {
 			FileReader obj2 = new FileReader(layoutConfigFile);
 			Scanner reader2 = new Scanner(obj2);
@@ -67,6 +82,13 @@ public class Board {
 				String line = reader2.nextLine();
 				boardStrings.add(line.split(","));
 				}
+			
+			for(String[] eachLine : boardStrings) {
+				if(eachLine.length != boardStrings.get(0).length) {
+					throw new BadConfigFormatException("The layout file has wrong columns setup");
+				}
+			}
+			
 			reader2.close();
 			}
 			catch(FileNotFoundException e){
@@ -78,6 +100,11 @@ public class Board {
 			
 			for(int row = 0; row < boardStrings.size(); row++) {
 				for(int col = 0; col < boardStrings.get(0).length; col++) {
+					
+					if(roomMap.get(boardStrings.get(row)[col].charAt(0)) == null) {
+						throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
+					}
+					
 					grid[row][col] = new BoardCell(row, col, boardStrings.get(row)[col].charAt(0));
 					if(boardStrings.get(row)[col].length() == 2) {
 						grid[row][col].specialCell(boardStrings.get(row)[col].charAt(1), roomMap);
