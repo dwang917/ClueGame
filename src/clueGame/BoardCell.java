@@ -105,4 +105,9 @@ public class BoardCell {
 			this.setSPassage(c);
 		}
 	}
+
+	public void setOccupied(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 }
