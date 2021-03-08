@@ -14,116 +14,116 @@ public class Board {
 	private int numCols;
 	private String layoutConfigFile;
 	private String setupConfigFile;
-	private Map<Character, Room> roomMap = new HashMap <Character, Room>();
+	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
 	private static Board theInstance = new Board();
-	private ArrayList<String[]> boardStrings = new ArrayList <String[]>();
-	private ArrayList<String[]> setupStrings = new ArrayList <String[]>();
 
-	
 	private Board() {
-        super();
+		super();
 	}
-	
+
 	public static Board getInstance() {
-        return theInstance;
+		return theInstance;
 	}
-	
+
+	//handles the BadConfigFormatException 
 	public void initialize() {
-		try{
+		try {
 			loadSetupConfig();
-		}
-		catch(BadConfigFormatException e) {
+		} catch (BadConfigFormatException e) {
 			e.getMessage();
 		}
-		
-		try{
+
+		try {
 			loadLayoutConfig();
-		}
-		catch(BadConfigFormatException e) {
+		} catch (BadConfigFormatException e) {
 			e.getMessage();
 		}
 	}
-	
+
+	//loads the setup file and creates room map. Also throws BadConfigFormatException if file format is wrong
 	public void loadSetupConfig() throws BadConfigFormatException {
+
 		String roomName;
 		char initial;
-		try {
-			FileReader obj = new FileReader(setupConfigFile);
-			Scanner reader = new Scanner(obj);
-			while(reader.hasNextLine()) {
-				String line = reader.nextLine();
-				setupStrings.add(line.split(", "));
+		ArrayList<String[]> setupStrings = readFile(setupConfigFile, ", ");
 
-			}
-			reader.close();
-		}
-		catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
-		for(String[] thisLine: setupStrings) {
-			if(thisLine.length == 3 && (!thisLine[0].equals("Room") && !thisLine[0].equals("Space"))) {
+		for (String[] thisLine : setupStrings) {
+			//if the line provides room info but the format is wrong then throw the exception
+			if (thisLine.length == 3 && (!thisLine[0].equals("Room") && !thisLine[0].equals("Space"))) {
 				throw new BadConfigFormatException("Setup file does not have a proper format");
 			}
-			
-			if(thisLine.length == 3) {
+
+			else if (thisLine.length == 3) {
 				roomName = thisLine[1];
 				initial = thisLine[2].charAt(0);
 				Room newRoom = new Room(roomName);
-				roomMap.put(initial,newRoom);
+				roomMap.put(initial, newRoom);
 			}
 		}
 	}
-	
+
+	/*
+	 * loads the layout file and creates the grid. Also throws BadConfigFormatException when
+	 * the column format is wrong or the board layout refers to a room that is not in your setup file
+	 */
 	public void loadLayoutConfig() throws BadConfigFormatException {
-		try {
-			FileReader obj2 = new FileReader(layoutConfigFile);
-			Scanner reader2 = new Scanner(obj2);
-			while(reader2.hasNextLine()) {
-				String line = reader2.nextLine();
-				boardStrings.add(line.split(","));
-				}
-			
-			for(String[] eachLine : boardStrings) {
-				if(eachLine.length != boardStrings.get(0).length) {
-					throw new BadConfigFormatException("The layout file has wrong columns setup");
-				}
-			}
-			
-			reader2.close();
-			}
-			catch(FileNotFoundException e){
-				e.printStackTrace();
-			}	
-			numRows = boardStrings.size();
-			numCols = boardStrings.get(0).length;
-			grid = new BoardCell [numRows][numCols];
-			
-			for(int row = 0; row < boardStrings.size(); row++) {
-				for(int col = 0; col < boardStrings.get(0).length; col++) {
-					
-					if(roomMap.get(boardStrings.get(row)[col].charAt(0)) == null) {
-						throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
-					}
-					
-					grid[row][col] = new BoardCell(row, col, boardStrings.get(row)[col].charAt(0));
-					if(boardStrings.get(row)[col].length() == 2) {
-						grid[row][col].specialCell(boardStrings.get(row)[col].charAt(1), roomMap);
-					}
-				}
-			}
+		ArrayList<String[]> boardStrings = readFile(layoutConfigFile, ",");
+		numRows = boardStrings.size();
+		numCols = boardStrings.get(0).length;
+		grid = new BoardCell[numRows][numCols];
 		
-		
+		// checks if every row has the same number of columns, if not, throw the exception
+		for (String[] eachLine : boardStrings) {
+			if (eachLine.length != numCols) {
+				throw new BadConfigFormatException("The layout file has wrong columns setup");
+			}
+		}
+
+		for (int row = 0; row < boardStrings.size(); row++) {
+			for (int col = 0; col < boardStrings.get(0).length; col++) {
+				String cellLetters = boardStrings.get(row)[col];
+
+				//check if the initial represents a room in the setup file, if not, throw the exception
+				if (roomMap.get(cellLetters.charAt(0)) == null) {
+					throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
+				}
+
+				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0));
+				//if the cell has two letters, calls the specialCell method to identify and handle it.
+				if (cellLetters.length() == 2) {
+					grid[row][col].specialCell(cellLetters.charAt(1), roomMap);
+				}
+			}
+		}
 	}
-	
+
 	public void setConfigFiles(String string, String string2) {
 		this.layoutConfigFile = string;
 		this.setupConfigFile = string2;
 	}
-	
+
+	//A helper method that reads the file and loads the lines into a arrayList
+	private ArrayList<String[]> readFile(String fileName, String regex) {
+		ArrayList<String[]> fileStrings = new ArrayList<String[]>();
+		try {
+			FileReader obj = new FileReader(fileName);
+			Scanner reader = new Scanner(obj);
+			while (reader.hasNextLine()) {
+				String line = reader.nextLine();
+				//parse the string using regex and store the string array in the arrayList
+				fileStrings.add(line.split(regex));
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return fileStrings;
+	}
+
 	public Room getRoom(char c) {
 		return roomMap.get(c);
 	}
-	
+
 	public Room getRoom(BoardCell cell) {
 		return roomMap.get(cell.getInitial());
 	}
@@ -139,5 +139,5 @@ public class Board {
 	public int getNumColumns() {
 		return numCols;
 	}
-	
+
 }
