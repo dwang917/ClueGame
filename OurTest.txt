@@ -1,7 +1,0 @@
-Our FileInitTests is largely the same with the examples in terms of tests because the example covers everything
-that should be checked outlined in the description. However, we updated our test with the cells specific to our
-board configuration. We checked the initials for "T, O, S, B, L", which stands for terrace, office, storage,
-Bathroom and Laundry room. For the doorways, we checked all the directions. (6,5) is a door opens up to the
-Master Bedroom, (4,8) is a door opens right to the recreation room, (3, 15) is a door opens left to the recreation
-room, and (13, 2) is a door opens down to the guest bedroom. The total number of doorways for our design is 14.
-And we tested the cell for label, center, unused and walkway.

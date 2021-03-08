@@ -1,23 +1,45 @@
-commit 81876f33c252219b28fe379e2b9984b7d99cf080 (HEAD -> main, origin/main, origin/HEAD)
+commit 20f921633191ac90f962408b189d24783b082add (HEAD -> main, origin/main, origin/HEAD)
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Mon Mar 1 23:44:56 2021 -0700
+Date:   Sun Mar 7 17:40:29 2021 -0700
 
-    Commented
+    Refactored
 
-commit 0b88f5f81adf5de4ff5de80012cb70652a97cbae
+commit 1bb544c850fec276b62d4585eac2da3f1d2f34e3
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Sun Mar 7 16:44:12 2021 -0700
+
+    Passed Exception tests
+
+commit f1f8ef9122677ff0af766db61f130a66616f4c33
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Mon Mar 1 23:20:44 2021 -0700
+Date:   Sun Mar 7 00:33:59 2021 -0700
 
-    Finished all the tests
+    Passed all tests
 
-commit ce1df6ad0c60ab9b95efcb12f4da57e54fc78441
+commit 91d1faa7be2c6e43f9a3d1dd31ce5975233ce43f
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Mon Mar 1 21:59:50 2021 -0700
+Date:   Fri Mar 5 21:44:18 2021 -0700
 
-    Added stubs
+    print
 
-commit 9036c75a23f5aa5a5fdeb1e8266d14418fd4d288
+commit 4dc325dd845ec12bcbaab96acb8819d1c4607321
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Fri Mar 5 20:10:11 2021 -0700
+
+    added data
+
+commit de8e0bd86fc29b65c2f3e2109d819a211c593ada
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Mon Mar 1 21:35:01 2021 -0700
+Date:   Fri Mar 5 19:34:28 2021 -0700
 
-    Created the package
+    more editing of config
+
+commit 07e6d9f0bef3dfb96caaa13e2a02001d0043dbd3
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Fri Mar 5 18:42:25 2021 -0700
+
+    Fixing config
+
+commit 2157e5be46abbe1690222c429da627c078aaffb5
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Fri Mar 5 14:33:36 2021 -0700

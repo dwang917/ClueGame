@@ -1,0 +1,15 @@
+//Rooms and room cards
+Room, Terrace, T
+Room, Recreation Room, R
+Room, Laundry Room, L
+Room, Office, O
+Room, Storage, S
+Room, Master Bedroom, M
+Room, Kitchen, K
+Room, Bathroom, B
+Room, Guest Bedroom, G
+// other spaces on board
+Space, Unused, X
+Space, Walkway, W
+Connected secret walkway, OS/SO
+Connected secret walkway, MK/OS
