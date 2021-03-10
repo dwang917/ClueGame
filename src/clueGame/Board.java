@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -17,6 +18,7 @@ public class Board {
 	private String setupConfigFile;
 	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
 	private static Board theInstance = new Board();
+	private Set<BoardCell> targets = new HashSet <BoardCell>();
 
 	private Board() {
 		super();
@@ -143,17 +145,18 @@ public class Board {
 
 	public Set<BoardCell> getAdjList(int i, int j) {
 		// TODO Auto-generated method stub
-		return null;
+		return grid[i][j].getAdjList();
 	}
 
 	public void calcTargets(BoardCell cell, int i) {
 		// TODO Auto-generated method stub
+
 		
 	}
 
 	public Set<BoardCell> getTargets() {
 		// TODO Auto-generated method stub
-		return null;
+		return targets;
 	}
 
 }

@@ -110,4 +110,8 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public Set <BoardCell>  getAdjList() {
+		return adjList;
+	}
 }

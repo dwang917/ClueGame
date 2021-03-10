@@ -1,45 +1,21 @@
-commit 20f921633191ac90f962408b189d24783b082add (HEAD -> main, origin/main, origin/HEAD)
+commit cd04b3fb7a7a391aaf54287cc5c44a2b1e526931 (HEAD -> main)
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Sun Mar 7 22:39:16 2021 -0700
+
+    adjacency and target tests
+
+commit 5f6d3d5c1291a7b153557200862253bd0b26c94b (origin/main, origin/HEAD)
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Sun Mar 7 20:06:50 2021 -0700
+
+    added all the files
+
+commit b7e74f0f8e66add4ade1b2b5f56b363f6188e19f
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Sun Mar 7 17:55:05 2021 -0700
+
+    added files
+
+commit 20f921633191ac90f962408b189d24783b082add
 Author: Daming Wang <damingwang@mymail.mines.edu>
 Date:   Sun Mar 7 17:40:29 2021 -0700
-
-    Refactored
-
-commit 1bb544c850fec276b62d4585eac2da3f1d2f34e3
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Sun Mar 7 16:44:12 2021 -0700
-
-    Passed Exception tests
-
-commit f1f8ef9122677ff0af766db61f130a66616f4c33
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sun Mar 7 00:33:59 2021 -0700
-
-    Passed all tests
-
-commit 91d1faa7be2c6e43f9a3d1dd31ce5975233ce43f
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Fri Mar 5 21:44:18 2021 -0700
-
-    print
-
-commit 4dc325dd845ec12bcbaab96acb8819d1c4607321
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Fri Mar 5 20:10:11 2021 -0700
-
-    added data
-
-commit de8e0bd86fc29b65c2f3e2109d819a211c593ada
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Fri Mar 5 19:34:28 2021 -0700
-
-    more editing of config
-
-commit 07e6d9f0bef3dfb96caaa13e2a02001d0043dbd3
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Fri Mar 5 18:42:25 2021 -0700
-
-    Fixing config
-
-commit 2157e5be46abbe1690222c429da627c078aaffb5
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Fri Mar 5 14:33:36 2021 -0700
