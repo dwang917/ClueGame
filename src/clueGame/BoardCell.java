@@ -119,4 +119,12 @@ public class BoardCell {
 	public Set <BoardCell>  getAdjList() {
 		return adjList;
 	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public int getCol() {
+		return col;
+	}
 }

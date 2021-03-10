@@ -143,6 +143,46 @@ public class Board {
 		return numCols;
 	}
 
+	
+	public void setAdj(BoardCell cell) {
+		char room;
+		char initial = cell.getInitial();
+		if(initial == 'W') {
+			if(cell.getCol()+1 < numCols && grid[cell.getCol()+1][cell.getRow()].getInitial() == 'W')//test for column above
+				cell.addAdj(getCell(cell.getRow(),cell.getCol()+1));
+			if(cell.getCol() > 0 && grid[cell.getCol()-1][cell.getRow()].getInitial() == 'W') //test for column below
+				cell.addAdj(getCell(cell.getRow(),cell.getCol()-1));
+			if(cell.getRow()+1 < numRows && grid[cell.getCol()][cell.getRow()+1].getInitial() == 'W') //test for row to the right
+				cell.addAdj(getCell(cell.getRow()+1,cell.getCol()));
+			if(cell.getRow() > 0 && grid[cell.getCol()][cell.getRow()-1].getInitial() == 'W')//test for row to the left
+				cell.addAdj(getCell(cell.getRow()-1,cell.getCol()));
+			if(cell.getDoorDirection() != null) {
+				if(cell.getDoorDirection().equals(DoorDirection.LEFT)) {
+					room = getCell(cell.getRow(),cell.getCol()-1).getInitial();		
+					cell.addAdj(roomMap.get(room).getCenterCell());
+				}
+				else if(cell.getDoorDirection().equals(DoorDirection.RIGHT)) {
+					room = getCell(cell.getRow(),cell.getCol()+1).getInitial();
+					cell.addAdj(roomMap.get(room).getCenterCell());
+				}
+				else if(cell.getDoorDirection().equals(DoorDirection.DOWN)) {
+					room = getCell(cell.getRow()+1,cell.getCol()).getInitial();
+					cell.addAdj(roomMap.get(room).getCenterCell());
+				}
+				else if(cell.getDoorDirection().equals(DoorDirection.UP)) {
+					room = getCell(cell.getRow()-1,cell.getCol()).getInitial();
+					cell.addAdj(roomMap.get(room).getCenterCell());
+
+				}
+			}
+		}
+		else if(initial != 'X') {
+			
+		}
+	
+
+	}
+	
 	public Set<BoardCell> getAdjList(int i, int j) {
 		// TODO Auto-generated method stub
 		return grid[i][j].getAdjList();
@@ -151,8 +191,8 @@ public class Board {
 	public void calcTargets(BoardCell cell, int i) {
 		// TODO Auto-generated method stub
 		char initial = cell.getInitial();
-		if(initial == 'X' || initial == 'M') {
-			//I can continue on this after 11 this morning
+		if(initial == 'W') {
+			
 		}
 	}
 
