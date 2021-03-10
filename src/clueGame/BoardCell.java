@@ -16,6 +16,7 @@ public class BoardCell {
 	private boolean roomLabel = false;
 	private boolean roomCenter = false;
 	private char secretPassage;
+	private boolean occupied;
 	Set<BoardCell> adjList;
 	
 	
@@ -108,7 +109,11 @@ public class BoardCell {
 
 	public void setOccupied(boolean b) {
 		// TODO Auto-generated method stub
-		
+		occupied = b;
+	}
+	
+	public boolean getOccupied() {
+		return occupied;
 	}
 	
 	public Set <BoardCell>  getAdjList() {

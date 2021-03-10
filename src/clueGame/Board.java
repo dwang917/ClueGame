@@ -150,8 +150,10 @@ public class Board {
 
 	public void calcTargets(BoardCell cell, int i) {
 		// TODO Auto-generated method stub
-
-		
+		char initial = cell.getInitial();
+		if(initial == 'X' || initial == 'M') {
+			//I can continue on this after 11 this morning
+		}
 	}
 
 	public Set<BoardCell> getTargets() {
