@@ -15,7 +15,7 @@ public class BoardCell {
 	private DoorDirection doorDirection = null;
 	private boolean roomLabel = false;
 	private boolean roomCenter = false;
-	private char secretPassage;
+	private char secretPassage = ' ';
 	private boolean occupied;
 	Set<BoardCell> adjList;
 	

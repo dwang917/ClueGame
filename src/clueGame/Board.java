@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import experiment.TestBoardCell;
+//import experiment.TestBoardCell;
 
 public class Board {
 
@@ -179,8 +179,8 @@ public class Board {
 				}
 			}
 		}
-		else if(initial != 'X') {
-			
+		else if(cell.getSecretPassage() != ' ') {
+			cell.addAdj(roomMap.get(cell.getSecretPassage()).getCenterCell());
 		}
 	
 
