@@ -44,6 +44,13 @@ public class Board {
 		} catch (BadConfigFormatException e) {
 			e.getMessage();
 		}
+		
+		for(int row = 0; row < numRows; row++) {
+			for(int col = 0; col < numCols; col++) {
+				setAdj(grid[row][col]); //fill adjacent set
+			}
+		}
+
 	}
 
 	//loads the setup file and creates room map. Also throws BadConfigFormatException if file format is wrong
@@ -151,35 +158,46 @@ public class Board {
 		char room;
 		char initial = cell.getInitial();
 		if(initial == 'W') {
-			if(cell.getCol()+1 < numCols && grid[cell.getCol()+1][cell.getRow()].getInitial() == 'W')//test for column above
+			if(cell.getCol()+1 < numCols && grid[cell.getRow()][cell.getCol()+1].getInitial() == 'W')//test for column above
 				cell.addAdj(getCell(cell.getRow(),cell.getCol()+1));
-			if(cell.getCol() > 0 && grid[cell.getCol()-1][cell.getRow()].getInitial() == 'W') //test for column below
+			
+			
+			if(cell.getCol() > 0 && grid[cell.getRow()][cell.getCol()-1].getInitial() == 'W') //test for column below
 				cell.addAdj(getCell(cell.getRow(),cell.getCol()-1));
-			if(cell.getRow()+1 < numRows && grid[cell.getCol()][cell.getRow()+1].getInitial() == 'W') //test for row to the right
+			
+			
+			if(cell.getRow()+1 < numRows && grid[cell.getRow()+1][cell.getCol()].getInitial() == 'W') //test for row to the right
 				cell.addAdj(getCell(cell.getRow()+1,cell.getCol()));
-			if(cell.getRow() > 0 && grid[cell.getCol()][cell.getRow()-1].getInitial() == 'W')//test for row to the left
+			
+			
+			if(cell.getRow() > 0 && grid[cell.getRow()-1][cell.getCol()].getInitial() == 'W')//test for row to the left
 				cell.addAdj(getCell(cell.getRow()-1,cell.getCol()));
+			
+			
 			if(cell.getDoorDirection() != null) {
 				if(cell.getDoorDirection().equals(DoorDirection.LEFT)) {
 					room = getCell(cell.getRow(),cell.getCol()-1).getInitial();		
 					cell.addAdj(roomMap.get(room).getCenterCell());
+					roomMap.get(room).getCenterCell().addAdj(cell);
 				}
 				else if(cell.getDoorDirection().equals(DoorDirection.RIGHT)) {
 					room = getCell(cell.getRow(),cell.getCol()+1).getInitial();
 					cell.addAdj(roomMap.get(room).getCenterCell());
+					roomMap.get(room).getCenterCell().addAdj(cell);
 				}
 				else if(cell.getDoorDirection().equals(DoorDirection.DOWN)) {
 					room = getCell(cell.getRow()+1,cell.getCol()).getInitial();
 					cell.addAdj(roomMap.get(room).getCenterCell());
+					roomMap.get(room).getCenterCell().addAdj(cell);
 				}
 				else if(cell.getDoorDirection().equals(DoorDirection.UP)) {
 					room = getCell(cell.getRow()-1,cell.getCol()).getInitial();
 					cell.addAdj(roomMap.get(room).getCenterCell());
-
+					roomMap.get(room).getCenterCell().addAdj(cell);
 				}
 			}
 		}
-		else if(cell.getSecretPassage() != ' ') {
+		if(cell.getSecretPassage() != ' ') {
 			cell.addAdj(roomMap.get(cell.getSecretPassage()).getCenterCell());
 		}
 	
