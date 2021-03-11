@@ -225,6 +225,7 @@ public class Board {
 	
 	public void findAllTarget(BoardCell thisCell, int numSteps) {
 		for(BoardCell adjCell: thisCell.getAdjList()) { //go through each adjacent cell of the current cell
+			if(!adjCell.isOccupied() || adjCell.isRoomCenter()) {
 			if(adjCell.isRoomCenter()) {
 				targets.add(adjCell);
 			}
@@ -232,7 +233,7 @@ public class Board {
 			if(!(visited.contains(adjCell))) {//if the cell being tested has not been visited then...
 				visited.add(adjCell); //add adjacent cell to visited set
 				if(numSteps == 1) { //if the number of steps equals 1...
-					if(!adjCell.getOccupied()) { //if the adjacent cell isn't occupied
+					if(!adjCell.isOccupied()) { //if the adjacent cell isn't occupied
 						targets.add(adjCell);//add the adjacent cell to targets
 					}
 				}
@@ -242,7 +243,7 @@ public class Board {
 					}
 				}
 				visited.remove(adjCell);
-			}
+			}}
 		}
 		
 	}

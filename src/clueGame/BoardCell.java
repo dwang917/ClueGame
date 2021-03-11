@@ -112,7 +112,7 @@ public class BoardCell {
 		occupied = b;
 	}
 	
-	public boolean getOccupied() {
+	public boolean isOccupied() {
 		return occupied;
 	}
 	
