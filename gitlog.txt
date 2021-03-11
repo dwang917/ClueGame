@@ -1,21 +1,26 @@
-commit cd04b3fb7a7a391aaf54287cc5c44a2b1e526931 (HEAD -> main)
+commit 03454b08b30d77e6d42fa8bcce1a540456fb1bc5 (HEAD -> main)
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Sun Mar 7 22:39:16 2021 -0700
+Date:   Thu Mar 11 09:37:11 2021 -0700
 
-    adjacency and target tests
+    Commented
 
-commit 5f6d3d5c1291a7b153557200862253bd0b26c94b (origin/main, origin/HEAD)
+commit 03041974c174903929d307543223aaffcb333d24 (origin/main, origin/HEAD)
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sun Mar 7 20:06:50 2021 -0700
+Date:   Thu Mar 11 09:30:35 2021 -0700
 
-    added all the files
+    Refactered
 
-commit b7e74f0f8e66add4ade1b2b5f56b363f6188e19f
+commit 82046c6476792940bd76db2d3a5b2bfea83b681d
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Mar 10 23:43:35 2021 -0700
+
+    troubleshoot tests
+
+commit 0ec31a86fb0e853f18dfd64abe4df8b977f45c03
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sun Mar 7 17:55:05 2021 -0700
+Date:   Wed Mar 10 22:43:30 2021 -0700
 
-    added files
-
-commit 20f921633191ac90f962408b189d24783b082add
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sun Mar 7 17:40:29 2021 -0700
+    Passed all tests
+    
+    
+The gitlog command only shows the last 4 commits
