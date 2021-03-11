@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import experiment.TestBoardCell;
+
 public class Board {
 
 	private BoardCell[][] grid;
@@ -19,6 +21,7 @@ public class Board {
 	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
 	private static Board theInstance = new Board();
 	private Set<BoardCell> targets = new HashSet <BoardCell>();
+	private Set <BoardCell> visited = new HashSet <BoardCell>();
 
 	private Board() {
 		super();
@@ -183,6 +186,8 @@ public class Board {
 
 	}
 	
+	
+	
 	public Set<BoardCell> getAdjList(int i, int j) {
 		// TODO Auto-generated method stub
 		return grid[i][j].getAdjList();
@@ -190,11 +195,34 @@ public class Board {
 
 	public void calcTargets(BoardCell cell, int i) {
 		// TODO Auto-generated method stub
-		char initial = cell.getInitial();
-		if(initial == 'W') {
-			
-		}
+		targets = new HashSet<BoardCell>(); //start with empty set
+		visited = new HashSet<BoardCell>(); //start with empty set
+		visited.add(cell); //add the starting cell to visited set
+		findAllTarget(cell,i);
 	}
+	
+	public void findAllTarget(BoardCell thisCell, int numSteps) {
+		for(BoardCell adjCell: thisCell.getAdjList()) { //go through each adjacent cell of the current cell
+			if(adjCell.isRoomCenter()) {
+				targets.add(adjCell);
+			}
+			
+			if(!(visited.contains(adjCell))) {//if the cell being tested has not been visited then...
+				visited.add(adjCell); //add adjacent cell to visited set
+				if(numSteps == 1) { //if the number of steps equals 1...
+					if(!adjCell.getOccupied()) { //if the adjacent cell isn't occupied
+						targets.add(adjCell);//add the adjacent cell to targets
+					}
+				}
+				else {
+					findAllTarget(adjCell,numSteps - 1); //recursively go through all the adjacent cells, making the current cell the adjacent cell
+				}
+				visited.remove(adjCell);
+			}
+		}
+		
+	}
+
 
 	public Set<BoardCell> getTargets() {
 		// TODO Auto-generated method stub
