@@ -198,7 +198,8 @@ public class Board {
 			}
 		}
 		if(cell.getSecretPassage() != ' ') {
-			cell.addAdj(roomMap.get(cell.getSecretPassage()).getCenterCell());
+			roomMap.get(cell.getInitial()).getCenterCell().addAdj(roomMap.get(cell.getSecretPassage()).getCenterCell());
+			roomMap.get(cell.getSecretPassage()).getCenterCell().addAdj(roomMap.get(cell.getInitial()).getCenterCell());
 		}
 	
 
@@ -217,6 +218,9 @@ public class Board {
 		visited = new HashSet<BoardCell>(); //start with empty set
 		visited.add(cell); //add the starting cell to visited set
 		findAllTarget(cell,i);
+		if(targets.contains(roomMap.get(cell.getInitial()).getCenterCell())) {
+			targets.remove(roomMap.get(cell.getInitial()).getCenterCell());
+		}
 	}
 	
 	public void findAllTarget(BoardCell thisCell, int numSteps) {
@@ -233,7 +237,9 @@ public class Board {
 					}
 				}
 				else {
-					findAllTarget(adjCell,numSteps - 1); //recursively go through all the adjacent cells, making the current cell the adjacent cell
+					if(!adjCell.isRoomCenter()) {
+						findAllTarget(adjCell,numSteps - 1); //recursively go through all the adjacent cells, making the current cell the adjacent cell
+					}
 				}
 				visited.remove(adjCell);
 			}
