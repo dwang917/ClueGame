@@ -161,25 +161,29 @@ public class Board {
 		if(initial == 'W') {
 			checkWalkwayAdj(cell);
 			
-			//check if the surrounding is door
+			//check if it's on a door
 			if(cell.getDoorDirection() != null) {
 				checkDoorAdj(cell);
 			}
 		}
+		//check if it's on a secret passage
 		if(cell.getSecretPassage() != ' ') {
 			BoardCell centerCell = roomMap.get(initial).getCenterCell();
 			BoardCell connectedRoomCenter = roomMap.get(cell.getSecretPassage()).getCenterCell();
+			//Set up the adjacency relation between the two connected rooms
 			centerCell.addAdj(connectedRoomCenter);
 			connectedRoomCenter.addAdj(centerCell);
 		}
 	}
 
+	//A helper method that set up the adjacency relation between doors and room centers
 	private void checkDoorAdj(BoardCell cell) {
 		char room;
 		int row = cell.getRow();
 		int col = cell.getCol();
 		switch(cell.getDoorDirection()) {
 			case LEFT:
+				//add door to the center's adjcentList and vice versa
 				room = getCell(row,col-1).getInitial();		
 				cell.addAdj(roomMap.get(room).getCenterCell());
 				roomMap.get(room).getCenterCell().addAdj(cell);
@@ -202,6 +206,7 @@ public class Board {
 		}
 	}
 
+	//A helper method that checks the surrounding walkways and set up adjList
 	private void checkWalkwayAdj(BoardCell cell) {
 		int col = cell.getCol();
 		int row = cell.getRow();
@@ -224,12 +229,10 @@ public class Board {
 	
 	
 	public Set<BoardCell> getAdjList(int i, int j) {
-		// TODO Auto-generated method stub
 		return grid[i][j].getAdjList();
 	}
 
 	public void calcTargets(BoardCell cell, int i) {
-		// TODO Auto-generated method stub
 		targets = new HashSet<BoardCell>(); //start with empty set
 		visited = new HashSet<BoardCell>(); //start with empty set
 		visited.add(cell); //add the starting cell to visited set
@@ -267,7 +270,6 @@ public class Board {
 
 
 	public Set<BoardCell> getTargets() {
-		// TODO Auto-generated method stub
 		return targets;
 	}
 
