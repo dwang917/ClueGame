@@ -22,6 +22,7 @@ public class Board {
 	private static Board theInstance = new Board();
 	private Set<BoardCell> targets = new HashSet <BoardCell>();
 	private Set <BoardCell> visited = new HashSet <BoardCell>();
+	private static final int SETUP_LINE_LENGTH = 3;
 
 	private Board() {
 		super();
@@ -61,11 +62,11 @@ public class Board {
 
 		for (String[] thisLine : setupStrings) {
 			//if the line provides room info but the format is wrong then throw the exception
-			if (thisLine.length == 3 && (!thisLine[0].equals("Room") && !thisLine[0].equals("Space"))) {
+			if (thisLine.length == SETUP_LINE_LENGTH && (!thisLine[0].equals("Room") && !thisLine[0].equals("Space"))) {
 				throw new BadConfigFormatException("Setup file does not have a proper format");
 			}
 
-			else if (thisLine.length == 3) {
+			else if (thisLine.length == SETUP_LINE_LENGTH) {
 				roomName = thisLine[1];
 				initial = thisLine[2].charAt(0);
 				Room newRoom = new Room(roomName);

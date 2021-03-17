@@ -1,0 +1,55 @@
+before:
+private void checkDoorAdj(BoardCell cell) {
+		char room = 0;
+		int row = cell.getRow();
+		int col = cell.getCol();
+		switch(cell.getDoorDirection()) {
+			case LEFT:
+				//add door to the center's adjcentList and vice versa
+				room = getCell(row,col-1).getInitial();	
+				cell.addAdj(roomMap.get(room).getCenterCell());
+				roomMap.get(room).getCenterCell().addAdj(cell);	
+				break;
+			case RIGHT:
+				room = getCell(row,col+1).getInitial();
+				cell.addAdj(roomMap.get(room).getCenterCell());
+				roomMap.get(room).getCenterCell().addAdj(cell);
+				break;
+			case DOWN:
+				room = getCell(row+1,col).getInitial();
+				cell.addAdj(roomMap.get(room).getCenterCell());
+				roomMap.get(room).getCenterCell().addAdj(cell);
+				break;
+			case UP:
+				room = getCell(row-1,col).getInitial();
+				cell.addAdj(roomMap.get(room).getCenterCell());
+				roomMap.get(room).getCenterCell().addAdj(cell);
+				break;
+		}
+	}
+	
+
+
+After:
+private void checkDoorAdj(BoardCell cell) {
+		char room = 0;
+		int row = cell.getRow();
+		int col = cell.getCol();
+		switch(cell.getDoorDirection()) {
+			case LEFT:
+				//add door to the center's adjcentList and vice versa
+				room = getCell(row,col-1).getInitial();		
+				break;
+			case RIGHT:
+				room = getCell(row,col+1).getInitial();
+				break;
+			case DOWN:
+				room = getCell(row+1,col).getInitial();
+				break;
+			case UP:
+				room = getCell(row-1,col).getInitial();
+				break;
+		}
+		cell.addAdj(roomMap.get(room).getCenterCell());
+		roomMap.get(room).getCenterCell().addAdj(cell);
+	}
