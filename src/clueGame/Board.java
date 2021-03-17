@@ -50,7 +50,6 @@ public class Board {
 				setAdj(grid[row][col]); //fill adjacent set
 			}
 		}
-
 	}
 
 	//loads the setup file and creates room map. Also throws BadConfigFormatException if file format is wrong
@@ -178,32 +177,26 @@ public class Board {
 
 	//A helper method that set up the adjacency relation between doors and room centers
 	private void checkDoorAdj(BoardCell cell) {
-		char room;
+		char room = 0;
 		int row = cell.getRow();
 		int col = cell.getCol();
 		switch(cell.getDoorDirection()) {
 			case LEFT:
 				//add door to the center's adjcentList and vice versa
 				room = getCell(row,col-1).getInitial();		
-				cell.addAdj(roomMap.get(room).getCenterCell());
-				roomMap.get(room).getCenterCell().addAdj(cell);
 				break;
 			case RIGHT:
 				room = getCell(row,col+1).getInitial();
-				cell.addAdj(roomMap.get(room).getCenterCell());
-				roomMap.get(room).getCenterCell().addAdj(cell);
 				break;
 			case DOWN:
 				room = getCell(row+1,col).getInitial();
-				cell.addAdj(roomMap.get(room).getCenterCell());
-				roomMap.get(room).getCenterCell().addAdj(cell);
 				break;
 			case UP:
 				room = getCell(row-1,col).getInitial();
-				cell.addAdj(roomMap.get(room).getCenterCell());
-				roomMap.get(room).getCenterCell().addAdj(cell);
 				break;
 		}
+		cell.addAdj(roomMap.get(room).getCenterCell());
+		roomMap.get(room).getCenterCell().addAdj(cell);
 	}
 
 	//A helper method that checks the surrounding walkways and set up adjList
