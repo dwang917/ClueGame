@@ -9,15 +9,15 @@ public class BoardCell {
 	/*
 	 * BoardCell class with setters and getters and helper methods
 	 */
-	private int row;
-	private int col;
-	private char initial;
-	private DoorDirection doorDirection = null;
-	private boolean roomLabel = false;
-	private boolean roomCenter = false;
-	private char secretPassage = ' ';
-	private boolean occupied;
-	Set<BoardCell> adjList;
+	private int row; //specific cell row in the board
+	private int col; //specific cell column in the board
+	private char initial; //initial of the cell
+	private DoorDirection doorDirection = null; //if the cell has a door, saves the direction
+	private boolean roomLabel = false; //true if cell is the label of room
+	private boolean roomCenter = false; //true if cell is the center of room
+	private char secretPassage = ' '; //if cell is connected to a secret passage, save initial of other room
+	private boolean occupied; //true if a player is in the cell, false if not
+	Set<BoardCell> adjList; //set to hold all adjacent cells of the current cell
 	
 	
 	public BoardCell(int row, int col, char ini){
