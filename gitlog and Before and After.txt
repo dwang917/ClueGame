@@ -1,3 +1,61 @@
+commit b4e878b331df81e2fc5ae0a2993a5c99bf4519d0 (HEAD -> main, origin/main, origin/HEAD)
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Mar 17 22:56:29 2021 -0600
+
+    Added more comments, corrected indentation
+
+commit ad77ef3eed425e842cb34a5cf9c1aae751bb8716
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Mar 17 20:15:10 2021 -0600
+
+    create method validate to check and add board cell
+
+commit 0290b9cae6d214b7201b23598669f25981ffb2a9
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Mar 17 19:39:25 2021 -0600
+
+    added comments to variables in the BoardCell class
+
+commit 70143ea1ef2231e6227b5d74ba84e5dbf293643b
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Mar 17 19:36:12 2021 -0600
+
+    added comments to board class variables
+
+commit ed86c4459914ed16a9fb71da90dfe8220a32d9fe
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Mar 17 18:14:21 2021 -0600
+
+    Deleted unused local variable
+
+commit 7659d869c2f8c60a61ce5a727fc2f671ef0cbad2
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Mar 17 18:12:30 2021 -0600
+
+    Added error handle to the SpecialCell function
+
+commit d84011346839bea8f75b721f9b802865c317f1e7
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Mar 17 17:55:39 2021 -0600
+
+    Rearranged the functions in a more intuitive sequential order
+
+commit dc58cc9e92676b9d0d60a1968a5c20d17d594400
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Mar 17 17:45:45 2021 -0600
+
+    Got rid of magical constant
+
+commit b98d8149d7c98b858808416376d72a5b666877e6
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Tue Mar 16 23:41:23 2021 -0600
+
+    refactored checkDoorAdj method
+
+
+
+
+
 before:
 private void checkDoorAdj(BoardCell cell) {
 		char room = 0;
@@ -84,6 +142,7 @@ public void loadLayoutConfig() throws BadConfigFormatException {
 
 
 After:
+//Got rid of repeated codes
 private void checkDoorAdj(BoardCell cell) {
 		char room = 0;
 		int row = cell.getRow();
@@ -107,6 +166,7 @@ private void checkDoorAdj(BoardCell cell) {
 		roomMap.get(room).getCenterCell().addAdj(cell);
 	}
 	
+//Added error handle
 public void specialCell(char c, Map<Character, Room> roomMap) throws BadConfigFormatException {
 		if(c == '<' || c == '>' || c == 'v'|| c == '^') {
 			this.setDirection(c);
@@ -146,24 +206,25 @@ public void loadLayoutConfig() throws BadConfigFormatException {
 		validate(boardStrings);
 	}
 
-	//make sure the format is correct and construct the grid
-	private void validate(ArrayList<String[]> boardStrings) throws BadConfigFormatException {
-		for (int row = 0; row < boardStrings.size(); row++) {
-			for (int col = 0; col < boardStrings.get(0).length; col++) {
-				String cellLetters = boardStrings.get(row)[col];
+//Extracted method to reduce cluster
+//make sure the format is correct and construct the grid
+private void validate(ArrayList<String[]> boardStrings) throws BadConfigFormatException {
+	for (int row = 0; row < boardStrings.size(); row++) {
+		for (int col = 0; col < boardStrings.get(0).length; col++) {
+			String cellLetters = boardStrings.get(row)[col];
 
-				// check if the initial represents a room in the setup file, if not, throw the
-				// exception
-				if (roomMap.get(cellLetters.charAt(0)) == null) {
-					throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
-				}
+			// check if the initial represents a room in the setup file, if not, throw the
+			// exception
+			if (roomMap.get(cellLetters.charAt(0)) == null) {
+				throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
+			}
 
-				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0));
-				// if the cell has two letters, calls the specialCell method to identify and
-				// handle it.
-				if (cellLetters.length() == 2) {
-					grid[row][col].specialCell(cellLetters.charAt(1), roomMap);
-				}
+			grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0));
+			// if the cell has two letters, calls the specialCell method to identify and
+			// handle it.
+			if (cellLetters.length() == 2) {
+				grid[row][col].specialCell(cellLetters.charAt(1), roomMap);
 			}
 		}
+	}
 	}
