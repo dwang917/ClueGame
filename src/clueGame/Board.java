@@ -96,6 +96,10 @@ public class Board {
 			}
 		}
 
+		validate(boardStrings);
+	}
+
+	private void validate(ArrayList<String[]> boardStrings) throws BadConfigFormatException {
 		for (int row = 0; row < boardStrings.size(); row++) {
 			for (int col = 0; col < boardStrings.get(0).length; col++) {
 				String cellLetters = boardStrings.get(row)[col];
