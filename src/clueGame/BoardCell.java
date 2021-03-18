@@ -88,7 +88,7 @@ public class BoardCell {
 	}
 
 	//This method identifies special cells and modifies their properties accordingly
-	public void specialCell(char c, Map<Character, Room> roomMap) {
+	public void specialCell(char c, Map<Character, Room> roomMap) throws BadConfigFormatException {
 		if(c == '<' || c == '>' || c == 'v'|| c == '^') {
 			this.setDirection(c);
 		}
@@ -101,6 +101,9 @@ public class BoardCell {
 			this.setRoomCenter(true);
 			//sets the room's center cell to the caller cell
 			roomMap.get(this.getInitial()).setCenterCell(this);
+		}
+		else if(roomMap.get(c) == null){
+			throw new BadConfigFormatException("The second letter does not represent any room in the setup file");
 		}
 		else {
 			this.setSPassage(c);
