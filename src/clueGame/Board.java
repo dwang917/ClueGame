@@ -135,7 +135,6 @@ public class Board {
 	}
 
 	public void setAdj(BoardCell cell) {
-		char room;
 		char initial = cell.getInitial();
 		// if on walkway, check if the surrounding is also walkway
 		if (initial == 'W') {
