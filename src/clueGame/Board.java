@@ -13,16 +13,16 @@ import java.util.Set;
 
 public class Board {
 
-	private BoardCell[][] grid;
-	private int numRows;
-	private int numCols;
-	private String layoutConfigFile;
-	private String setupConfigFile;
-	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
-	private static Board theInstance = new Board();
-	private Set<BoardCell> targets = new HashSet<BoardCell>();
-	private Set<BoardCell> visited = new HashSet<BoardCell>();
-	private static final int SETUP_LINE_LENGTH = 3;
+	private BoardCell[][] grid; // holds the board and each cell
+	private int numRows; // total rows on board
+	private int numCols; // total columns on board
+	private String layoutConfigFile; //name of layout file
+	private String setupConfigFile; // name of set up file
+	private Map<Character, Room> roomMap = new HashMap<Character, Room>(); //map to hold rooms
+	private static Board theInstance = new Board(); // creates a new board
+	private Set<BoardCell> targets = new HashSet<BoardCell>(); //holds the target of a certain board cell
+	private Set<BoardCell> visited = new HashSet<BoardCell>(); //holds the visited list of the user
+	private static final int SETUP_LINE_LENGTH = 3; //unchangeable number for how many words there are in each set up line
 
 	private Board() {
 		super();
