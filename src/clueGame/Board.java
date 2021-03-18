@@ -16,13 +16,14 @@ public class Board {
 	private BoardCell[][] grid; // holds the board and each cell
 	private int numRows; // total rows on board
 	private int numCols; // total columns on board
-	private String layoutConfigFile; //name of layout file
+	private String layoutConfigFile; // name of layout file
 	private String setupConfigFile; // name of set up file
-	private Map<Character, Room> roomMap = new HashMap<Character, Room>(); //map to hold rooms
+	private Map<Character, Room> roomMap = new HashMap<Character, Room>(); // map to hold rooms
 	private static Board theInstance = new Board(); // creates a new board
-	private Set<BoardCell> targets = new HashSet<BoardCell>(); //holds the target of a certain board cell
-	private Set<BoardCell> visited = new HashSet<BoardCell>(); //holds the visited list of the user
-	private static final int SETUP_LINE_LENGTH = 3; //unchangeable number for how many words there are in each set up line
+	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
+	private Set<BoardCell> visited = new HashSet<BoardCell>(); // holds the visited list of the user
+	private static final int SETUP_LINE_LENGTH = 3; // unchangeable number for how many words there are in each set up
+													// line
 
 	private Board() {
 		super();
@@ -67,7 +68,8 @@ public class Board {
 			if (thisLine.length == SETUP_LINE_LENGTH && (!thisLine[0].equals("Room") && !thisLine[0].equals("Space"))) {
 				throw new BadConfigFormatException("Setup file does not have a proper format");
 			}
-
+			// if the line provides room info then we extract the elements and create the
+			// map
 			else if (thisLine.length == SETUP_LINE_LENGTH) {
 				roomName = thisLine[1];
 				initial = thisLine[2].charAt(0);
@@ -99,6 +101,7 @@ public class Board {
 		validate(boardStrings);
 	}
 
+	// make sure the format is correct and construct the grid
 	private void validate(ArrayList<String[]> boardStrings) throws BadConfigFormatException {
 		for (int row = 0; row < boardStrings.size(); row++) {
 			for (int col = 0; col < boardStrings.get(0).length; col++) {
@@ -158,7 +161,7 @@ public class Board {
 			connectedRoomCenter.addAdj(centerCell);
 		}
 	}
-	
+
 	// A helper method that checks the surrounding walkways and set up adjList
 	private void checkWalkwayAdj(BoardCell cell) {
 		int col = cell.getCol();
@@ -175,7 +178,7 @@ public class Board {
 		if (row > 0 && grid[row - 1][col].getInitial() == 'W')// test for row to the left
 			cell.addAdj(getCell(row - 1, col));
 	}
-	
+
 	// A helper method that set up the adjacency relation between doors and room
 	// centers
 	private void checkDoorAdj(BoardCell cell) {
@@ -200,7 +203,7 @@ public class Board {
 		cell.addAdj(roomMap.get(room).getCenterCell());
 		roomMap.get(room).getCenterCell().addAdj(cell);
 	}
-	
+
 	public void calcTargets(BoardCell cell, int i) {
 		targets = new HashSet<BoardCell>(); // start with empty set
 		visited = new HashSet<BoardCell>(); // start with empty set

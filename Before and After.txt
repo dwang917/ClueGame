@@ -47,6 +47,40 @@ public void specialCell(char c, Map<Character, Room> roomMap) {
 		}
 	}
 	
+public void loadLayoutConfig() throws BadConfigFormatException {
+		ArrayList<String[]> boardStrings = readFile(layoutConfigFile, ",");
+		numRows = boardStrings.size();
+		numCols = boardStrings.get(0).length;
+		grid = new BoardCell[numRows][numCols];
+
+		// checks if every row has the same number of columns, if not, throw the
+		// exception
+		for (String[] eachLine : boardStrings) {
+			if (eachLine.length != numCols) {
+				throw new BadConfigFormatException("The layout file has wrong columns setup");
+			}
+		}
+
+		for (int row = 0; row < boardStrings.size(); row++) {
+			for (int col = 0; col < boardStrings.get(0).length; col++) {
+				String cellLetters = boardStrings.get(row)[col];
+
+				// check if the initial represents a room in the setup file, if not, throw the
+				// exception
+				if (roomMap.get(cellLetters.charAt(0)) == null) {
+					throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
+				}
+
+				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0));
+				// if the cell has two letters, calls the specialCell method to identify and
+				// handle it.
+				if (cellLetters.length() == 2) {
+					grid[row][col].specialCell(cellLetters.charAt(1), roomMap);
+				}
+			}
+		}
+	}
+
 
 
 After:
@@ -92,5 +126,44 @@ public void specialCell(char c, Map<Character, Room> roomMap) throws BadConfigFo
 		}
 		else {
 			this.setSPassage(c);
+		}
+	}
+
+public void loadLayoutConfig() throws BadConfigFormatException {
+		ArrayList<String[]> boardStrings = readFile(layoutConfigFile, ",");
+		numRows = boardStrings.size();
+		numCols = boardStrings.get(0).length;
+		grid = new BoardCell[numRows][numCols];
+
+		// checks if every row has the same number of columns, if not, throw the
+		// exception
+		for (String[] eachLine : boardStrings) {
+			if (eachLine.length != numCols) {
+				throw new BadConfigFormatException("The layout file has wrong columns setup");
+			}
+		}
+
+		validate(boardStrings);
+	}
+
+	//make sure the format is correct and construct the grid
+	private void validate(ArrayList<String[]> boardStrings) throws BadConfigFormatException {
+		for (int row = 0; row < boardStrings.size(); row++) {
+			for (int col = 0; col < boardStrings.get(0).length; col++) {
+				String cellLetters = boardStrings.get(row)[col];
+
+				// check if the initial represents a room in the setup file, if not, throw the
+				// exception
+				if (roomMap.get(cellLetters.charAt(0)) == null) {
+					throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
+				}
+
+				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0));
+				// if the cell has two letters, calls the specialCell method to identify and
+				// handle it.
+				if (cellLetters.length() == 2) {
+					grid[row][col].specialCell(cellLetters.charAt(1), roomMap);
+				}
+			}
 		}
 	}
