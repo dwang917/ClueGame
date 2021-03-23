@@ -11,5 +11,12 @@ Room, Guest Bedroom, G
 // other spaces on board
 Space, Unused, X
 Space, Walkway, W
+SpongeBob, yellow, Human, 23, 9
+Patrick, pink, Comuter, 14, 5
+Squidward, green, Computer, 13, 16
+Sandy, brown, Computer, 2, 7
+Mr.Krabs, red, Computer, 17, 15
+Plankton, black, Computer, 22, 13
+Wrench, Hammer, Axe, Knife, Dagger, Sword
 Connected secret walkway, OS/SO
 Connected secret walkway, MK/OS

@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -22,8 +23,13 @@ public class Board {
 	private static Board theInstance = new Board(); // creates a new board
 	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
 	private Set<BoardCell> visited = new HashSet<BoardCell>(); // holds the visited list of the user
-	private static final int SETUP_LINE_LENGTH = 3; // unchangeable number for how many words there are in each set up
-													// line
+	private static final int SETUP_LINE_LENGTH = 3; // unchangeable number for how many words there are in each set up line
+	private static final int WEAPON_NUM = 6;
+	private static final int PLAYER_LINE_LENGTH = 4;
+	private static final int PLAYER_NUM = 6;
+	private ArrayList<Card> Deck = new ArrayList<Card>();
+	private ArrayList<Player> Players = new ArrayList<Player>();
+
 
 	private Board() {
 		super();
@@ -75,6 +81,40 @@ public class Board {
 				initial = thisLine[2].charAt(0);
 				Room newRoom = new Room(roomName);
 				roomMap.put(initial, newRoom);
+				Deck.add(new Card(roomName, CardType.ROOM));
+			}
+			else if (thisLine.length == PLAYER_LINE_LENGTH) {
+				Deck.add(new Card(thisLine[0], CardType.PERSON));
+				addPlayer(thisLine);
+				}
+			}
+		}
+
+	private void addPlayer(String[] thisLine) {
+		{
+			Color color = null;
+			switch (thisLine[1]) {
+		    case "yellow":
+		        color = Color.yellow;
+		        break;
+		    case "pink":
+		        color = Color.pink;
+		        break;
+		    case "Green":
+		        color = Color.green;
+		        break;
+		    case "red":
+		        color = Color.red;
+		        break;
+		    case "black":
+		        color = Color.black;
+		        break;
+			}
+			if(thisLine[1].equals("Human")) {
+				Players.add(new HumanPlayer(thisLine[0], color, Integer.parseInt(thisLine[3]), Integer.parseInt(thisLine[4])));
+			}
+			else {
+				Players.add(new ComputerPlayer(thisLine[0], color, Integer.parseInt(thisLine[3]), Integer.parseInt(thisLine[4])));
 			}
 		}
 	}
@@ -271,6 +311,10 @@ public class Board {
 
 	public Set<BoardCell> getTargets() {
 		return targets;
+	}
+
+	public ArrayList<Player> getPlayers() {
+		return Players;
 	}
 
 }
