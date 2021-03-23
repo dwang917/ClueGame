@@ -26,4 +26,8 @@ public class Card {
 	public void setWeapon() {
 		type = CardType.WEAPON;
 	}
+	
+	public CardType getType() {
+		return type;
+	}
 }

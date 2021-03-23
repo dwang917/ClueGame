@@ -305,6 +305,10 @@ public class Board {
 		return numCols;
 	}
 
+	public ArrayList <Card> getDeck(){
+		return Deck;
+	}
+	
 	public Set<BoardCell> getAdjList(int i, int j) {
 		return grid[i][j].getAdjList();
 	}
