@@ -25,7 +25,7 @@ public class Board {
 	private Set<BoardCell> visited = new HashSet<BoardCell>(); // holds the visited list of the user
 	private static final int SETUP_LINE_LENGTH = 3; // unchangeable number for how many words there are in each set up line
 	private static final int WEAPON_NUM = 6;
-	private static final int PLAYER_LINE_LENGTH = 4;
+	private static final int PLAYER_LINE_LENGTH = 5;
 	private static final int PLAYER_NUM = 6;
 	private ArrayList<Card> Deck = new ArrayList<Card>();
 	private ArrayList<Player> Players = new ArrayList<Player>();
