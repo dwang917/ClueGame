@@ -28,5 +28,15 @@ class GameSetupTests {
 		assertEquals(human.getName(), "SpongeBob");
 		assertEquals(Computer4.getName(), "Mr.Krabs");
 	}
+	
+	@Test
+	void testStartLoc() {
+		Player human = board.getPlayers().get(0);
+		Player Computer1 = board.getPlayers().get(1);
+		assertEquals(23, human.getRow());
+		assertEquals(9, human.getColumn());
+		assertEquals(14, Computer1.getRow());
+		assertEquals(5, Computer1.getColumn());
+	}
 
 }
