@@ -44,14 +44,24 @@ class GameSetupTests {
 
 	@Test
 	void testCardDeck() {
+		int roomCnt = 0;
+		int personCnt = 0;
+		int weaponCnt = 0;
 		int deckSize = board.getDeck().size();
-		assertEquals(12,deckSize);
-		Card firstCard = board.getDeck().get(0); 
-		assertEquals(CardType.ROOM,firstCard.getType());
-		Card firstPerson = board.getDeck().get(9);
-		assertEquals(CardType.PERSON, firstPerson);
-		Card firstWeapon = board.getDeck().get(14);
-		assertEquals(CardType.WEAPON, firstWeapon);
+		
+		for(Card thisCard:board.getDeck()) {
+			if(thisCard.getType() == CardType.ROOM)
+				roomCnt++;
+			else if (thisCard.getType() == CardType.PERSON)
+				personCnt++;
+			else if(thisCard.getType() == CardType.WEAPON)
+				weaponCnt++;
+		}
+		
+		assertEquals(21,deckSize);		
+		assertEquals(9, roomCnt);
+		assertEquals(6, personCnt);
+		assertEquals(6, weaponCnt);
 
 	}
 	

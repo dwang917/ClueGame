@@ -17,6 +17,7 @@ Squidward, green, Computer, 13, 16
 Sandy, brown, Computer, 2, 7
 Mr.Krabs, red, Computer, 17, 15
 Plankton, black, Computer, 22, 13
+// Weapons
 Wrench, Hammer, Axe, Knife, Dagger, Sword
 Connected secret walkway, OS/SO
 Connected secret walkway, MK/OS

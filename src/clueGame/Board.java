@@ -81,12 +81,18 @@ public class Board {
 				initial = thisLine[2].charAt(0);
 				Room newRoom = new Room(roomName);
 				roomMap.put(initial, newRoom);
-				Deck.add(new Card(roomName, CardType.ROOM));
+				if(!(thisLine[0].equals("Space")))
+					Deck.add(new Card(roomName, CardType.ROOM));
 			}
 			else if (thisLine.length == PLAYER_LINE_LENGTH) {
 				Deck.add(new Card(thisLine[0], CardType.PERSON));
 				addPlayer(thisLine);
 				}
+			else if(thisLine.length == WEAPON_NUM) {
+				for(int i = 0; i < WEAPON_NUM; i++) {
+					Deck.add(new Card(thisLine[i], CardType.WEAPON));
+				}
+			}
 			}
 		}
 
