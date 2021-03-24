@@ -67,6 +67,11 @@ public class Board {
 
 		String roomName;
 		char initial;
+		
+		String solutionP = "";
+		String solutionR = "";
+		String solutionW = "";
+		
 		ArrayList<String[]> setupStrings = readFile(setupConfigFile, ", ");
 
 		for (String[] thisLine : setupStrings) {
@@ -94,11 +99,30 @@ public class Board {
 					Deck.add(new Card(thisLine[i], CardType.WEAPON));
 				}
 			}
-			else if(thisLine.equals("Solution")) {
-				
+			else if(thisLine[0].equals("Solution")) {
+				solutionP = thisLine[1];
+				solutionR = thisLine[2];
+				solutionW = thisLine[3];
+				}
 			}
-			}
+		setSolution(solutionP, solutionR, solutionW);
+		
+	}
+	
+	private void setSolution(String person, String room, String weapon) {
+		Card personCard = new Card();
+		Card roomCard = new Card(); 
+		Card weaponCard = new Card();
+		for(Card thisCard:Deck) {
+			if(thisCard.getName().equals(person))
+				personCard = thisCard;
+			if(thisCard.getName().equals(room))
+				roomCard = thisCard;
+			if(thisCard.getName().equals(weapon))
+				weaponCard = thisCard;
 		}
+		solution = new Solution(personCard, roomCard, weaponCard);
+	}
 
 	private void addPlayer(String[] thisLine) {
 		{
@@ -332,7 +356,7 @@ public class Board {
 	}
 	
 	public Solution getSolution(){
-		return null;
+		return solution;
 	}
 
 }
