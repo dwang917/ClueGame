@@ -9,6 +9,7 @@ import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.Player;
+import clueGame.Solution;
 
 class GameSetupTests {
 
@@ -62,6 +63,15 @@ class GameSetupTests {
 		assertEquals(9, roomCnt);
 		assertEquals(6, personCnt);
 		assertEquals(6, weaponCnt);
+
+	}
+	
+	@Test
+	void testSolution() {
+		Solution solution = board.getSolution();
+		assertEquals("Mr.Krabs", solution.getPerson().getName());
+		assertEquals("Kitchen", solution.getRoom().getName());
+		assertEquals("Dagger", solution.getWeapon().getName());
 
 	}
 	

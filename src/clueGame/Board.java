@@ -29,6 +29,7 @@ public class Board {
 	private static final int PLAYER_NUM = 6;
 	private ArrayList<Card> Deck = new ArrayList<Card>();
 	private ArrayList<Player> Players = new ArrayList<Player>();
+	private Solution solution;
 
 
 	private Board() {
@@ -92,6 +93,9 @@ public class Board {
 				for(int i = 0; i < WEAPON_NUM; i++) {
 					Deck.add(new Card(thisLine[i], CardType.WEAPON));
 				}
+			}
+			else if(thisLine.equals("Solution")) {
+				
 			}
 			}
 		}
@@ -325,6 +329,10 @@ public class Board {
 
 	public ArrayList<Player> getPlayers() {
 		return Players;
+	}
+	
+	public Solution getSolution(){
+		return null;
 	}
 
 }
