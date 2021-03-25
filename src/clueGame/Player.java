@@ -58,6 +58,7 @@ public abstract class Player {
 		this.coler = coler;
 	}
 
+	//for testing
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
