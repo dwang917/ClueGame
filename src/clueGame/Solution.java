@@ -13,8 +13,6 @@ public class Solution {
 		this.weapon = weapon;
 	}
 	
-	
-	
 	public Card getPerson() {
 		return person;
 	}

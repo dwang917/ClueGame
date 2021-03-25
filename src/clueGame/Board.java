@@ -86,14 +86,15 @@ public class Board {
 				roomMap.put(initial, newRoom);
 				if (!(thisLine[0].equals("Space")))
 					deck.add(new Card(roomName, CardType.ROOM));
-			} 
-			//If this line is player info, then create the corresponding player card and add that to the deck
+			}
+			// If this line is player info, then create the corresponding player card and
+			// add that to the deck
 			else if (thisLine.length == PLAYER_LINE_LENGTH) {
 				deck.add(new Card(thisLine[0], CardType.PERSON));
-				//Add the player to the player arraylist
+				// Add the player to the player arraylist
 				addPlayer(thisLine);
-			} 
-			//if this line is weapon, create the weapon cards and add to the deck
+			}
+			// if this line is weapon, create the weapon cards and add to the deck
 			else if (thisLine.length == WEAPON_NUM) {
 				for (int i = 0; i < WEAPON_NUM; i++) {
 					deck.add(new Card(thisLine[i], CardType.WEAPON));
@@ -103,9 +104,9 @@ public class Board {
 		dealCards();
 	}
 
-	//Deal the cards to solution and to each player
+	// Deal the cards to solution and to each player
 	private void dealCards() {
-		//Choose one random card from each card types, and deal them to the solution
+		// Choose one random card from each card types, and deal them to the solution
 		int randRoom = (int) (Math.random() * ROOM_NUM);
 		Card solutionR = deck.get(randRoom);
 
@@ -116,13 +117,13 @@ public class Board {
 		Card solutionW = deck.get(randWeapon);
 		solution = new Solution(solutionP, solutionR, solutionW);
 
-		//Deal the rest of the deck to each player
+		// Deal the rest of the deck to each player
 		int count = 0;
 		ArrayList<Card> deckClone = (ArrayList<Card>) deck.clone();
 		deckClone.remove(randWeapon);
 		deckClone.remove(randPlayer);
 		deckClone.remove(randRoom);
-		//make sure each player gets roughly same number of cards
+		// make sure each player gets roughly same number of cards
 		while (deckClone.size() != 0) {
 			int randInt = (int) Math.random() * deckClone.size();
 			Card randCard = deckClone.get(randInt);
@@ -133,7 +134,7 @@ public class Board {
 		}
 	}
 
-	//Add the player to the player arraylist
+	// Add the player to the player arraylist
 	private void addPlayer(String[] thisLine) {
 		{
 			Color color = null;
@@ -154,7 +155,7 @@ public class Board {
 				color = Color.black;
 				break;
 			}
-			//Check the file to see if the player is human or computer
+			// Check the file to see if the player is human or computer
 			if (thisLine[2].equals("Human")) {
 				players.add(new HumanPlayer(thisLine[0], color, Integer.parseInt(thisLine[3]),
 						Integer.parseInt(thisLine[4])));

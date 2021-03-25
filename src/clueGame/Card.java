@@ -15,10 +15,6 @@ public class Card {
 		this.type = type;
 	}
 
-	public Card() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public void setRoom() {
 		type = CardType.ROOM;
 	}
