@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
+import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.Solution;
 
@@ -24,6 +25,25 @@ class GameSetupTests {
 		// Initialize will load config files 
 		board.initialize();
 	}
+	
+	@Test
+	void testPlayerNum() {
+		assertEquals(6, board.getPlayers().size());
+		int humanNum = 0;
+		int compNum = 0;
+		for(Player player : board.getPlayers()) {
+			if(player instanceof HumanPlayer) {
+				humanNum ++;
+			}
+			else {
+				compNum ++;
+			}
+		}
+		assertEquals(1, humanNum);
+		assertEquals(5, compNum);
+	}
+	
+	
 	@Test
 	void testPlayerName() {
 		Player human = board.getPlayers().get(0);

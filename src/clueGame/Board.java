@@ -140,7 +140,7 @@ public class Board {
 				color = Color.black;
 				break;
 			}
-			if (thisLine[1].equals("Human")) {
+			if (thisLine[2].equals("Human")) {
 				players.add(new HumanPlayer(thisLine[0], color, Integer.parseInt(thisLine[3]),
 						Integer.parseInt(thisLine[4])));
 			} else {
