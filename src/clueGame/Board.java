@@ -106,7 +106,7 @@ public class Board {
 		solution = new Solution(solutionP, solutionR, solutionW);
 		
 		int count = 0;
-		ArrayList<Card> deckClone = deck;
+		ArrayList<Card> deckClone = (ArrayList<Card>) deck.clone();
 		deckClone.remove(randWeapon);
 		deckClone.remove(randPlayer);
 		deckClone.remove(randRoom);
