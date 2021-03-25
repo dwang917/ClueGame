@@ -59,7 +59,7 @@ class GameSetupTests {
 				weaponCnt++;
 		}
 		
-		assertEquals(21,deckSize);		
+		assertEquals(21,deckSize);
 		assertEquals(9, roomCnt);
 		assertEquals(6, personCnt);
 		assertEquals(6, weaponCnt);
@@ -69,10 +69,18 @@ class GameSetupTests {
 	@Test
 	void testSolution() {
 		Solution solution = board.getSolution();
-		assertEquals("Mr.Krabs", solution.getPerson().getName());
-		assertEquals("Kitchen", solution.getRoom().getName());
-		assertEquals("Dagger", solution.getWeapon().getName());
+		assertEquals(CardType.PERSON, solution.getPerson().getType());
+		assertEquals(CardType.ROOM, solution.getRoom().getType());
+		assertEquals(CardType.WEAPON, solution.getWeapon().getType());
 
+	}
+	
+	@Test
+	void testCardsDealt() {
+		for(Player player : board.getPlayers()) {
+			boolean size = player.getHand().size() >= (board.getDeck().size() - 3)/Board.PLAYER_NUM;
+			assertTrue(size);
+		}
 	}
 	
 

@@ -23,14 +23,15 @@ public class Board {
 	private static Board theInstance = new Board(); // creates a new board
 	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
 	private Set<BoardCell> visited = new HashSet<BoardCell>(); // holds the visited list of the user
-	private static final int SETUP_LINE_LENGTH = 3; // unchangeable number for how many words there are in each set up line
-	private static final int WEAPON_NUM = 6;
-	private static final int PLAYER_LINE_LENGTH = 5;
-	private static final int PLAYER_NUM = 6;
-	private ArrayList<Card> Deck = new ArrayList<Card>();
-	private ArrayList<Player> Players = new ArrayList<Player>();
+	public static final int SETUP_LINE_LENGTH = 3; // unchangeable number for how many words there are in each set up
+													// line
+	public static final int WEAPON_NUM = 6;
+	public static final int PLAYER_LINE_LENGTH = 5;
+	public static final int PLAYER_NUM = 6;
+	public static final int ROOM_NUM = 9;
+	private ArrayList<Card> deck = new ArrayList<Card>();
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
-
 
 	private Board() {
 		super();
@@ -67,11 +68,7 @@ public class Board {
 
 		String roomName;
 		char initial;
-		
-		String solutionP = "";
-		String solutionR = "";
-		String solutionW = "";
-		
+
 		ArrayList<String[]> setupStrings = readFile(setupConfigFile, ", ");
 
 		for (String[] thisLine : setupStrings) {
@@ -87,68 +84,68 @@ public class Board {
 				initial = thisLine[2].charAt(0);
 				Room newRoom = new Room(roomName);
 				roomMap.put(initial, newRoom);
-				if(!(thisLine[0].equals("Space")))
-					Deck.add(new Card(roomName, CardType.ROOM));
-			}
-			else if (thisLine.length == PLAYER_LINE_LENGTH) {
-				Deck.add(new Card(thisLine[0], CardType.PERSON));
+				if (!(thisLine[0].equals("Space")))
+					deck.add(new Card(roomName, CardType.ROOM));
+			} else if (thisLine.length == PLAYER_LINE_LENGTH) {
+				deck.add(new Card(thisLine[0], CardType.PERSON));
 				addPlayer(thisLine);
-				}
-			else if(thisLine.length == WEAPON_NUM) {
-				for(int i = 0; i < WEAPON_NUM; i++) {
-					Deck.add(new Card(thisLine[i], CardType.WEAPON));
-				}
-			}
-			else if(thisLine[0].equals("Solution")) {
-				solutionP = thisLine[1];
-				solutionR = thisLine[2];
-				solutionW = thisLine[3];
+			} else if (thisLine.length == WEAPON_NUM) {
+				for (int i = 0; i < WEAPON_NUM; i++) {
+					deck.add(new Card(thisLine[i], CardType.WEAPON));
 				}
 			}
-		setSolution(solutionP, solutionR, solutionW);
-		
-	}
-	
-	private void setSolution(String person, String room, String weapon) {
-		Card personCard = new Card();
-		Card roomCard = new Card(); 
-		Card weaponCard = new Card();
-		for(Card thisCard:Deck) {
-			if(thisCard.getName().equals(person))
-				personCard = thisCard;
-			if(thisCard.getName().equals(room))
-				roomCard = thisCard;
-			if(thisCard.getName().equals(weapon))
-				weaponCard = thisCard;
 		}
-		solution = new Solution(personCard, roomCard, weaponCard);
+		int randRoom = (int) (Math.random() * ROOM_NUM);
+		Card solutionR = deck.get(randRoom);
+
+		int randPlayer = ROOM_NUM + (int) (Math.random() * PLAYER_NUM);
+		Card solutionP = deck.get(randPlayer);
+
+		int randWeapon = ROOM_NUM + PLAYER_NUM + (int) (Math.random() * WEAPON_NUM);
+		Card solutionW = deck.get(randWeapon);
+		solution = new Solution(solutionP, solutionR, solutionW);
+		
+		int count = 0;
+		ArrayList<Card> deckClone = deck;
+		deckClone.remove(randWeapon);
+		deckClone.remove(randPlayer);
+		deckClone.remove(randRoom);
+		while(deckClone.size() != 0) {
+			int randInt = (int)Math.random()*deckClone.size();
+			Card randCard = deckClone.get(randInt);
+			players.get(count).addHand(randCard);
+			deckClone.remove(randInt);
+			count ++;
+			count = count % PLAYER_NUM;
+		}
 	}
 
 	private void addPlayer(String[] thisLine) {
 		{
 			Color color = null;
 			switch (thisLine[1]) {
-		    case "yellow":
-		        color = Color.yellow;
-		        break;
-		    case "pink":
-		        color = Color.pink;
-		        break;
-		    case "Green":
-		        color = Color.green;
-		        break;
-		    case "red":
-		        color = Color.red;
-		        break;
-		    case "black":
-		        color = Color.black;
-		        break;
+			case "yellow":
+				color = Color.yellow;
+				break;
+			case "pink":
+				color = Color.pink;
+				break;
+			case "Green":
+				color = Color.green;
+				break;
+			case "red":
+				color = Color.red;
+				break;
+			case "black":
+				color = Color.black;
+				break;
 			}
-			if(thisLine[1].equals("Human")) {
-				Players.add(new HumanPlayer(thisLine[0], color, Integer.parseInt(thisLine[3]), Integer.parseInt(thisLine[4])));
-			}
-			else {
-				Players.add(new ComputerPlayer(thisLine[0], color, Integer.parseInt(thisLine[3]), Integer.parseInt(thisLine[4])));
+			if (thisLine[1].equals("Human")) {
+				players.add(new HumanPlayer(thisLine[0], color, Integer.parseInt(thisLine[3]),
+						Integer.parseInt(thisLine[4])));
+			} else {
+				players.add(new ComputerPlayer(thisLine[0], color, Integer.parseInt(thisLine[3]),
+						Integer.parseInt(thisLine[4])));
 			}
 		}
 	}
@@ -339,10 +336,10 @@ public class Board {
 		return numCols;
 	}
 
-	public ArrayList <Card> getDeck(){
-		return Deck;
+	public ArrayList<Card> getDeck() {
+		return deck;
 	}
-	
+
 	public Set<BoardCell> getAdjList(int i, int j) {
 		return grid[i][j].getAdjList();
 	}
@@ -352,10 +349,10 @@ public class Board {
 	}
 
 	public ArrayList<Player> getPlayers() {
-		return Players;
+		return players;
 	}
-	
-	public Solution getSolution(){
+
+	public Solution getSolution() {
 		return solution;
 	}
 
