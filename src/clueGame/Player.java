@@ -9,13 +9,13 @@ public abstract class Player {
 	private Color coler;
 	protected int row, column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
-	
+
 	public void addHand(Card card) {
 		hand.add(card);
 	}
-	
+
 	public void updateHand(Card card) {
-		
+
 	}
 
 	public int getRow() {
@@ -57,9 +57,9 @@ public abstract class Player {
 	public void setColer(Color coler) {
 		this.coler = coler;
 	}
-	
+
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
-	
+
 }

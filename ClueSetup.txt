@@ -21,5 +21,3 @@ Plankton, black, Computer, 22, 13
 Wrench, Hammer, Axe, Knife, Dagger, Sword
 Connected secret walkway, OS/SO
 Connected secret walkway, MK/OS
-//Solution
-Solution, Mr.Krabs, Kitchen, Dagger
