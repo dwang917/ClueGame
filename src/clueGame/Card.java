@@ -19,6 +19,11 @@ public class Card {
 		type = CardType.ROOM;
 	}
 	
+	public Card() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public void setPerson() {
 		type = CardType.PERSON;
 	}

@@ -1,26 +1,90 @@
-commit 03454b08b30d77e6d42fa8bcce1a540456fb1bc5 (HEAD -> main)
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Thu Mar 11 09:37:11 2021 -0700
+commit d94d23931c9b9acd6ea76909d926555c0dc4e018 (HEAD -> main, origin/main, origin/HEAD)
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Thu Mar 25 00:35:34 2021 -0600
+
+    Finished
+
+commit 4e31ebc6c73586f86c832e434cf9a47b72e3f918
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Thu Mar 25 00:33:05 2021 -0600
 
     Commented
 
-commit 03041974c174903929d307543223aaffcb333d24 (origin/main, origin/HEAD)
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Mar 11 09:30:35 2021 -0700
-
-    Refactered
-
-commit 82046c6476792940bd76db2d3a5b2bfea83b681d
+commit a7e475f635905fb59020d389d677508818acc1ce
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Mar 10 23:43:35 2021 -0700
+Date:   Thu Mar 25 00:28:16 2021 -0600
 
-    troubleshoot tests
+    refactored
 
-commit 0ec31a86fb0e853f18dfd64abe4df8b977f45c03
+commit b4cab4f8e254c2eccc7b71d906bd020906004e91
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Mar 10 22:43:30 2021 -0700
+Date:   Thu Mar 25 00:24:17 2021 -0600
 
-    Passed all tests
-    
-    
-The gitlog command only shows the last 4 commits
+    Passed the cardDeal test
+
+commit 7cf8124ea62a1e7e4d3a07f54a3d9996404a5456
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Thu Mar 25 00:23:02 2021 -0600
+
+    Created and failed cardDeal test
+
+commit b7d969d0e1d3a756d915bc6390ea8353efc899f6
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Thu Mar 25 00:09:55 2021 -0600
+
+    Created and failed check PlayerNum
+
+commit 435db7bfaaedd6dd7b7449c9f06439e688564fcf
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Thu Mar 25 00:03:18 2021 -0600
+
+    Passed the solution test
+
+commit 120e42085df7bcaeeabd883b0b18ab303f7ccf55
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Mar 24 23:57:19 2021 -0600
+
+    finished and failed testSolution
+
+commit b915d9bc951ad580c45021b5b0e3d6545d18b01f
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Mar 24 15:48:54 2021 -0600
+
+    Pass solution test
+
+commit d672a709a69187d41503be3b3843a4c9f4a4d030
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Mar 24 15:32:40 2021 -0600
+
+    Solution Test
+
+commit a3ea0397d02df953a547c3cf0c1c749272ede1cd
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Mar 24 15:16:35 2021 -0600
+
+    Pass testCardDeck
+
+commit e4a1eca9b8a507a44d01e01ddb9e9611e6edc2a5
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Mon Mar 22 23:16:29 2021 -0600
+
+    Next test: testCardDeck for size and the  right card types
+
+commit 7a890673e51570f3e090e8dffb996096c8bcb8cd
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Mon Mar 22 22:11:42 2021 -0600
+
+    passed testLoc
+
+commit 7f84239fb557d44a3339f5e6ed96fb47400efae0
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Mon Mar 22 22:03:01 2021 -0600
+
+    Passed first test
+
+commit ec8ed6d99047366f71ea58dc94eea42a744ec58e
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Mon Mar 22 21:53:05 2021 -0600
+
+    Added testPlayer and failed
+

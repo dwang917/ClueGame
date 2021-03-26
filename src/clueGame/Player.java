@@ -9,6 +9,8 @@ public abstract class Player {
 	private Color coler;
 	protected int row, column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
+	private ArrayList<Card> seenCards = new ArrayList<Card>();
+	private Solution Accusation;
 
 	public void addHand(Card card) {
 		hand.add(card);
@@ -17,7 +19,35 @@ public abstract class Player {
 	public void updateHand(Card card) {
 
 	}
+	
+	public Card disproveSuggestion() {
+		return null;
+	}
 
+	public ArrayList<Card> getSeenCards() {
+		return seenCards;
+	}
+
+	public void setSeenCards(ArrayList<Card> seenCards) {
+		this.seenCards = seenCards;
+	}
+
+	public Solution getAccusation() {
+		return Accusation;
+	}
+
+	public void setAccusation(Solution accusation) {
+		Accusation = accusation;
+	}
+
+	public void setHand(ArrayList<Card> hand) {
+		this.hand = hand;
+	}
+
+	public void setAccusation(Card p, Card r, Card w) {
+		Accusation = new Solution();
+	}
+	
 	public int getRow() {
 		return row;
 	}

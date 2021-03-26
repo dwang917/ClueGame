@@ -326,6 +326,14 @@ public class Board {
 			}
 		}
 	}
+	
+	public boolean checkAccusation() {
+		return false;
+	}
+	
+	public Card handleSuggestion() {
+		return null;
+	}
 
 	public void setConfigFiles(String string, String string2) {
 		this.layoutConfigFile = string;
