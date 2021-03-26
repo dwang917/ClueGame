@@ -45,7 +45,7 @@ public abstract class Player {
 	}
 
 	public void setAccusation(Card p, Card r, Card w) {
-		Accusation = new Solution();
+		Accusation = new Solution(p, r, w);
 	}
 	
 	public int getRow() {
