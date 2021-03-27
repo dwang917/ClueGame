@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
@@ -18,9 +19,9 @@ class GameSolutionTest {
 
 	private static Board board;
 	
-	ComputerPlayer player = new ComputerPlayer("testPlayer", Color.black, 0, 0);
+	static ComputerPlayer player;
 	
-	@BeforeAll
+	@BeforeEach
 	public static void setUp() {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
@@ -29,6 +30,7 @@ class GameSolutionTest {
 		// Initialize will load config files
 		board.initialize();
 		
+		player = new ComputerPlayer("testPlayer", Color.black, 0, 0);
 	}
 	@Test
 	void checkCorrectAccusation() {
@@ -60,6 +62,16 @@ class GameSolutionTest {
 	
 	@Test
 	void testDisproveSuggestion() {
+		player.addHand(board.getDeck().get(0));
+		player.addHand(board.getDeck().get(10));
+		player.addHand(board.getDeck().get(20));
+		player.createSuggestion(board.getDeck().get(3), board.getDeck().get(10), board.getDeck().get(16));
+		Card target = player.disproveSuggestion(player.getSuggestion());
+		assertEquals(target.getName(), "Patrick");
+	}
+	
+	@Test
+	void testDisproveSuggestion2() {
 		player.addHand(board.getDeck().get(0));
 		player.addHand(board.getDeck().get(10));
 		player.addHand(board.getDeck().get(20));
