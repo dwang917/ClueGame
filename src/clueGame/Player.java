@@ -21,7 +21,21 @@ public abstract class Player {
 	}
 	
 	public Card disproveSuggestion(Solution s) {
-		return new Card();
+		ArrayList<Card> match = new ArrayList<Card>();
+		for(Card card : hand) {
+			if(card.equals(s.getPerson()) || card.equals(s.getRoom()) || card.equals(s.getWeapon())) {
+				match.add(card);
+			}
+		}
+		if(match.size() == 0) {
+			return null;
+		}
+		else if(match.size() == 1) {
+			return match.get(0);
+		}
+		else {
+			return match.get((int) (Math.random()*match.size()));
+		}
 	}
 
 	public ArrayList<Card> getSeenCards() {
