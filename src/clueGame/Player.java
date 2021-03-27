@@ -21,7 +21,7 @@ public abstract class Player {
 	}
 	
 	public Card disproveSuggestion(Solution s) {
-		return null;
+		return new Card();
 	}
 
 	public ArrayList<Card> getSeenCards() {

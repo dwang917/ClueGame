@@ -63,8 +63,9 @@ class GameSolutionTest {
 		player.addHand(board.getDeck().get(0));
 		player.addHand(board.getDeck().get(10));
 		player.addHand(board.getDeck().get(20));
-		player.createSuggestion()
-		Card target = player
+		player.createSuggestion(board.getDeck().get(3), board.getDeck().get(10), board.getDeck().get(16));
+		Card target = player.disproveSuggestion(player.getSuggestion());
+		assertEquals(target.getName(), "Patrick");
 	}
 
 }

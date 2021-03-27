@@ -11,6 +11,14 @@ public class ComputerPlayer extends Player {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Solution getSuggestion() {
+		return suggestion;
+	}
+
+	public void setSuggestion(Solution suggestion) {
+		this.suggestion = suggestion;
+	}
+
 	public Solution createSuggestion(Card p, Card r, Card w) {
 		suggestion = new Solution(r, p, w);
 		return suggestion;
