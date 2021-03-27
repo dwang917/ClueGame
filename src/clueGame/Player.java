@@ -10,7 +10,7 @@ public abstract class Player {
 	protected int row, column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private ArrayList<Card> seenCards = new ArrayList<Card>();
-	private Solution Accusation;
+	private Card[] Accusation = new Card[3];
 
 	public void addHand(Card card) {
 		hand.add(card);
@@ -20,7 +20,7 @@ public abstract class Player {
 
 	}
 	
-	public Card disproveSuggestion() {
+	public Card disproveSuggestion(Solution s) {
 		return null;
 	}
 
@@ -32,12 +32,8 @@ public abstract class Player {
 		this.seenCards = seenCards;
 	}
 
-	public Solution getAccusation() {
+	public Card[] getAccusation() {
 		return Accusation;
-	}
-
-	public void setAccusation(Solution accusation) {
-		Accusation = accusation;
 	}
 
 	public void setHand(ArrayList<Card> hand) {
@@ -45,7 +41,9 @@ public abstract class Player {
 	}
 
 	public void setAccusation(Card p, Card r, Card w) {
-		Accusation = new Solution(p, r, w);
+		Accusation[0] = p;
+		Accusation[1] = r;
+		Accusation[2] = w;
 	}
 	
 	public int getRow() {

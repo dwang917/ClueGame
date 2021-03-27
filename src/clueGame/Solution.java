@@ -10,7 +10,7 @@ public class Solution {
 	public Card room;
 	public Card weapon;
 	
-	public Solution(Card person, Card room, Card weapon) {
+	public Solution(Card room, Card person, Card weapon) {
 		super();
 		this.person = person;
 		this.room = room;

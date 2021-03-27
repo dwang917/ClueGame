@@ -115,7 +115,7 @@ public class Board {
 
 		int randWeapon = ROOM_NUM + PLAYER_NUM + (int) (Math.random() * WEAPON_NUM);
 		Card solutionW = deck.get(randWeapon);
-		solution = new Solution(solutionP, solutionR, solutionW);
+		solution = new Solution(solutionR, solutionP, solutionW);
 
 		// Deal the rest of the deck to each player
 		int count = 0;
@@ -327,8 +327,30 @@ public class Board {
 		}
 	}
 	
-	public boolean checkAccusation() {
-		return false;
+	//for testing only
+	public void setSolution(Solution solution) {
+		this.solution = solution;
+	}
+
+	public boolean checkAccusation(Card[] cards) {
+		for (Card card : cards) {
+			if(card.getType() == CardType.PERSON) {
+				if(!card.equals(solution.getPerson())) {
+					return false;
+				}
+			}
+			if(card.getType() == CardType.ROOM) {
+				if(!card.equals(solution.getRoom())) {
+					return false;
+				}
+			}
+			if(card.getType() == CardType.WEAPON) {
+				if(!card.equals(solution.getWeapon())) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	public Card handleSuggestion() {

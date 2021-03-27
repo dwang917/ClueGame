@@ -6,6 +6,9 @@ public class Card {
 	private CardType type;
 	
 	public boolean equals(Card target) {
+		if(target.getName().equals(cardName) && target.getType().equals(type)) {
+			return true;
+		}
 		return false;
 	}
 	
