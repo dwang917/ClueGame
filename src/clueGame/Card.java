@@ -42,4 +42,9 @@ public class Card {
 	public String getName() {
 		return cardName;
 	}
+
+	@Override
+	public String toString() {
+		return "Card [cardName=" + cardName + ", type=" + type + "]";
+	}
 }

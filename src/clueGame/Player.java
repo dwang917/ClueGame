@@ -12,6 +12,15 @@ public abstract class Player {
 	private ArrayList<Card> seenCards = new ArrayList<Card>();
 	private Card[] Accusation = new Card[3];
 
+	
+	public Player(String name, Color coler, int row, int column) {
+		super();
+		this.name = name;
+		this.coler = coler;
+		this.row = row;
+		this.column = column;
+	}
+	
 	public void addHand(Card card) {
 		hand.add(card);
 	}
@@ -84,13 +93,6 @@ public abstract class Player {
 		this.name = name;
 	}
 
-	public Player(String name, Color coler, int row, int column) {
-		super();
-		this.name = name;
-		this.coler = coler;
-		this.row = row;
-		this.column = column;
-	}
 
 	public Color getColer() {
 		return coler;

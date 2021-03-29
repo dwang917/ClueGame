@@ -353,7 +353,14 @@ public class Board {
 		return true;
 	}
 	
-	public Card handleSuggestion() {
+	public Card handleSuggestion(Solution suggestion, Player accuser) {
+		for(Player thisPlayer:players) {
+			if(!thisPlayer.equals(accuser)) {
+				if(thisPlayer.disproveSuggestion(suggestion) != (null)) {
+					return thisPlayer.disproveSuggestion(suggestion);
+				}
+			}
+		}
 		return null;
 	}
 
@@ -400,6 +407,10 @@ public class Board {
 
 	public Solution getSolution() {
 		return solution;
+	}
+
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
 	}
 
 }
