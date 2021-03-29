@@ -1,90 +1,59 @@
-commit d94d23931c9b9acd6ea76909d926555c0dc4e018 (HEAD -> main, origin/main, origin/HEAD)
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Mar 25 00:35:34 2021 -0600
-
-    Finished
-
-commit 4e31ebc6c73586f86c832e434cf9a47b72e3f918
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Mar 25 00:33:05 2021 -0600
-
-    Commented
-
-commit a7e475f635905fb59020d389d677508818acc1ce
+commit bde3a835458d8bd9bd4b85672d759636ab435f63 (HEAD -> main, origin/main, origin/HEAD)
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Thu Mar 25 00:28:16 2021 -0600
+Date:   Mon Mar 29 17:57:37 2021 -0600
 
-    refactored
+    comments added
 
-commit b4cab4f8e254c2eccc7b71d906bd020906004e91
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Mar 25 00:24:17 2021 -0600
-
-    Passed the cardDeal test
-
-commit 7cf8124ea62a1e7e4d3a07f54a3d9996404a5456
+commit c3d3602cbd69aa0d65e2365bd7de4ac6a93a1555
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Thu Mar 25 00:23:02 2021 -0600
+Date:   Mon Mar 29 17:49:07 2021 -0600
 
-    Created and failed cardDeal test
+    pass selectTargetsTest and createSuggestionTest
 
-commit b7d969d0e1d3a756d915bc6390ea8353efc899f6
+commit 8a1c64aab822f826764911f0d997a4401a72e1cc
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Thu Mar 25 00:09:55 2021 -0600
+Date:   Sun Mar 28 20:03:29 2021 -0600
 
-    Created and failed check PlayerNum
+    pass handleSuggestion
 
-commit 435db7bfaaedd6dd7b7449c9f06439e688564fcf
+commit 68b08f4973d45a3c18cdfee845c071ec1e224478
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Mar 25 00:03:18 2021 -0600
+Date:   Sat Mar 27 02:06:50 2021 -0600
 
-    Passed the solution test
+    Passed testDisproveSuggestion2
 
-commit 120e42085df7bcaeeabd883b0b18ab303f7ccf55
+commit 844306134ef067d7fc9ce08e492990ad8fe636bc
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Mar 24 23:57:19 2021 -0600
+Date:   Sat Mar 27 02:00:28 2021 -0600
 
-    finished and failed testSolution
+    Passed testDisproveSuggestion
 
-commit b915d9bc951ad580c45021b5b0e3d6545d18b01f
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Mar 24 15:48:54 2021 -0600
-
-    Pass solution test
-
-commit d672a709a69187d41503be3b3843a4c9f4a4d030
+commit 3716cec478beb228d0511ea92e23a1ae9e2001b2
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Mar 24 15:32:40 2021 -0600
+Date:   Sat Mar 27 01:55:41 2021 -0600
 
-    Solution Test
+    Created testDisproveSuggestion and failed the tests
 
-commit a3ea0397d02df953a547c3cf0c1c749272ede1cd
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Mar 24 15:16:35 2021 -0600
-
-    Pass testCardDeck
-
-commit e4a1eca9b8a507a44d01e01ddb9e9611e6edc2a5
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Mon Mar 22 23:16:29 2021 -0600
-
-    Next test: testCardDeck for size and the  right card types
-
-commit 7a890673e51570f3e090e8dffb996096c8bcb8cd
+commit 8c8f9b8c5a674159f1bd307b7bcbe576c274b7a7
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Mon Mar 22 22:11:42 2021 -0600
+Date:   Sat Mar 27 01:49:38 2021 -0600
 
-    passed testLoc
+    Passed checkWrong Accusation
 
-commit 7f84239fb557d44a3339f5e6ed96fb47400efae0
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Mon Mar 22 22:03:01 2021 -0600
-
-    Passed first test
-
-commit ec8ed6d99047366f71ea58dc94eea42a744ec58e
+commit a1cc479f097f3db3361f2fe3ee02eabb22b7b5b7
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Mon Mar 22 21:53:05 2021 -0600
+Date:   Sat Mar 27 01:46:46 2021 -0600
 
-    Added testPlayer and failed
+    Created checkWrongAccusation and failed the tests
 
+commit ff35bbc6d9ea1cd4e1d8119b8cbac353bdf4d63b
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Fri Mar 26 12:51:26 2021 -0600
+
+    Passed checkAccusation
+
+commit 094ce0d57f157d63ccfae40d39e704ff9e95b099
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Fri Mar 26 12:49:48 2021 -0600
+
+    Created checkAccusation and failed the test
