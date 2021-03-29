@@ -9,7 +9,9 @@ public abstract class Player {
 	private Color coler;
 	protected int row, column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
-	private ArrayList<Card> seenCards = new ArrayList<Card>();
+	protected ArrayList<Card> seenCards = new ArrayList<Card>();
+	protected ArrayList<Card> notSeenCards = new ArrayList<Card>();
+
 	private Card[] Accusation = new Card[3];
 
 	
@@ -49,6 +51,14 @@ public abstract class Player {
 
 	public ArrayList<Card> getSeenCards() {
 		return seenCards;
+	}
+	
+	public ArrayList<Card> getnotSeenCards(){
+		return notSeenCards;
+	}
+	
+	public void addnotSeenCard(Card card) {
+		notSeenCards.add(card);
 	}
 
 	public void setSeenCards(ArrayList<Card> seenCards) {

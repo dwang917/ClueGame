@@ -19,7 +19,7 @@ public class Board {
 	private int numCols; // total columns on board
 	private String layoutConfigFile; // name of layout file
 	private String setupConfigFile; // name of set up file
-	private Map<Character, Room> roomMap = new HashMap<Character, Room>(); // map to hold rooms
+	public static Map<Character, Room> roomMap = new HashMap<Character, Room>(); // map to hold rooms
 	private static Board theInstance = new Board(); // creates a new board
 	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
 	private Set<BoardCell> visited = new HashSet<BoardCell>(); // holds the visited list of the user
@@ -102,6 +102,11 @@ public class Board {
 			}
 		}
 		dealCards();
+		for(Player thisPlayer: players) {
+			for(Card thisCard: deck) {
+				thisPlayer.addnotSeenCard(thisCard);
+			}
+		}
 	}
 
 	// Deal the cards to solution and to each player
