@@ -358,6 +358,7 @@ public class Board {
 		return true;
 	}
 	
+	//returns the card that disproves suggestion if able, returns null if cannot be disproved by any player
 	public Card handleSuggestion(Solution suggestion, Player accuser) {
 		for(Player thisPlayer:players) {
 			if(!thisPlayer.equals(accuser)) {

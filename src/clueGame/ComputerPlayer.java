@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import clueGame.Board;
 
 public class ComputerPlayer extends Player {
 	
 	private Solution suggestion;
-	//private ArrayList <Card> seen = new ArrayList<Card>();
-	//private ArrayList <Card> notSeen = new ArrayList <Card>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
 
 
@@ -20,14 +17,6 @@ public class ComputerPlayer extends Player {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void addSeen(Card add) {
-		seenCards.add(add);
-		notSeenCards.remove(notSeenCards.indexOf(add));
-	}
-	
-	public void addnotSeen(Card add) {
-		notSeenCards.add(add);
-	}
 	
 	public Solution getSuggestion() {
 		return suggestion;
@@ -88,9 +77,6 @@ public class ComputerPlayer extends Player {
 		
 	}
 
-	//public ArrayList<Card> getSeen() {
-	//	return seen;
-	//}
 
 	public ArrayList<Card> getNotSeen() {
 		return notSeenCards;

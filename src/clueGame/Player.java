@@ -9,8 +9,8 @@ public abstract class Player {
 	private Color coler;
 	protected int row, column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
-	protected ArrayList<Card> seenCards = new ArrayList<Card>();
-	protected ArrayList<Card> notSeenCards = new ArrayList<Card>();
+	protected ArrayList<Card> seenCards = new ArrayList<Card>(); //arraylist to hold all the cards that the player has seen
+	protected ArrayList<Card> notSeenCards = new ArrayList<Card>();//arraylist to hold all the cards that the player has not seen
 
 	private Card[] Accusation = new Card[3];
 
@@ -61,6 +61,10 @@ public abstract class Player {
 		notSeenCards.add(card);
 	}
 
+	public void addSeenCard(Card card) {
+		seenCards.add(card);
+		notSeenCards.remove(notSeenCards.indexOf(card));
+	}
 	public void setSeenCards(ArrayList<Card> seenCards) {
 		this.seenCards = seenCards;
 	}

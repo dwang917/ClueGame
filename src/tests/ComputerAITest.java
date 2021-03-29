@@ -16,7 +16,6 @@ import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.Room;
-import clueGame.Solution;
 
 class ComputerAITest {
 	
@@ -34,7 +33,7 @@ class ComputerAITest {
 		
 	}
 	
-	@Test
+	@Test //test to see if computer can generate and select a correct target option if there are room available
 	void selectTargetsTest() {
 		BoardCell target;
 		boolean inSeen = false;
@@ -62,14 +61,14 @@ class ComputerAITest {
 		 assertFalse(inSeen);
 	}
 	
-	@Test
+	@Test//test to see if computer can generate a suggestion out of unseen cards
 	void createSuggestionTest(){
 		Room currentRoom = board.getRoom(board.getCell(player.getRow(), player.getColumn()));
 		Card room = null;
 		boolean inSeen = false;
 		
 		for(Card thisCard:board.getDeck()) {
-			player.addnotSeen(thisCard);
+			player.addnotSeenCard(thisCard);
 			if(thisCard.getName().equals(currentRoom.getName())) {
 				room = thisCard;
 			}
@@ -78,9 +77,9 @@ class ComputerAITest {
 		Card one = board.getDeck().get(9);
 		Card two = board.getDeck().get(15);
 		
-		player.addSeen(one);
-		player.addSeen(two);
-		player.createSuggestion(room, board.getDeck().size());
+		player.addSeenCard(one);
+		player.addSeenCard(two);
+		player.createSuggestion(room, board.getDeck().size()-1);
 		
 		for(Card thisSeen: player.getSeenCards()) {
 			if(player.getSuggestion().getWeapon() == thisSeen) {
