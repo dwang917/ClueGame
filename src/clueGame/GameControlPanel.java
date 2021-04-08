@@ -27,6 +27,7 @@ public class GameControlPanel extends JPanel {
 	private JPanel guessPanel;
 	private JPanel resultPanel;
 	
+	
 	public GameControlPanel() {
 		setName("Control Panel");
 		setLayout(new GridLayout(2,0));
@@ -42,7 +43,12 @@ public class GameControlPanel extends JPanel {
 		createRollPanel();
 		createTurnPanel();
 		JButton accuseButton = new JButton("Make Accusation");
+		accuseButton.setBackground(Color.blue);
+		accuseButton.setOpaque(true);
 		JButton nextButton = new JButton("NEXT!");
+		nextButton.setBackground(Color.blue);
+		nextButton.setOpaque(true);
+
 
 		
 		top.add(turnPanel);
