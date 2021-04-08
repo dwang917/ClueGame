@@ -79,7 +79,7 @@ class ComputerAITest {
 		
 		player.addSeenCard(one);
 		player.addSeenCard(two);
-		player.createSuggestion(room, board.getDeck().size()-1);
+		player.createSuggestion(room);
 		
 		for(Card thisSeen: player.getSeenCards()) {
 			if(player.getSuggestion().getWeapon() == thisSeen) {

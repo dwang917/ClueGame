@@ -26,18 +26,18 @@ public class ComputerPlayer extends Player {
 		this.suggestion = suggestion;
 	}
 
-	public Solution createSuggestion(Card r, int deckLength) {
-		int cardChooser = (int)(Math.random() * deckLength);
+	public Solution createSuggestion(Card r) {
+		int cardChooser = (int)(Math.random() * notSeenCards.size());
 		Card p;
 		Card w;
 		while(notSeenCards.get(cardChooser).getType() != CardType.PERSON) {
-			cardChooser = (int)(Math.random()*deckLength);
+			cardChooser = (int)(Math.random()*notSeenCards.size());
 		}
 		p = notSeenCards.get(cardChooser);
 		//seen.add(p);
 		
 		while(notSeenCards.get(cardChooser).getType() != CardType.WEAPON) {
-			cardChooser = (int)(Math.random()*deckLength);
+			cardChooser = (int)(Math.random()*notSeenCards.size());
 		}
 		w = notSeenCards.get(cardChooser);
 		//seen.add(w);
