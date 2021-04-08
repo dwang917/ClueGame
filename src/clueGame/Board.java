@@ -130,7 +130,7 @@ public class Board {
 		deckClone.remove(randRoom);
 		// make sure each player gets roughly same number of cards
 		while (deckClone.size() != 0) {
-			int randInt = (int) Math.random() * deckClone.size();
+			int randInt = (int) (Math.random() * deckClone.size());
 			Card randCard = deckClone.get(randInt);
 			players.get(count).addHand(randCard);
 			deckClone.remove(randInt);
@@ -409,6 +409,10 @@ public class Board {
 
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	
+	public Player getHumanPlayer() {
+		return players.get(0);
 	}
 
 	public Solution getSolution() {

@@ -25,6 +25,7 @@ public abstract class Player {
 	
 	public void addHand(Card card) {
 		hand.add(card);
+		notSeenCards.remove(notSeenCards.indexOf(card));
 	}
 
 	public void updateHand(Card card) {
