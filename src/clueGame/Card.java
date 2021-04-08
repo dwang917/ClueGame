@@ -1,9 +1,12 @@
 package clueGame;
 
+import java.awt.Color;
+
 public class Card {
 
 	private String cardName;
 	private CardType type;
+	private Color color;
 	
 	public boolean equals(Card target) {
 		if(target.getName().equals(cardName) && target.getType().equals(type)) {
@@ -16,6 +19,14 @@ public class Card {
 		super();
 		this.cardName = cardName;
 		this.type = type;
+	}
+	
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 	public void setRoom() {

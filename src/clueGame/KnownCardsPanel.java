@@ -19,43 +19,34 @@ public class KnownCardsPanel extends JPanel {
 	public KnownCardsPanel() {
 		board = Board.getInstance();
 		setLayout(new GridLayout(0, 1));
-		JPanel peoplePanel = createPeoplePanel();
-		JPanel roomsPanel = createRoomsPanel();
-		JPanel weaponPanel = createWeaponsPanel();
+		peoplePanel = createPanel("People");
+		roomPanel = createPanel("Rooms");
+		weaponPanel = createPanel("Weapons");
+		//update the cards displayed in the panels
 		updatePanel(peoplePanel, CardType.PERSON);
-		updatePanel(roomsPanel, CardType.ROOM);
+		updatePanel(roomPanel, CardType.ROOM);
 		updatePanel(weaponPanel, CardType.WEAPON);
 		add(peoplePanel);
-		add(roomsPanel);
+		add(roomPanel);
 		add(weaponPanel);
 	}
 
-	private JPanel createPeoplePanel() {
+	//Create panels for people, rooms and weapons
+	private JPanel createPanel(String title) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0, 1));
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "People"));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), title));
 		return panel;
 	}
 
-	private JPanel createRoomsPanel() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0, 1));
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "Rooms"));
-		return panel;
-	}
-
-	private JPanel createWeaponsPanel() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0, 1));
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "Weapons"));
-		return panel;
-	}
-
+	//update the seen cards text fields and in hand text fields 
 	private void updatePanel(JPanel panel, CardType type) {
+		//clear the panel
 		panel.removeAll();
 		JLabel handLabel = new JLabel("In Hand:");
 		panel.add(handLabel);
 		boolean handNotZero = false;
+		//if any card matches desired card type, create a text field
 		for (Card card : board.getHumanPlayer().getHand()) {
 			if (card.getType().equals(type)) {
 				JTextField text = new JTextField(card.getName());
@@ -63,6 +54,7 @@ public class KnownCardsPanel extends JPanel {
 				handNotZero = true;
 			}
 		}
+		//if no cards in hand, create a non text field
 		if(!handNotZero) {
 			JTextField text = new JTextField("None");
 			panel.add(text);
@@ -74,9 +66,12 @@ public class KnownCardsPanel extends JPanel {
 			JTextField text = new JTextField("None");
 			panel.add(text);
 		} else {
+			//create text fields for seen cards
 			for (Card card : board.getHumanPlayer().getSeenCards()) {
 				if (card.getType().equals(type)) {
 					JTextField text = new JTextField(card.getName());
+					//color code the text fields according to players
+					text.setBackground(card.getColor());
 					panel.add(text);
 				}
 			}
@@ -85,17 +80,18 @@ public class KnownCardsPanel extends JPanel {
 
 	public static void main(String[] args) {
 		Board b = Board.getInstance();
-		// set the file names to use my config files
 		b.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
-		// Initialize will load config files
 		b.initialize();
-		//b.getHumanPlayer().addSeenCard(b.getHumanPlayer().getnotSeenCards().get(0));
-		//b.getHumanPlayer().addSeenCard(b.getHumanPlayer().getnotSeenCards().get(6));
-		//b.getHumanPlayer().addSeenCard(b.getHumanPlayer().getnotSeenCards().get(7));
-		//b.getHumanPlayer().addSeenCard(b.getHumanPlayer().getnotSeenCards().get(12));
+		Player humanPlayer = b.getHumanPlayer();
+		//testing the panels with different seen cards
+		//humanPlayer.addSeenCard(b.getHumanPlayer().getnotSeenCards().get(0));
+		//humanPlayer.addSeenCard(b.getHumanPlayer().getnotSeenCards().get(6));
+		//humanPlayer.addSeenCard(b.getHumanPlayer().getnotSeenCards().get(7));
+		//humanPlayer).addSeenCard(b.getHumanPlayer().getnotSeenCards().get(12));
 		
-		while(!b.getHumanPlayer().getnotSeenCards().isEmpty()) {
-			b.getHumanPlayer().addSeenCard(b.getHumanPlayer().getnotSeenCards().get(0));
+		//test the panel when all players' cards are seen
+		while(!humanPlayer.getnotSeenCards().isEmpty()) {
+			humanPlayer.addSeenCard(humanPlayer.getnotSeenCards().get(0));
 		}
 
 		KnownCardsPanel panel = new KnownCardsPanel();
@@ -104,7 +100,5 @@ public class KnownCardsPanel extends JPanel {
 		frame.setSize(180, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-
-		// test filling in the data
 	}
 }

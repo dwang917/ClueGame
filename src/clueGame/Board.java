@@ -101,11 +101,6 @@ public class Board {
 				}
 			}
 		}
-		for (Player thisPlayer : players) {
-			for (Card thisCard : deck) {
-				thisPlayer.addnotSeenCard(thisCard);
-			}
-		}
 		dealCards();
 	}
 
@@ -128,6 +123,11 @@ public class Board {
 		deckClone.remove(randWeapon);
 		deckClone.remove(randPlayer);
 		deckClone.remove(randRoom);
+		for (Player thisPlayer : players) {
+			for (Card thisCard : deckClone) {
+				thisPlayer.addnotSeenCard(thisCard);
+			}
+		}
 		// make sure each player gets roughly same number of cards
 		while (deckClone.size() != 0) {
 			int randInt = (int) (Math.random() * deckClone.size());
@@ -150,14 +150,17 @@ public class Board {
 			case "pink":
 				color = Color.pink;
 				break;
-			case "Green":
+			case "green":
 				color = Color.green;
 				break;
-			case "red":
-				color = Color.red;
+			case "cyan":
+				color = Color.cyan;
 				break;
-			case "black":
-				color = Color.black;
+			case "gray":
+				color = Color.LIGHT_GRAY;
+				break;
+			case "orange":
+				color = Color.orange;
 				break;
 			}
 			// Check the file to see if the player is human or computer
