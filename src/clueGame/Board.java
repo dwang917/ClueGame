@@ -101,12 +101,12 @@ public class Board {
 				}
 			}
 		}
-		dealCards();
-		for(Player thisPlayer: players) {
-			for(Card thisCard: deck) {
+		for (Player thisPlayer : players) {
+			for (Card thisCard : deck) {
 				thisPlayer.addnotSeenCard(thisCard);
 			}
 		}
+		dealCards();
 	}
 
 	// Deal the cards to solution and to each player
@@ -331,38 +331,39 @@ public class Board {
 			}
 		}
 	}
-	
-	//for testing only
+
+	// for testing only
 	public void setSolution(Solution solution) {
 		this.solution = solution;
 	}
 
 	public boolean checkAccusation(Card[] cards) {
 		for (Card card : cards) {
-			if(card.getType() == CardType.PERSON) {
-				if(!card.equals(solution.getPerson())) {
+			if (card.getType() == CardType.PERSON) {
+				if (!card.equals(solution.getPerson())) {
 					return false;
 				}
 			}
-			if(card.getType() == CardType.ROOM) {
-				if(!card.equals(solution.getRoom())) {
+			if (card.getType() == CardType.ROOM) {
+				if (!card.equals(solution.getRoom())) {
 					return false;
 				}
 			}
-			if(card.getType() == CardType.WEAPON) {
-				if(!card.equals(solution.getWeapon())) {
+			if (card.getType() == CardType.WEAPON) {
+				if (!card.equals(solution.getWeapon())) {
 					return false;
 				}
 			}
 		}
 		return true;
 	}
-	
-	//returns the card that disproves suggestion if able, returns null if cannot be disproved by any player
+
+	// returns the card that disproves suggestion if able, returns null if cannot be
+	// disproved by any player
 	public Card handleSuggestion(Solution suggestion, Player accuser) {
-		for(Player thisPlayer:players) {
-			if(!thisPlayer.equals(accuser)) {
-				if(thisPlayer.disproveSuggestion(suggestion) != (null)) {
+		for (Player thisPlayer : players) {
+			if (!thisPlayer.equals(accuser)) {
+				if (thisPlayer.disproveSuggestion(suggestion) != (null)) {
 					return thisPlayer.disproveSuggestion(suggestion);
 				}
 			}
@@ -410,7 +411,7 @@ public class Board {
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-	
+
 	public Player getHumanPlayer() {
 		return players.get(0);
 	}
