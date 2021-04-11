@@ -50,19 +50,22 @@ public class BoardCell {
 	}
 	
 	public void drawCell(Graphics g) {
-		if(initial == 'W') {
+		if(initial == 'W' || initial == 'X') {
 			g.setColor(Color.BLACK);
 			//g.setColor(Color.YELLOW);
-		}
-		else if(initial == 'X') {
-			g.setColor(Color.BLACK);
-			//g.setColor(Color.BLACK);
 		}
 		else {
 			g.setColor(Color.GRAY);
 			//g.setColor(Color.GRAY);
 		}
+		
 		g.drawRect(x, y, size, size);
+		
+		if(initial == 'W') {
+			g.setColor(Color.YELLOW);
+		}
+		
+		g.fillRect(x, y, size, size);
 	}
 	
 	
