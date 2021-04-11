@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +20,10 @@ public class BoardCell {
 	private char secretPassage = ' '; //if cell is connected to a secret passage, save initial of other room
 	private boolean occupied; //true if a player is in the cell, false if not
 	Set<BoardCell> adjList; //set to hold all adjacent cells of the current cell
+	private int size;
+	private int offset;
+	private int x,y = 0;
+	
 	
 	
 	public BoardCell(int row, int col, char ini){
@@ -28,6 +34,37 @@ public class BoardCell {
 		this.secretPassage = ' ';
 		this.adjList = new HashSet <BoardCell>();
 	}
+	
+	
+	public BoardCell(int row, int col, char ini, int size, int offset){
+		super();
+		this.row = row;
+		this.col = col;
+		this.initial = ini;
+		this.secretPassage = ' ';
+		this.adjList = new HashSet <BoardCell>();
+		this.size = size;
+		this.offset = offset;
+		x = col * this.size;
+		y = row * this.size;
+	}
+	
+	public void drawCell(Graphics g) {
+		if(initial == 'W') {
+			g.setColor(Color.BLACK);
+			//g.setColor(Color.YELLOW);
+		}
+		else if(initial == 'X') {
+			g.setColor(Color.BLACK);
+			//g.setColor(Color.BLACK);
+		}
+		else {
+			g.setColor(Color.GRAY);
+			//g.setColor(Color.GRAY);
+		}
+		g.drawRect(x, y, size, size);
+	}
+	
 	
 	public void addAdj(BoardCell adj) {
 		adjList.add(adj);

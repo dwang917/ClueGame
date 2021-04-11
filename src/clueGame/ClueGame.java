@@ -12,6 +12,10 @@ public class ClueGame extends JFrame{
 		setSize(720, 750);
 		add(board, BorderLayout.CENTER);
 	}
+		
+	public void updateDrawing(int dx, int dy) {
+		//board.translate(dx,dy);
+	}
 	
 	public static void main(String[] args) {
 		Board b = Board.getInstance();
@@ -20,6 +24,7 @@ public class ClueGame extends JFrame{
 		ClueGame game = new ClueGame();
 		game.setVisible(true);
 		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		game.updateDrawing(100, 100);
 	}
 
 }

@@ -35,9 +35,23 @@ public class Board extends JPanel{
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
-
-	private Board() {
+	
+	protected int x, y;
+	protected int dx, dy;
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		for(BoardCell[] two_cell: grid) {
+			for(BoardCell cell: two_cell) {
+				cell.drawCell(g);
+			}
+		}
+	}
+	
+ 	private Board() {
 		super();
+		x = 0;
+		y = 0;
 	}
 
 	public static Board getInstance() {
@@ -211,7 +225,7 @@ public class Board extends JPanel{
 					throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
 				}
 
-				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0));
+				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0), 20, 0);
 				// if the cell has two letters, calls the specialCell method to identify and
 				// handle it.
 				if (cellLetters.length() == 2) {
@@ -377,10 +391,6 @@ public class Board extends JPanel{
 		return null;
 	}
 	
-	public void paintCompnent(Graphics g) {
-		super.paintComponent(g);
-		
-	}
 
 	public void setConfigFiles(String string, String string2) {
 		this.layoutConfigFile = string;
