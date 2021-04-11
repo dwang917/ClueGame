@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -10,9 +11,11 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JPanel;
+
 //import experiment.TestBoardCell;
 
-public class Board {
+public class Board extends JPanel{
 
 	private BoardCell[][] grid; // holds the board and each cell
 	private int numRows; // total rows on board
@@ -372,6 +375,11 @@ public class Board {
 			}
 		}
 		return null;
+	}
+	
+	public void paintCompnent(Graphics g) {
+		super.paintComponent(g);
+		
 	}
 
 	public void setConfigFiles(String string, String string2) {

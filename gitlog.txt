@@ -1,59 +1,67 @@
-commit bde3a835458d8bd9bd4b85672d759636ab435f63 (HEAD -> main, origin/main, origin/HEAD)
+commit 3a0bc1eb2f8ddc6510cf8bea888ab4994b5579dc (HEAD -> main, origin/main, origin/HEAD)
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Apr 7 23:54:05 2021 -0600
+
+    refactored and commented
+
+commit 6796df440a306a28d46308c1288a91e62fecc44d
+Merge: 67eeb35 35f0aa7
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Apr 7 20:50:59 2021 -0600
+
+    Merge branch 'main' of https://github.com/dwang917/ClueGame
+
+commit 67eeb35e2afeff46457c93cab84218647895dd8e
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Mon Mar 29 17:57:37 2021 -0600
+Date:   Wed Apr 7 20:50:32 2021 -0600
 
-    comments added
+    Commented
 
-commit c3d3602cbd69aa0d65e2365bd7de4ac6a93a1555
+commit e6bb2764f9a332b377c825918190e0dfbb1908bc
+Merge: cee5e68 191f963
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Apr 7 20:49:56 2021 -0600
+
+    merged
+
+commit 35f0aa7cec1d45c1678a946ad775cb54cd6b9805
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Mon Mar 29 17:49:07 2021 -0600
+Date:   Wed Apr 7 20:46:52 2021 -0600
 
-    pass selectTargetsTest and createSuggestionTest
+    Change button background colors
 
-commit 8a1c64aab822f826764911f0d997a4401a72e1cc
+commit cee5e68b40d6b85c8f4f35213dfe1ccb1c092e1a
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Apr 7 20:44:01 2021 -0600
+
+    Seen cards displayed properly
+
+commit 191f9638ec213d0d34d347a5498d409b1e513b9a
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Sun Mar 28 20:03:29 2021 -0600
+Date:   Wed Apr 7 20:42:27 2021 -0600
 
-    pass handleSuggestion
+    GameControlPanel Working
 
-commit 68b08f4973d45a3c18cdfee845c071ec1e224478
+commit a199418465f93bda80b52c7c2adebc6f9d934ef3
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Apr 7 20:40:28 2021 -0600
+
+    GameControlPanel Created
+
+commit 4fe5151b006d722d4cae04e20237932f18722c5e
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sat Mar 27 02:06:50 2021 -0600
+Date:   Wed Apr 7 20:34:36 2021 -0600
 
-    Passed testDisproveSuggestion2
+    Panels works well
 
-commit 844306134ef067d7fc9ce08e492990ad8fe636bc
+commit 726ce6a5e21642aa88b416d60e3c26df94546e44
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Apr 7 18:26:41 2021 -0600
+
+    Created constructor and main
+
+commit 9ee247a48b5dc53934ad1210e926279f79b77d48
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sat Mar 27 02:00:28 2021 -0600
+Date:   Tue Apr 6 16:56:57 2021 -0600
 
-    Passed testDisproveSuggestion
-
-commit 3716cec478beb228d0511ea92e23a1ae9e2001b2
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sat Mar 27 01:55:41 2021 -0600
-
-    Created testDisproveSuggestion and failed the tests
-
-commit 8c8f9b8c5a674159f1bd307b7bcbe576c274b7a7
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sat Mar 27 01:49:38 2021 -0600
-
-    Passed checkWrong Accusation
-
-commit a1cc479f097f3db3361f2fe3ee02eabb22b7b5b7
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sat Mar 27 01:46:46 2021 -0600
-
-    Created checkWrongAccusation and failed the tests
-
-commit ff35bbc6d9ea1cd4e1d8119b8cbac353bdf4d63b
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Fri Mar 26 12:51:26 2021 -0600
-
-    Passed checkAccusation
-
-commit 094ce0d57f157d63ccfae40d39e704ff9e95b099
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Fri Mar 26 12:49:48 2021 -0600
-
-    Created checkAccusation and failed the test
+    Created the panels
