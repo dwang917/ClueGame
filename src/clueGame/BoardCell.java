@@ -56,7 +56,7 @@ public class BoardCell {
 		if (doorDirection != null) {
 			if (doorDirection == DoorDirection.UP) {
 				doorX = col * width;
-				doorY = row * height - 2;
+				doorY = row * height - 3;
 			} else if (doorDirection == DoorDirection.DOWN) {
 				doorX = col * width;
 				doorY = (row + 1) * height;
@@ -64,14 +64,14 @@ public class BoardCell {
 				doorX = (col + 1) * width;
 				doorY = row * height;
 			} else if (doorDirection == DoorDirection.LEFT) {
-				doorX = col * width - 2;
+				doorX = col * width - 3;
 				doorY = row * height;
 			}
 			//check the orientation of the doorways
 			if (doorDirection == DoorDirection.RIGHT || doorDirection == DoorDirection.LEFT) {
-				g.fillRect(doorX, doorY, 2, height);
+				g.fillRect(doorX, doorY, 3, height);
 			} else {
-				g.fillRect(doorX, doorY, width, 2);
+				g.fillRect(doorX, doorY, width, 3);
 			}
 		}
 	}

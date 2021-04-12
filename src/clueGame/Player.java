@@ -33,10 +33,6 @@ public abstract class Player {
 		card.setColor(coler);
 		notSeenCards.remove(notSeenCards.indexOf(card));
 	}
-
-	public void updateHand(Card card) {
-
-	}
 	
 	public Card disproveSuggestion(Solution s) {
 		ArrayList<Card> match = new ArrayList<Card>();
