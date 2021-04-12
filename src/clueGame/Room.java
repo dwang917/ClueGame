@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 
@@ -19,6 +20,7 @@ public class Room {
 		super();
 	}
 	public void drawRoomName(Graphics g) {
+		g.setColor(Color.BLUE);
 		if(!(name.equals("Walkway") && !(name.equals("Unused"))))
 			g.drawString(name, labelCell.getCol() * size, labelCell.getRow() * size);
 	}
