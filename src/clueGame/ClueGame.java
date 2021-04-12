@@ -9,6 +9,7 @@ public class ClueGame extends JFrame{
 	
 	public ClueGame() {
 		board = Board.getInstance();
+	
 		GameControlPanel controlPanel = new GameControlPanel();
 		KnownCardsPanel cardsPanel = new KnownCardsPanel();
 		setSize(720, 750);

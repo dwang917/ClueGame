@@ -67,6 +67,39 @@ public class BoardCell {
 		g.fillRect(x, y, size, size);
 	}
 	
+	public void drawDoorway(Graphics g) {
+		int doorX = 0, doorY = 0;
+		g.setColor(Color.BLUE);
+		if(doorDirection != null) {
+			if(doorDirection == DoorDirection.UP) {
+				doorX = col * size;
+				doorY = (row)*size-2;
+			}
+			else if(doorDirection == DoorDirection.DOWN) {
+				doorX = col * size;
+				doorY = (row+1)*size;
+			}
+			else if(doorDirection == DoorDirection.RIGHT) {
+				doorX = (col + 1) * size;
+				doorY = row * size;
+			}
+			else if(doorDirection == DoorDirection.LEFT) {
+				doorX = (col) * size - 2;
+				doorY = row *size;
+			}
+			
+			if(doorDirection == DoorDirection.RIGHT || doorDirection == DoorDirection.LEFT) {
+				g.drawRect(doorX, doorY, 2, size);
+				g.fillRect(doorX, doorY, 2, size);
+			}
+			else {
+				g.drawRect(doorX, doorY, size, 2);
+				g.fillRect(doorX, doorY, size, 2);
+			}
+			
+				
+		}
+	}
 	
 	public void addAdj(BoardCell adj) {
 		adjList.add(adj);

@@ -47,6 +47,12 @@ public class Board extends JPanel{
 			}
 		}
 		
+		for(BoardCell[] two_cell: grid) {
+			for(BoardCell cell: two_cell) { //get each cell
+				cell.drawDoorway(g);
+			}
+		}
+		
 		//draw labels
 		for(Map.Entry<Character, Room> entry: roomMap.entrySet()) { //get each room
 			if(entry.getKey() != 'W' && entry.getKey() != 'X') {
