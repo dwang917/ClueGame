@@ -52,10 +52,11 @@ public class BoardCell {
 	public void drawDoorway(Graphics g, int height, int width) {
 		int doorX = 0, doorY = 0;
 		g.setColor(Color.BLUE);
+		//if current cell is a doorway, then calculate the rectangle location
 		if (doorDirection != null) {
 			if (doorDirection == DoorDirection.UP) {
 				doorX = col * width;
-				doorY = (row) * height - 2;
+				doorY = row * height - 2;
 			} else if (doorDirection == DoorDirection.DOWN) {
 				doorX = col * width;
 				doorY = (row + 1) * height;
@@ -63,10 +64,10 @@ public class BoardCell {
 				doorX = (col + 1) * width;
 				doorY = row * height;
 			} else if (doorDirection == DoorDirection.LEFT) {
-				doorX = (col) * width - 2;
+				doorX = col * width - 2;
 				doorY = row * height;
 			}
-			
+			//check the orientation of the doorways
 			if (doorDirection == DoorDirection.RIGHT || doorDirection == DoorDirection.LEFT) {
 				g.fillRect(doorX, doorY, 2, height);
 			} else {

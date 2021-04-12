@@ -10,17 +10,14 @@ public class ClueGame extends JFrame{
 	public ClueGame() {
 		board = Board.getInstance();
 	
+		setTitle("Clue Game");
 		GameControlPanel controlPanel = new GameControlPanel();
 		KnownCardsPanel cardsPanel = new KnownCardsPanel();
 		setSize(800, 750);
+		//adding the components
 		add(board, BorderLayout.CENTER);
 		add(controlPanel, BorderLayout.SOUTH);
 		add(cardsPanel, BorderLayout.EAST);
-		repaint();
-	}
-		
-	public void updateDrawing(int dx, int dy) {
-		//board.translate(dx,dy);
 	}
 	
 	public static void main(String[] args) {
@@ -30,7 +27,6 @@ public class ClueGame extends JFrame{
 		ClueGame game = new ClueGame();
 		game.setVisible(true);
 		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		game.updateDrawing(100, 100);
 	}
 
 }

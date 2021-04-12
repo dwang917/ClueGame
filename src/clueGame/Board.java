@@ -48,20 +48,19 @@ public class Board extends JPanel {
 				cell.drawCell(g, height, width);
 			}
 		}
-
+		//draw doorways
 		for (BoardCell[] two_cell : grid) {
 			for (BoardCell cell : two_cell) { // get each cell
 				cell.drawDoorway(g, height, width);
 			}
 		}
-
 		// draw labels
 		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) { // get each room
 			if (entry.getKey() != 'W' && entry.getKey() != 'X') {
 				entry.getValue().drawRoomName(g, height, width);
 			}
 		}
-
+		// draw players
 		for (Player p : players) {
 			p.draw(g, height, width);
 		}
