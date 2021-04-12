@@ -235,7 +235,7 @@ public class Board extends JPanel{
 					throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
 				}
 
-				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0), 20, 0);
+				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0), 25, 0);
 				// if the cell has two letters, calls the specialCell method to identify and
 				// handle it.
 				if (cellLetters.length() == 2) {

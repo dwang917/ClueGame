@@ -9,8 +9,13 @@ public class ClueGame extends JFrame{
 	
 	public ClueGame() {
 		board = Board.getInstance();
+		GameControlPanel controlPanel = new GameControlPanel();
+		KnownCardsPanel cardsPanel = new KnownCardsPanel();
 		setSize(720, 750);
 		add(board, BorderLayout.CENTER);
+		add(controlPanel, BorderLayout.SOUTH);
+		add(cardsPanel, BorderLayout.EAST);
+		
 	}
 		
 	public void updateDrawing(int dx, int dy) {
