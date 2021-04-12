@@ -25,7 +25,6 @@ public class BoardCell {
 	private int x,y = 0;
 	
 	
-	
 	public BoardCell(int row, int col, char ini){
 		super();
 		this.row = row;
@@ -92,6 +91,10 @@ public class BoardCell {
 		return secretPassage;
 	}
 	
+	public int getSize() {
+		return size;
+	}
+	
 	public boolean isDoorway() {
 		if(doorDirection != null)
 			return true;
@@ -128,25 +131,36 @@ public class BoardCell {
 	}
 
 	//This method identifies special cells and modifies their properties accordingly
-	public void specialCell(char c, Map<Character, Room> roomMap) throws BadConfigFormatException {
+	public void specialCell(char c, Map<Character, Room> roomMap, BoardCell cell) throws BadConfigFormatException {
+		Room updateRoom = new Room();
 		if(c == '<' || c == '>' || c == 'v'|| c == '^') {
-			this.setDirection(c);
+			setDirection(c);
+			
 		}
 		else if(c == '#') {
-			this.setLabel(true);
+			roomLabel = true;
 			//sets the room's label cell to the caller cell
-			roomMap.get(this.getInitial()).setLabelCell(this);
+			//roomMap.get(this.getInitial()).setLabelCell(cell);
+			updateRoom = roomMap.get(this.initial);
+			updateRoom.setLabelCell(cell);
+
+			roomMap.put(this.initial,updateRoom) ;
 		}
 		else if(c == '*') {
-			this.setRoomCenter(true);
+			//this.setRoomCenter(true);
+			roomCenter = true;
 			//sets the room's center cell to the caller cell
-			roomMap.get(this.getInitial()).setCenterCell(this);
+			//roomMap.get(this.getInitial()).setCenterCell(cell);
+			updateRoom = roomMap.get(this.initial);
+			updateRoom.setCenterCell(cell);
+			
+			roomMap.put(this.initial,updateRoom) ;
 		}
 		else if(roomMap.get(c) == null){
 			throw new BadConfigFormatException("The second letter does not represent any room in the setup file");
 		}
 		else {
-			this.setSPassage(c);
+			setSPassage(c);
 		}
 	}
 

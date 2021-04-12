@@ -41,9 +41,19 @@ public class Board extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
+		//draw cells
 		for(BoardCell[] two_cell: grid) {
 			for(BoardCell cell: two_cell) {
 				cell.drawCell(g);
+			}
+		}
+		
+		//draw labels
+		for(Map.Entry<Character, Room> entry: roomMap.entrySet()) {
+			if(entry.getKey() != 'W' && entry.getKey() != 'X') {
+				System.out.println(entry.getKey() + " " + entry.getValue().getName() + " "+ entry.getValue().getLabelCell().getRow() + " " + entry.getValue().getLabelCell().getCol());
+				entry.getValue().drawRoomName(g);
 			}
 		}
 	}
@@ -229,7 +239,8 @@ public class Board extends JPanel{
 				// if the cell has two letters, calls the specialCell method to identify and
 				// handle it.
 				if (cellLetters.length() == 2) {
-					grid[row][col].specialCell(cellLetters.charAt(1), roomMap);
+					grid[row][col].specialCell(cellLetters.charAt(1), roomMap, grid[row][col]);
+					
 				}
 			}
 		}
