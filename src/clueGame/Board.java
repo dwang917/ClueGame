@@ -35,24 +35,21 @@ public class Board extends JPanel{
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
-	
-	protected int x, y;
-	protected int dx, dy;
-	
+
+	//draw board
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		//draw cells
 		for(BoardCell[] two_cell: grid) {
-			for(BoardCell cell: two_cell) {
+			for(BoardCell cell: two_cell) { //get each cell
 				cell.drawCell(g);
 			}
 		}
 		
 		//draw labels
-		for(Map.Entry<Character, Room> entry: roomMap.entrySet()) {
+		for(Map.Entry<Character, Room> entry: roomMap.entrySet()) { //get each room
 			if(entry.getKey() != 'W' && entry.getKey() != 'X') {
-				System.out.println(entry.getKey() + " " + entry.getValue().getName() + " "+ entry.getValue().getLabelCell().getRow() + " " + entry.getValue().getLabelCell().getCol());
 				entry.getValue().drawRoomName(g);
 			}
 		}
@@ -60,8 +57,6 @@ public class Board extends JPanel{
 	
  	private Board() {
 		super();
-		x = 0;
-		y = 0;
 	}
 
 	public static Board getInstance() {

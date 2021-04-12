@@ -19,6 +19,8 @@ public class Room {
 		// TODO Auto-generated constructor stub
 		super();
 	}
+	
+	//draw each room label
 	public void drawRoomName(Graphics g) {
 		g.setColor(Color.BLUE);
 		if(!(name.equals("Walkway") && !(name.equals("Unused"))))

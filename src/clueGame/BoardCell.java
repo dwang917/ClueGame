@@ -20,9 +20,8 @@ public class BoardCell {
 	private char secretPassage = ' '; //if cell is connected to a secret passage, save initial of other room
 	private boolean occupied; //true if a player is in the cell, false if not
 	Set<BoardCell> adjList; //set to hold all adjacent cells of the current cell
-	private int size;
-	private int offset;
-	private int x,y = 0;
+	private int size; //length of each side of square
+	private int x,y = 0; //coordinates of each cell
 	
 	
 	public BoardCell(int row, int col, char ini){
@@ -43,7 +42,6 @@ public class BoardCell {
 		this.secretPassage = ' ';
 		this.adjList = new HashSet <BoardCell>();
 		this.size = size;
-		this.offset = offset;
 		x = col * this.size;
 		y = row * this.size;
 	}
@@ -58,12 +56,14 @@ public class BoardCell {
 			//g.setColor(Color.GRAY);
 		}
 		
+		//draw rectangle
 		g.drawRect(x, y, size, size);
 		
+		//set color to fill walkway
 		if(initial == 'W') {
 			g.setColor(Color.YELLOW);
 		}
-		
+		//fill cells
 		g.fillRect(x, y, size, size);
 	}
 	
