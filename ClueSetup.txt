@@ -11,10 +11,10 @@ Room, Guest Bedroom, G
 // other spaces on board
 Space, Unused, X
 Space, Walkway, W
-SpongeBob, yellow, Human, 23, 9
+SpongeBob, red, Human, 22, 9
 Patrick, pink, Comuter, 14, 5
 Squidward, green, Computer, 13, 16
-Sandy, gray, Computer, 2, 7
+Sandy, blue, Computer, 2, 7
 Mr.Krabs, cyan, Computer, 17, 15
 Plankton, orange, Computer, 22, 13
 // Weapons

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 //import experiment.TestBoardCell;
 
-public class Board extends JPanel{
+public class Board extends JPanel {
 
 	private BoardCell[][] grid; // holds the board and each cell
 	private int numRows; // total rows on board
@@ -36,32 +36,38 @@ public class Board extends JPanel{
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
 
-	//draw board
+	// draw board
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		//draw cells
-		for(BoardCell[] two_cell: grid) {
-			for(BoardCell cell: two_cell) { //get each cell
-				cell.drawCell(g);
+
+		int height = getHeight() / numRows;
+		int width = getWidth() / numCols;
+		// draw cells
+		for (BoardCell[] two_cell : grid) {
+			for (BoardCell cell : two_cell) { // get each cell
+				cell.drawCell(g, height, width);
 			}
 		}
-		
-		for(BoardCell[] two_cell: grid) {
-			for(BoardCell cell: two_cell) { //get each cell
-				cell.drawDoorway(g);
+
+		for (BoardCell[] two_cell : grid) {
+			for (BoardCell cell : two_cell) { // get each cell
+				cell.drawDoorway(g, height, width);
 			}
 		}
-		
-		//draw labels
-		for(Map.Entry<Character, Room> entry: roomMap.entrySet()) { //get each room
-			if(entry.getKey() != 'W' && entry.getKey() != 'X') {
-				entry.getValue().drawRoomName(g);
+
+		// draw labels
+		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) { // get each room
+			if (entry.getKey() != 'W' && entry.getKey() != 'X') {
+				entry.getValue().drawRoomName(g, height, width);
 			}
+		}
+
+		for (Player p : players) {
+			p.draw(g, height, width);
 		}
 	}
-	
- 	private Board() {
+
+	private Board() {
 		super();
 	}
 
@@ -172,8 +178,8 @@ public class Board extends JPanel{
 		{
 			Color color = null;
 			switch (thisLine[1]) {
-			case "yellow":
-				color = Color.yellow;
+			case "red":
+				color = Color.red;
 				break;
 			case "pink":
 				color = Color.pink;
@@ -184,8 +190,8 @@ public class Board extends JPanel{
 			case "cyan":
 				color = Color.cyan;
 				break;
-			case "gray":
-				color = Color.LIGHT_GRAY;
+			case "blue":
+				color = Color.blue;
 				break;
 			case "orange":
 				color = Color.orange;
@@ -236,12 +242,12 @@ public class Board extends JPanel{
 					throw new BadConfigFormatException("board layout refers to a room that is not in your setup file");
 				}
 
-				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0), 25, 0);
+				grid[row][col] = new BoardCell(row, col, cellLetters.charAt(0));
 				// if the cell has two letters, calls the specialCell method to identify and
 				// handle it.
 				if (cellLetters.length() == 2) {
 					grid[row][col].specialCell(cellLetters.charAt(1), roomMap, grid[row][col]);
-					
+
 				}
 			}
 		}
@@ -402,7 +408,6 @@ public class Board extends JPanel{
 		}
 		return null;
 	}
-	
 
 	public void setConfigFiles(String string, String string2) {
 		this.layoutConfigFile = string;

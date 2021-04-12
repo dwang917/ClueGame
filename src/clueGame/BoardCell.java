@@ -7,100 +7,74 @@ import java.util.Map;
 import java.util.Set;
 
 public class BoardCell {
-	
+
 	/*
 	 * BoardCell class with setters and getters and helper methods
 	 */
-	private int row; //specific cell row in the board
-	private int col; //specific cell column in the board
-	private char initial; //initial of the cell
-	private DoorDirection doorDirection = null; //if the cell has a door, saves the direction
-	private boolean roomLabel = false; //true if cell is the label of room
-	private boolean roomCenter = false; //true if cell is the center of room
-	private char secretPassage = ' '; //if cell is connected to a secret passage, save initial of other room
-	private boolean occupied; //true if a player is in the cell, false if not
-	Set<BoardCell> adjList; //set to hold all adjacent cells of the current cell
-	private int size; //length of each side of square
-	private int x,y = 0; //coordinates of each cell
-	
-	
-	public BoardCell(int row, int col, char ini){
+	private int row; // specific cell row in the board
+	private int col; // specific cell column in the board
+	private char initial; // initial of the cell
+	private DoorDirection doorDirection = null; // if the cell has a door, saves the direction
+	private boolean roomLabel = false; // true if cell is the label of room
+	private boolean roomCenter = false; // true if cell is the center of room
+	private char secretPassage = ' '; // if cell is connected to a secret passage, save initial of other room
+	private boolean occupied; // true if a player is in the cell, false if not
+	Set<BoardCell> adjList; // set to hold all adjacent cells of the current cell
+
+	public BoardCell(int row, int col, char ini) {
 		super();
 		this.row = row;
 		this.col = col;
 		this.initial = ini;
 		this.secretPassage = ' ';
-		this.adjList = new HashSet <BoardCell>();
+		this.adjList = new HashSet<BoardCell>();
 	}
-	
-	
-	public BoardCell(int row, int col, char ini, int size, int offset){
-		super();
-		this.row = row;
-		this.col = col;
-		this.initial = ini;
-		this.secretPassage = ' ';
-		this.adjList = new HashSet <BoardCell>();
-		this.size = size;
-		x = col * this.size;
-		y = row * this.size;
-	}
-	
-	public void drawCell(Graphics g) {
-		if(initial == 'W' || initial == 'X') {
+
+	public void drawCell(Graphics g, int height, int width) {
+		if (initial == 'W' || initial == 'X') {
 			g.setColor(Color.BLACK);
-			//g.setColor(Color.YELLOW);
-		}
-		else {
+		} else {
 			g.setColor(Color.GRAY);
-			//g.setColor(Color.GRAY);
 		}
-		
-		//draw rectangle
-		g.drawRect(x, y, size, size);
-		
-		//set color to fill walkway
-		if(initial == 'W') {
+
+		// draw rectangle
+		g.drawRect(col * width, row * height, width, height);
+
+		// set color to fill walkway
+		if (initial == 'W') {
 			g.setColor(Color.YELLOW);
 		}
-		//fill cells
-		g.fillRect(x, y, size, size);
+		// fill cells
+		g.fillRect(col * width, row * height, width, height);
 	}
-	
-	public void drawDoorway(Graphics g) {
+
+	//draw the doorway rectangle on boardcells
+	public void drawDoorway(Graphics g, int height, int width) {
 		int doorX = 0, doorY = 0;
 		g.setColor(Color.BLUE);
-		if(doorDirection != null) {
-			if(doorDirection == DoorDirection.UP) {
-				doorX = col * size;
-				doorY = (row)*size-2;
-			}
-			else if(doorDirection == DoorDirection.DOWN) {
-				doorX = col * size;
-				doorY = (row+1)*size;
-			}
-			else if(doorDirection == DoorDirection.RIGHT) {
-				doorX = (col + 1) * size;
-				doorY = row * size;
-			}
-			else if(doorDirection == DoorDirection.LEFT) {
-				doorX = (col) * size - 2;
-				doorY = row *size;
+		if (doorDirection != null) {
+			if (doorDirection == DoorDirection.UP) {
+				doorX = col * width;
+				doorY = (row) * height - 2;
+			} else if (doorDirection == DoorDirection.DOWN) {
+				doorX = col * width;
+				doorY = (row + 1) * height;
+			} else if (doorDirection == DoorDirection.RIGHT) {
+				doorX = (col + 1) * width;
+				doorY = row * height;
+			} else if (doorDirection == DoorDirection.LEFT) {
+				doorX = (col) * width - 2;
+				doorY = row * height;
 			}
 			
-			if(doorDirection == DoorDirection.RIGHT || doorDirection == DoorDirection.LEFT) {
-				g.drawRect(doorX, doorY, 2, size);
-				g.fillRect(doorX, doorY, 2, size);
+			if (doorDirection == DoorDirection.RIGHT || doorDirection == DoorDirection.LEFT) {
+				g.fillRect(doorX, doorY, 2, height);
+			} else {
+				g.fillRect(doorX, doorY, width, 2);
 			}
-			else {
-				g.drawRect(doorX, doorY, size, 2);
-				g.fillRect(doorX, doorY, size, 2);
-			}
-			
-				
 		}
 	}
-	
+
 	public void addAdj(BoardCell adj) {
 		adjList.add(adj);
 	}
@@ -108,6 +82,7 @@ public class BoardCell {
 	public void setRoomCenter(boolean b) {
 		roomCenter = b;
 	}
+
 	public boolean isRoomCenter() {
 		return roomCenter;
 	}
@@ -115,7 +90,7 @@ public class BoardCell {
 	public void setLabel(boolean b) {
 		roomLabel = b;
 	}
-	
+
 	public boolean isLabel() {
 		return roomLabel;
 	}
@@ -123,13 +98,9 @@ public class BoardCell {
 	public char getSecretPassage() {
 		return secretPassage;
 	}
-	
-	public int getSize() {
-		return size;
-	}
-	
+
 	public boolean isDoorway() {
-		if(doorDirection != null)
+		if (doorDirection != null)
 			return true;
 		return false;
 	}
@@ -137,76 +108,72 @@ public class BoardCell {
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}
-	
+
 	public void setSPassage(char c) {
 		this.secretPassage = c;
 	}
-	
+
 	public void setInitial(char charAt) {
-		 this.initial = charAt;
+		this.initial = charAt;
 	}
-	
+
 	public char getInitial() {
 		return initial;
 	}
-	
-	//Set the direction of doorway
+
+	// Set the direction of doorway
 	public void setDirection(char charAt) {
-		if(charAt == '<')
+		if (charAt == '<')
 			doorDirection = DoorDirection.LEFT;
-		if(charAt == '>')
+		if (charAt == '>')
 			doorDirection = DoorDirection.RIGHT;
-		if(charAt == '^')
+		if (charAt == '^')
 			doorDirection = DoorDirection.UP;
-		if(charAt == 'v')
+		if (charAt == 'v')
 			doorDirection = DoorDirection.DOWN;
-		
+
 	}
 
-	//This method identifies special cells and modifies their properties accordingly
+	// This method identifies special cells and modifies their properties
+	// accordingly
 	public void specialCell(char c, Map<Character, Room> roomMap, BoardCell cell) throws BadConfigFormatException {
 		Room updateRoom = new Room();
-		if(c == '<' || c == '>' || c == 'v'|| c == '^') {
+		if (c == '<' || c == '>' || c == 'v' || c == '^') {
 			setDirection(c);
-			
-		}
-		else if(c == '#') {
+
+		} else if (c == '#') {
 			roomLabel = true;
-			//sets the room's label cell to the caller cell
-			//roomMap.get(this.getInitial()).setLabelCell(cell);
+			// sets the room's label cell to the caller cell
+			// roomMap.get(this.getInitial()).setLabelCell(cell);
 			updateRoom = roomMap.get(this.initial);
 			updateRoom.setLabelCell(cell);
 
-			roomMap.put(this.initial,updateRoom) ;
-		}
-		else if(c == '*') {
-			//this.setRoomCenter(true);
+			roomMap.put(this.initial, updateRoom);
+		} else if (c == '*') {
+			// this.setRoomCenter(true);
 			roomCenter = true;
-			//sets the room's center cell to the caller cell
-			//roomMap.get(this.getInitial()).setCenterCell(cell);
+			// sets the room's center cell to the caller cell
+			// roomMap.get(this.getInitial()).setCenterCell(cell);
 			updateRoom = roomMap.get(this.initial);
 			updateRoom.setCenterCell(cell);
-			
-			roomMap.put(this.initial,updateRoom) ;
-		}
-		else if(roomMap.get(c) == null){
+
+			roomMap.put(this.initial, updateRoom);
+		} else if (roomMap.get(c) == null) {
 			throw new BadConfigFormatException("The second letter does not represent any room in the setup file");
-		}
-		else {
+		} else {
 			setSPassage(c);
 		}
 	}
 
 	public void setOccupied(boolean b) {
-		// TODO Auto-generated method stub
 		occupied = b;
 	}
-	
+
 	public boolean isOccupied() {
 		return occupied;
 	}
-	
-	public Set <BoardCell>  getAdjList() {
+
+	public Set<BoardCell> getAdjList() {
 		return adjList;
 	}
 

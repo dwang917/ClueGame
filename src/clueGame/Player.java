@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public abstract class Player {
@@ -14,6 +15,10 @@ public abstract class Player {
 
 	private Card[] Accusation = new Card[3];
 
+	public void draw(Graphics g, int height, int width) {
+		g.setColor(coler);
+		g.fillOval(column*width, row*height, width - 1, height - 1);
+	}
 	
 	public Player(String name, Color coler, int row, int column) {
 		super();

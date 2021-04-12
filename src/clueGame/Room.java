@@ -9,7 +9,6 @@ public class Room {
 	private String name;
 	private BoardCell centerCell;
 	private BoardCell labelCell;
-	private int size;
 	
 	public Room(String name) {
 		super();
@@ -21,10 +20,10 @@ public class Room {
 	}
 	
 	//draw each room label
-	public void drawRoomName(Graphics g) {
+	public void drawRoomName(Graphics g, int height, int width) {
 		g.setColor(Color.BLUE);
 		if(!(name.equals("Walkway") && !(name.equals("Unused"))))
-			g.drawString(name, labelCell.getCol() * size, labelCell.getRow() * size);
+			g.drawString(name, labelCell.getCol() * width, labelCell.getRow() * height);
 	}
 	
 	public String getName() {
@@ -41,7 +40,6 @@ public class Room {
 	
 	public void setCenterCell(BoardCell cell) {
 		centerCell = cell;
-		size = centerCell.getSize();
 	}
 	public void setLabelCell(BoardCell cell) {
 		labelCell = cell;

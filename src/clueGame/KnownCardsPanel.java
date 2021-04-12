@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -29,6 +30,7 @@ public class KnownCardsPanel extends JPanel {
 		add(peoplePanel);
 		add(roomPanel);
 		add(weaponPanel);
+		setPreferredSize(new Dimension(150, 700)); 
 	}
 
 	//Create panels for people, rooms and weapons
