@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ClueGame extends JFrame{
 	private Board board;
@@ -27,6 +28,8 @@ public class ClueGame extends JFrame{
 		ClueGame game = new ClueGame();
 		game.setVisible(true);
 		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		JOptionPane.showMessageDialog(game, "You are " + b.getHumanPlayer().getName() + 
+				".\n Can you find the solutions before the computer players?");
 	}
 
 }

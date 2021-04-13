@@ -1,67 +1,66 @@
-commit 3a0bc1eb2f8ddc6510cf8bea888ab4994b5579dc (HEAD -> main, origin/main, origin/HEAD)
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Apr 7 23:54:05 2021 -0600
-
-    refactored and commented
-
-commit 6796df440a306a28d46308c1288a91e62fecc44d
-Merge: 67eeb35 35f0aa7
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Apr 7 20:50:59 2021 -0600
-
-    Merge branch 'main' of https://github.com/dwang917/ClueGame
-
-commit 67eeb35e2afeff46457c93cab84218647895dd8e
+commit 7f42550d9f95eac89ff4011cbe6064355da7f5b3 (HEAD -> main, origin/main, origin/HEAD)
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Apr 7 20:50:32 2021 -0600
+Date:   Sun Apr 11 23:06:19 2021 -0600
+
+    refactored
+
+commit 79cb3323bbf10e5474a9e45d2274d25d5fddfb3c
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Sun Apr 11 23:02:54 2021 -0600
 
     Commented
 
-commit e6bb2764f9a332b377c825918190e0dfbb1908bc
-Merge: cee5e68 191f963
+commit bcdfd0e5a46cee594d08ca5209783f8964e2a319
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Apr 7 20:49:56 2021 -0600
+Date:   Sun Apr 11 22:50:41 2021 -0600
 
-    merged
+    Got everything working
 
-commit 35f0aa7cec1d45c1678a946ad775cb54cd6b9805
+commit 19c040008b51fab5e20e5384d53621a07720e939
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Apr 7 20:46:52 2021 -0600
+Date:   Sun Apr 11 20:57:48 2021 -0600
 
-    Change button background colors
+    add doorway
 
-commit cee5e68b40d6b85c8f4f35213dfe1ccb1c092e1a
+commit 73c8ea69479df7084c560b638c3c0fe9ef53bf39
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Apr 7 20:44:01 2021 -0600
+Date:   Sun Apr 11 19:12:23 2021 -0600
 
-    Seen cards displayed properly
+    comments added for creating board and room label gui
 
-commit 191f9638ec213d0d34d347a5498d409b1e513b9a
+commit 535b5b26bc9e06aa616d5b46586378b23c37de2c
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Apr 7 20:42:27 2021 -0600
+Date:   Sun Apr 11 19:06:38 2021 -0600
 
-    GameControlPanel Working
+    fix size of board
 
-commit a199418465f93bda80b52c7c2adebc6f9d934ef3
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Apr 7 20:40:28 2021 -0600
-
-    GameControlPanel Created
-
-commit 4fe5151b006d722d4cae04e20237932f18722c5e
+commit 9117ebb67e2add3e6de969870a321c56f89fa670
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Apr 7 20:34:36 2021 -0600
+Date:   Sun Apr 11 18:55:57 2021 -0600
 
-    Panels works well
+    room name labels complete
 
-commit 726ce6a5e21642aa88b416d60e3c26df94546e44
+commit b8476650c2cb2ec9a814b74ae817b125c5e66b74
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Apr 7 18:26:41 2021 -0600
+Date:   Sun Apr 11 18:52:30 2021 -0600
 
-    Created constructor and main
+    fix setting label room and center room in room map
 
-commit 9ee247a48b5dc53934ad1210e926279f79b77d48
+commit 8fd7ff646006c3886cd0d9066f042d5d7507ce7f
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Sun Apr 11 16:54:29 2021 -0600
+
+    fill board squares
+
+commit 45f613af4cee507957692aa443422cf30164d330
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Tue Apr 6 16:56:57 2021 -0600
+Date:   Sun Apr 11 16:51:33 2021 -0600
 
-    Created the panels
+    draw board outline
+
+commit f1d009d854f08059af65f02017f671b3910d3817
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Sat Apr 10 20:03:03 2021 -0600
+
+    Created ClueGame class
+
