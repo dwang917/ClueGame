@@ -28,6 +28,10 @@ public abstract class Player {
 		this.column = column;
 	}
 	
+	public void move(Board b) {
+		b.highlight(row, column, (int)(Math.random()*6+1));
+	}
+	
 	public void addHand(Card card) {
 		hand.add(card);
 		card.setColor(coler);

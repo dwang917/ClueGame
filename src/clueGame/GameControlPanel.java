@@ -3,6 +3,8 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -51,6 +53,7 @@ public class GameControlPanel extends JPanel {
 		accuseButton.setBackground(Color.blue);
 		accuseButton.setOpaque(true);
 		JButton nextButton = new JButton("NEXT!");
+		nextButton.addActionListener(new ButtonListener());
 		nextButton.setBackground(Color.blue);
 		nextButton.setOpaque(true);
 
@@ -63,6 +66,15 @@ public class GameControlPanel extends JPanel {
 		
 		//add the top panel to the housing panel
 		add(top);
+		
+	}
+	
+	private class ButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("hehe");
+		}
 		
 	}
 	

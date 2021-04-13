@@ -65,6 +65,10 @@ public class Board extends JPanel {
 			p.draw(g, height, width);
 		}
 	}
+	
+	public void mouseClicked() {
+		
+	}
 
 	private Board() {
 		super();
@@ -449,8 +453,8 @@ public class Board extends JPanel {
 		return players;
 	}
 
-	public Player getHumanPlayer() {
-		return players.get(0);
+	public HumanPlayer getHumanPlayer() {
+		return (HumanPlayer) players.get(0);
 	}
 
 	public Solution getSolution() {
@@ -459,6 +463,15 @@ public class Board extends JPanel {
 
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
+	}
+
+	public void highlight(int row, int col, int i) {
+		BoardCell cell = grid[row][col];
+		calcTargets(cell, i);
+		for(BoardCell c: targets) {
+			c.setTargetFlag(true);
+		}
+		repaint();
 	}
 
 }

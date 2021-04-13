@@ -20,6 +20,7 @@ public class BoardCell {
 	private char secretPassage = ' '; // if cell is connected to a secret passage, save initial of other room
 	private boolean occupied; // true if a player is in the cell, false if not
 	Set<BoardCell> adjList; // set to hold all adjacent cells of the current cell
+	boolean targetFlag = false;
 
 	public BoardCell(int row, int col, char ini) {
 		super();
@@ -28,6 +29,19 @@ public class BoardCell {
 		this.initial = ini;
 		this.secretPassage = ' ';
 		this.adjList = new HashSet<BoardCell>();
+	}
+	
+	public void drawHighlight(Graphics g, int height, int width) {
+		g.setColor(Color.magenta);
+		g.fillRect(col * width, row * height, width, height);
+	}
+
+	public boolean isTargetFlag() {
+		return targetFlag;
+	}
+
+	public void setTargetFlag(boolean targetFlag) {
+		this.targetFlag = targetFlag;
 	}
 
 	public void drawCell(Graphics g, int height, int width) {
@@ -46,6 +60,11 @@ public class BoardCell {
 		}
 		// fill cells
 		g.fillRect(col * width, row * height, width, height);
+		
+		if(targetFlag) {
+			g.setColor(Color.MAGENTA);
+			g.fillRect(col * width, row * height, width, height);
+		}
 	}
 
 	//draw the doorway rectangle on boardcells
