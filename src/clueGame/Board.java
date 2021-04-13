@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -32,16 +34,19 @@ public class Board extends JPanel {
 	public static final int PLAYER_LINE_LENGTH = 5;
 	public static final int PLAYER_NUM = 6;
 	public static final int ROOM_NUM = 9;
+	private int height;
+	private int width;
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
+	private BoardCell whichTarget;
 
 	// draw board
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		int height = getHeight() / numRows;
-		int width = getWidth() / numCols;
+		height = getHeight() / numRows;
+		width = getWidth() / numCols;
 		// draw cells
 		for (BoardCell[] two_cell : grid) {
 			for (BoardCell cell : two_cell) { // get each cell
@@ -66,8 +71,28 @@ public class Board extends JPanel {
 		}
 	}
 	
-	public void mouseClicked() {
+	private class TargetListener implements MouseListener{	
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
 		
+		BoardCell whichTarget = null;
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			for(BoardCell c : targets) {
+				if(c.containsClick(e.getX(), e.getY(), height, width)) {
+					whichTarget = c;
+					break;
+				}
+			}
+			if(whichTarget == null) {
+				System.out.println("Not a target");
+			}
+			else {
+				System.out.println("hehe");
+			}
+		}
 	}
 
 	private Board() {
@@ -97,6 +122,7 @@ public class Board extends JPanel {
 				setAdj(grid[row][col]); // fill adjacent set
 			}
 		}
+		addMouseListener(new TargetListener());
 	}
 
 	// loads the setup file and creates room map. Also throws

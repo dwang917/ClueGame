@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -31,9 +33,9 @@ public class BoardCell {
 		this.adjList = new HashSet<BoardCell>();
 	}
 	
-	public void drawHighlight(Graphics g, int height, int width) {
-		g.setColor(Color.magenta);
-		g.fillRect(col * width, row * height, width, height);
+	public boolean containsClick(int mouseX, int mouseY, int width, int height) {
+		Rectangle rect= new Rectangle(col * width, row * height, width, height);
+		return(rect.contains(new Point(mouseX, mouseY)));
 	}
 
 	public boolean isTargetFlag() {
