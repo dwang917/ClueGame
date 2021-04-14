@@ -39,6 +39,7 @@ public class Board extends JPanel {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
 	private BoardCell whichTarget;
+	private static int currentPlayer = 0;
 
 	// draw board
 	public void paintComponent(Graphics g) {
@@ -95,7 +96,11 @@ public class Board extends JPanel {
 				System.out.println("Not a target");
 			}
 			else {
-				System.out.println("hehe");
+				players.get(currentPlayer).setRow(whichTarget.getRow());
+				players.get(currentPlayer).setColumn(whichTarget.getCol());
+				players.get(currentPlayer).draw(getGraphics(), size);
+				repaint();
+				currentPlayer++;
 				whichTarget = null;
 			}
 		}
