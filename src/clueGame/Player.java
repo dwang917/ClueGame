@@ -15,9 +15,9 @@ public abstract class Player {
 
 	private Card[] Accusation = new Card[3];
 
-	public void draw(Graphics g, int height, int width) {
+	public void draw(Graphics g, int size) {
 		g.setColor(coler);
-		g.fillOval(column*width, row*height, width - 1, height - 1);
+		g.fillOval(column*size, row*size, size - 1, size - 1);
 	}
 	
 	public Player(String name, Color coler, int row, int column) {

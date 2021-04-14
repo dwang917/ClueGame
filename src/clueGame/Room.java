@@ -20,10 +20,10 @@ public class Room {
 	}
 	
 	//draw each room label
-	public void drawRoomName(Graphics g, int height, int width) {
+	public void drawRoomName(Graphics g, int size) {
 		g.setColor(Color.BLUE);
 		if(!(name.equals("Walkway") && !(name.equals("Unused"))))
-			g.drawString(name, labelCell.getCol() * width, labelCell.getRow() * height);
+			g.drawString(name, labelCell.getCol() * size, labelCell.getRow() * size);
 	}
 	
 	public String getName() {

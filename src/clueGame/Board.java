@@ -34,8 +34,7 @@ public class Board extends JPanel {
 	public static final int PLAYER_LINE_LENGTH = 5;
 	public static final int PLAYER_NUM = 6;
 	public static final int ROOM_NUM = 9;
-	private int height;
-	private int width;
+	private int size;
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
@@ -45,29 +44,35 @@ public class Board extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		height = getHeight() / numRows;
-		width = getWidth() / numCols;
+		int height = getHeight() / numRows;
+		int width = getWidth() / numCols;
+		if(height > width) {
+			size = width;
+		}
+		else {
+			size = height;
+		}
 		// draw cells
 		for (BoardCell[] two_cell : grid) {
 			for (BoardCell cell : two_cell) { // get each cell
-				cell.drawCell(g, height, width);
+				cell.drawCell(g, size);
 			}
 		}
 		//draw doorways
 		for (BoardCell[] two_cell : grid) {
 			for (BoardCell cell : two_cell) { // get each cell
-				cell.drawDoorway(g, height, width);
+				cell.drawDoorway(g, size);
 			}
 		}
 		// draw labels
 		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) { // get each room
 			if (entry.getKey() != 'W' && entry.getKey() != 'X') {
-				entry.getValue().drawRoomName(g, height, width);
+				entry.getValue().drawRoomName(g, size);
 			}
 		}
 		// draw players
 		for (Player p : players) {
-			p.draw(g, height, width);
+			p.draw(g, size);
 		}
 	}
 	
@@ -81,7 +86,7 @@ public class Board extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			for(BoardCell c : targets) {
-				if(c.containsClick(e.getX(), e.getY(), height, width)) {
+				if(c.containsClick(e.getX(), e.getY(), size)) {
 					whichTarget = c;
 					break;
 				}
@@ -91,6 +96,7 @@ public class Board extends JPanel {
 			}
 			else {
 				System.out.println("hehe");
+				whichTarget = null;
 			}
 		}
 	}

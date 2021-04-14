@@ -33,8 +33,8 @@ public class BoardCell {
 		this.adjList = new HashSet<BoardCell>();
 	}
 	
-	public boolean containsClick(int mouseX, int mouseY, int width, int height) {
-		Rectangle rect= new Rectangle(col * width, row * height, width, height);
+	public boolean containsClick(int mouseX, int mouseY, int size) {
+		Rectangle rect= new Rectangle(col * size, row * size, size, size);
 		return(rect.contains(new Point(mouseX, mouseY)));
 	}
 
@@ -46,7 +46,7 @@ public class BoardCell {
 		this.targetFlag = targetFlag;
 	}
 
-	public void drawCell(Graphics g, int height, int width) {
+	public void drawCell(Graphics g, int size) {
 		if (initial == 'W' || initial == 'X') {
 			g.setColor(Color.BLACK);
 		} else {
@@ -54,45 +54,45 @@ public class BoardCell {
 		}
 
 		// draw rectangle
-		g.drawRect(col * width, row * height, width, height);
+		g.drawRect(col * size, row * size, size, size);
 
 		// set color to fill walkway
 		if (initial == 'W') {
 			g.setColor(Color.YELLOW);
 		}
 		// fill cells
-		g.fillRect(col * width, row * height, width, height);
+		g.fillRect(col * size, row * size, size, size);
 		
 		if(targetFlag) {
 			g.setColor(Color.MAGENTA);
-			g.fillRect(col * width, row * height, width, height);
+			g.fillRect(col * size, row * size, size, size);
 		}
 	}
 
 	//draw the doorway rectangle on boardcells
-	public void drawDoorway(Graphics g, int height, int width) {
+	public void drawDoorway(Graphics g, int size) {
 		int doorX = 0, doorY = 0;
 		g.setColor(Color.BLUE);
 		//if current cell is a doorway, then calculate the rectangle location
 		if (doorDirection != null) {
 			if (doorDirection == DoorDirection.UP) {
-				doorX = col * width;
-				doorY = row * height - 3;
+				doorX = col * size;
+				doorY = row * size - 3;
 			} else if (doorDirection == DoorDirection.DOWN) {
-				doorX = col * width;
-				doorY = (row + 1) * height;
+				doorX = col * size;
+				doorY = (row + 1) * size;
 			} else if (doorDirection == DoorDirection.RIGHT) {
-				doorX = (col + 1) * width;
-				doorY = row * height;
+				doorX = (col + 1) * size;
+				doorY = row * size;
 			} else if (doorDirection == DoorDirection.LEFT) {
-				doorX = col * width - 3;
-				doorY = row * height;
+				doorX = col * size - 3;
+				doorY = row * size;
 			}
 			//check the orientation of the doorways
 			if (doorDirection == DoorDirection.RIGHT || doorDirection == DoorDirection.LEFT) {
-				g.fillRect(doorX, doorY, 3, height);
+				g.fillRect(doorX, doorY, 3, size);
 			} else {
-				g.fillRect(doorX, doorY, width, 3);
+				g.fillRect(doorX, doorY, size, 3);
 			}
 		}
 	}
