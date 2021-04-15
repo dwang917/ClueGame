@@ -48,10 +48,9 @@ public class Board extends JPanel {
 
 		int height = getHeight() / numRows;
 		int width = getWidth() / numCols;
-		if(height > width) {
+		if (height > width) {
 			size = width;
-		}
-		else {
+		} else {
 			size = height;
 		}
 		// draw cells
@@ -60,7 +59,7 @@ public class Board extends JPanel {
 				cell.drawCell(g, size);
 			}
 		}
-		//draw doorways
+		// draw doorways
 		for (BoardCell[] two_cell : grid) {
 			for (BoardCell cell : two_cell) { // get each cell
 				cell.drawDoorway(g, size);
@@ -77,30 +76,35 @@ public class Board extends JPanel {
 			p.draw(g, size);
 		}
 	}
-	
-	private class TargetListener implements MouseListener{	
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}
-		
+
+	private class TargetListener implements MouseListener {
+		public void mousePressed(MouseEvent e) {
+		}
+
+		public void mouseReleased(MouseEvent e) {
+		}
+
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		public void mouseExited(MouseEvent e) {
+		}
+
 		BoardCell whichTarget = null;
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			for(BoardCell c : targets) {
-				if(c.containsClick(e.getX(), e.getY(), size)) {
+			for (BoardCell c : targets) {
+				if (c.containsClick(e.getX(), e.getY(), size)) {
 					whichTarget = c;
 					break;
 				}
 			}
-			if(whichTarget == null) {
+			if (whichTarget == null) {
 				System.out.println("Not a target");
-			}
-			else {
-				players.get(currentPlayer).setRow(whichTarget.getRow());
-				players.get(currentPlayer).setColumn(whichTarget.getCol());
-				players.get(currentPlayer).draw(getGraphics(), size);
-				for(BoardCell c: targets) {
+			} else if (players.get(currentPlayer) instanceof HumanPlayer) {
+				moveAndDraw(whichTarget.getRow(), whichTarget.getCol());
+				for (BoardCell c : targets) {
 					c.setTargetFlag(false);
 				}
 				targets.clear();
@@ -110,17 +114,33 @@ public class Board extends JPanel {
 			}
 		}
 	}
-	
-	public void updatePlayer() {
-		currentPlayer = (currentPlayer+1)%PLAYER_NUM;
-		turnFinished = false;
+
+	private void moveAndDraw(int row, int col) {
+		int prevRow = players.get(currentPlayer).getRow();
+		int prevCol = players.get(currentPlayer).getColumn();
+		grid[prevRow][prevCol].setOccupied(false);
+		players.get(currentPlayer).setRow(row);
+		players.get(currentPlayer).setColumn(col);
+		players.get(currentPlayer).draw(getGraphics(), size);
+		grid[row][col].setOccupied(true);
 	}
 	
+	public void updatePlayer() {
+		currentPlayer = (currentPlayer + 1) % PLAYER_NUM;
+		turnFinished = false;
+	}
+
 	public void movePlayer(int roll) {
 		Player nowPlayer = players.get(currentPlayer);
-		
-		calcTargets(grid[nowPlayer.getRow()][nowPlayer.getColumn()], roll);
-		
+		if (nowPlayer instanceof HumanPlayer) {
+			highlight(nowPlayer.getRow(), nowPlayer.getColumn(), roll);
+		} else {
+			calcTargets(grid[nowPlayer.getRow()][nowPlayer.getColumn()], roll);
+			BoardCell targetSelected = ((ComputerPlayer) nowPlayer).selectTargets(targets);
+			moveAndDraw(targetSelected.getRow(), targetSelected.getCol());
+			turnFinished = true;
+			repaint();
+		}
 	}
 
 	private Board() {
@@ -526,12 +546,12 @@ public class Board extends JPanel {
 	public void highlight(int row, int col, int i) {
 		BoardCell cell = grid[row][col];
 		calcTargets(cell, i);
-		for(BoardCell c: targets) {
+		for (BoardCell c : targets) {
 			c.setTargetFlag(true);
 		}
 		repaint();
 	}
-	
+
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayer);
 	}
