@@ -41,7 +41,7 @@ public class Board extends JPanel {
 	private BoardCell whichTarget;
 	private static int currentPlayer = 0;
 	private boolean turnFinished = false;
-
+	private boolean humanMoved = false;
 	// draw board
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -101,6 +101,9 @@ public class Board extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			if(humanMoved) {
+				return;
+			}
 			for (BoardCell[] row : grid) {
 				for (BoardCell eachCell : row) {
 					if (eachCell.isTargetFlag()) {
@@ -126,6 +129,7 @@ public class Board extends JPanel {
 					}
 					targets.clear();
 					turnFinished = true;
+					humanMoved = true;
 					repaint();
 					whichTarget = null;
 				}
@@ -138,21 +142,14 @@ public class Board extends JPanel {
 		int prevRow = players.get(currentPlayer).getRow();
 		int prevCol = players.get(currentPlayer).getColumn();
 		grid[prevRow][prevCol].setOccupied(false);
-		players.get(currentPlayer).setRow(row);
-		players.get(currentPlayer).setColumn(col);
 		for(Player p : players) {
-			if(grid[row][col].isOccupied()) {
+			if(p.getRow()==row && p.getColumn()==col) {
 				players.get(currentPlayer).offsetIncrement();
 			}
 		}
+		players.get(currentPlayer).setRow(row);
+		players.get(currentPlayer).setColumn(col);
 		players.get(currentPlayer).draw(getGraphics(), size);
-		
-		//old cannot select occupied walkway
-		//if (grid[prevRow][prevCol].getInitial() == 'W') {
-		//	grid[row][col].setOccupied(true);
-		//}
-		
-		//cannot select occupied walkway 
 		if(grid[row][col].getInitial() == 'W') {
 			grid[row][col].setOccupied(true);
 		}
@@ -184,6 +181,7 @@ public class Board extends JPanel {
 	public void movePlayer(int roll) {
 		Player nowPlayer = players.get(currentPlayer);
 		if (nowPlayer instanceof HumanPlayer) {
+			humanMoved = false;
 			highlight(nowPlayer.getRow(), nowPlayer.getColumn(), roll);
 		} else {
 			calcTargets(grid[nowPlayer.getRow()][nowPlayer.getColumn()], roll);

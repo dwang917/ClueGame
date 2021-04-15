@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -108,7 +109,11 @@ public class BoardCell {
 			}
 			passageX = col * size;
 			passageY = row * size ;
-			g.fillRect(passageX, passageY, size/2, size/2);
+			g.fillRect(passageX, passageY, size, size);
+			Font font = new Font("Verdana",Font.PLAIN, 15);
+			g.setFont(font);
+			g.setColor(Color.black);
+			g.drawString(Character.toString(secretPassage), col* size, (row+1)* size);
 		}
 	}
 

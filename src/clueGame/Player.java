@@ -34,7 +34,7 @@ public abstract class Player {
 	}
 	
 	public void offsetIncrement() {
-		offset++;
+		offset+=6;
 	}
 	
 	public void addHand(Card card) {
