@@ -39,6 +39,7 @@ class ComputerAITest {
 		boolean inSeen = false;
 		 Set<BoardCell> targets = new HashSet<BoardCell>();
 		 ArrayList <Card> seen = new ArrayList<Card>(); 
+		 Set <BoardCell> visited = new HashSet <BoardCell>();
 		 targets.add(board.getRoom(('M')).getCenterCell());
 		 targets.add(board.getRoom(('R')).getCenterCell());
 		 targets.add(board.getRoom(('B')).getCenterCell());
@@ -46,7 +47,7 @@ class ComputerAITest {
 		 
 		 seen.add(new Card("Master Bedroom", CardType.ROOM));
 		 player.setSeenCards(seen);
-		 target = player.selectTargets(targets);
+		 target = player.selectTargets(targets, visited);
 		 
 		 for(Card thisCard: player.getnotSeenCards()) {
 			 if(thisCard.getType() == CardType.ROOM){

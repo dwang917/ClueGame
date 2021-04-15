@@ -46,7 +46,7 @@ public class ComputerPlayer extends Player {
 		return suggestion;
 	}
 	
-	public BoardCell selectTargets(Set<BoardCell> targets) {
+	public BoardCell selectTargets(Set<BoardCell> targets, Set <BoardCell> visited) {
 		int randomNum;
 		ArrayList <BoardCell> targetCells = new ArrayList <BoardCell>();
 		ArrayList <BoardCell> targetRooms = new ArrayList <BoardCell>();
@@ -69,7 +69,7 @@ public class ComputerPlayer extends Player {
 		
 		//add any room targets to a separate array list
 		for(BoardCell cell : targetCells) {
-			if(cell.getInitial() != 'W') {
+			if(cell.getInitial() != 'W' && !(visited.contains(cell))) {
 				targetRooms.add(cell);
 			}
 		}
