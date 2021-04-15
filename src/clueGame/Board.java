@@ -139,7 +139,14 @@ public class Board extends JPanel {
 			}
 		}
 		players.get(currentPlayer).draw(getGraphics(), size);
-		if (grid[prevRow][prevCol].getInitial() == 'W') {
+		
+		//old cannot select occupied walkway
+		//if (grid[prevRow][prevCol].getInitial() == 'W') {
+		//	grid[row][col].setOccupied(true);
+		//}
+		
+		//cannot select occupied walkway 
+		if(grid[row][col].getInitial() == 'W') {
 			grid[row][col].setOccupied(true);
 		}
 	}
