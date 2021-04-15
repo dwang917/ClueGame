@@ -10,12 +10,10 @@ public class ClueGame extends JFrame{
 	private GameControlPanel controlPanel;
 	private KnownCardsPanel cardsPanel;
 	boolean HumanTurnFinished;
-	private HumanPlayer human;
 	
 	
 	public ClueGame() {
 		board = Board.getInstance();
-		human = (HumanPlayer) board.getHumanPlayer();
 		setTitle("Clue Game");
 		controlPanel = new GameControlPanel(board);
 		cardsPanel = new KnownCardsPanel();
@@ -26,8 +24,8 @@ public class ClueGame extends JFrame{
 		add(cardsPanel, BorderLayout.EAST);
 	}
 	
-	public void startTurn() {
-		human.move(board);
+	public void start() {
+		controlPanel.startTurn();
 	}
 	
 	public static void main(String[] args) {
@@ -39,7 +37,7 @@ public class ClueGame extends JFrame{
 		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		JOptionPane.showMessageDialog(game, "You are " + b.getHumanPlayer().getName() + 
 				".\n Can you find the solutions before the computer players?");
-		game.startTurn();
+		game.start();
 		
 	}
 

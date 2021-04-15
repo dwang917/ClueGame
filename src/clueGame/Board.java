@@ -524,5 +524,9 @@ public class Board extends JPanel {
 		}
 		repaint();
 	}
+	
+	public Player getCurrentPlayer() {
+		return players.get(currentPlayer);
+	}
 
 }

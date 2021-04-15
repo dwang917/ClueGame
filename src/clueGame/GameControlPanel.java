@@ -20,7 +20,7 @@ public class GameControlPanel extends JPanel {
 	
 	//All JTextFields to create text
 	private JTextField Roll;
-	private JTextField turnText;
+	private JTextField turnText = new JTextField(20);
 	private JTextField guessText;
 	private JTextField resultText;
 	
@@ -29,12 +29,15 @@ public class GameControlPanel extends JPanel {
 	private JPanel turnPanel;
 	private JPanel guessPanel;
 	private JPanel resultPanel;
+	private HumanPlayer human;
+	private int roll;
 	
 	private Board board;
 	
 	
 	public GameControlPanel(Board board) {
 		this.board = board;
+		human = board.getHumanPlayer();
 		//set up panel that houses all the panels
 		setLayout(new GridLayout(2,0));
 		
@@ -53,6 +56,21 @@ public class GameControlPanel extends JPanel {
 		lowerPanel();
 	}
 	
+	public void startTurn() {
+		roll = dieRoll();
+		setTurn(human, roll);
+		human.move(board, roll);
+	}
+	
+	private void nextTurn() {
+		roll = dieRoll();
+		setTurn(board.getCurrentPlayer(), roll);
+		
+	}
+
+	public int dieRoll() {
+		return((int)(Math.random()*board.PLAYER_NUM+1));
+	}
 	
 	//create top panel that holds panels for player turn, roll, and buttons
 	private void createUperPanel() {
@@ -89,6 +107,7 @@ public class GameControlPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(board.isTurnFinished()) {
 				board.updatePlayer();
+				nextTurn();
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Please finish your turn first.");
@@ -146,7 +165,6 @@ public class GameControlPanel extends JPanel {
 		
 		//create label
 		JLabel turnLabel = new JLabel("Whose turn?");
-		turnText = new JTextField(board.getPlayers().get(0).getName());
 		
 		//add label and text to panel
 		turnPanel.add(turnLabel, BorderLayout.CENTER);
@@ -167,7 +185,7 @@ public class GameControlPanel extends JPanel {
 	
 	
 	
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		GameControlPanel panel = new GameControlPanel();
 		
 		JFrame frame = new JFrame();
@@ -180,7 +198,7 @@ public class GameControlPanel extends JPanel {
 		panel.setTurn(new ComputerPlayer( "Col. Mustard", Color.orange, 0,0), 5);
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
-	}
+	}*/
 
 	private void setGuessResult(String string) {
 		// TODO Auto-generated method stub
@@ -192,10 +210,9 @@ public class GameControlPanel extends JPanel {
 		guessText.setText(string);
 	}
 
-	private void setTurn(ComputerPlayer computerPlayer, int i) {
-		// TODO Auto-generated method stub
-		turnText.setText(computerPlayer.getName());
-		turnText.setSelectionColor(computerPlayer.getColer());
+	private void setTurn(Player Player, int i) {
+		turnText.setText(Player.getName());
+		turnText.setSelectionColor(Player.getColer());
 		String roll = "";
 		roll+=i;
 		Roll.setText(roll);
