@@ -96,6 +96,21 @@ public class BoardCell {
 			}
 		}
 	}
+	
+	public void drawSPassage(Graphics g, int size) {
+		int passageX = 0, passageY = 0;
+		if(secretPassage != ' ') {
+			if(secretPassage == 'K' || secretPassage == 'M') {
+				g.setColor(Color.white);
+			}
+			else if(secretPassage == 'S' || secretPassage == 'O') {
+				g.setColor(Color.CYAN);
+			}
+			passageX = col * size;
+			passageY = row * size ;
+			g.fillRect(passageX, passageY, size/2, size/2);
+		}
+	}
 
 	public void addAdj(BoardCell adj) {
 		adjList.add(adj);

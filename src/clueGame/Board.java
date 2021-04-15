@@ -65,6 +65,13 @@ public class Board extends JPanel {
 				cell.drawDoorway(g, size);
 			}
 		}
+		
+		//draw secret passage
+		for (BoardCell[] two_cell : grid) {
+			for (BoardCell cell : two_cell) { // get each cell
+				cell.drawSPassage(g, size);
+			}
+		}
 		// draw labels
 		for (Map.Entry<Character, Room> entry : roomMap.entrySet()) { // get each room
 			if (entry.getKey() != 'W' && entry.getKey() != 'X') {
