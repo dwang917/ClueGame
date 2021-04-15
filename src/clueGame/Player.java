@@ -12,16 +12,13 @@ public abstract class Player {
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	protected ArrayList<Card> seenCards = new ArrayList<Card>(); //arraylist to hold all the cards that the player has seen
 	protected ArrayList<Card> notSeenCards = new ArrayList<Card>();//arraylist to hold all the cards that the player has not seen
-	private int x;
-	private int y;
+	private int offset = 0;
 	
 	private Card[] Accusation = new Card[3];
 
 	public void draw(Graphics g, int size) {
-		x = column*size;
-		y = row*size;
 		g.setColor(coler);
-		g.fillOval(x, y, size - 1, size - 1);
+		g.fillOval(column*size + offset, row*size, size - 1, size - 1);
 	}
 	
 	public Player(String name, Color coler, int row, int column) {
@@ -32,11 +29,12 @@ public abstract class Player {
 		this.column = column;
 	}
 	
-	public void translate(Graphics g, int size, int overlap) {
-		x = column*size;
-		y = row*size;
-		g.setColor(coler);
-		g.fillOval(x+4*overlap, y, size - 1, size - 1);
+	public void resetOffset() {
+		offset = 0;
+	}
+	
+	public void offsetIncrement() {
+		offset++;
 	}
 	
 	public void addHand(Card card) {

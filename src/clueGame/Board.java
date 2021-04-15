@@ -127,23 +127,18 @@ public class Board extends JPanel {
 	}
 
 	private void moveAndDraw(int row, int col) {
-		int overlap = 0;
+		players.get(currentPlayer).resetOffset();
 		int prevRow = players.get(currentPlayer).getRow();
 		int prevCol = players.get(currentPlayer).getColumn();
 		grid[prevRow][prevCol].setOccupied(false);
 		players.get(currentPlayer).setRow(row);
 		players.get(currentPlayer).setColumn(col);
 		for(Player p : players) {
-			if(p.getRow() == row && p.getColumn() == col) {
-				overlap++;
+			if(grid[row][col].isOccupied()) {
+				players.get(currentPlayer).offsetIncrement();
 			}
 		}
-		if(overlap > 0) {
-			players.get(currentPlayer).translate(getGraphics(), size, overlap);
-		}
-		else {
-			players.get(currentPlayer).draw(getGraphics(), size);
-		}
+		players.get(currentPlayer).draw(getGraphics(), size);
 		if (grid[prevRow][prevCol].getInitial() == 'W') {
 			grid[row][col].setOccupied(true);
 		}
