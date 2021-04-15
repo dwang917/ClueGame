@@ -94,47 +94,69 @@ public class Board extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			for (BoardCell c : targets) {
-				if (c.containsClick(e.getX(), e.getY(), size)) {
-					whichTarget = c;
-					break;
+			for (BoardCell[] row : grid) {
+				for (BoardCell eachCell : row) {
+					if (eachCell.isTargetFlag()) {
+						if (eachCell.containsClick(e.getX(), e.getY(), size)) {
+							whichTarget = eachCell;
+							break;
+						}
+					}
 				}
 			}
 			if (whichTarget == null) {
 				System.out.println("Not a target");
 			} else if (players.get(currentPlayer) instanceof HumanPlayer) {
-				moveAndDraw(whichTarget.getRow(), whichTarget.getCol());
-				for (BoardCell c : targets) {
-					c.setTargetFlag(false);
+				if (whichTarget.getInitial()!='W') {
+					BoardCell centerCell = roomMap.get(whichTarget.getInitial()).getCenterCell();
+					moveAndDraw(centerCell.getRow(), centerCell.getCol());
+				} else {
+					moveAndDraw(whichTarget.getRow(), whichTarget.getCol());
 				}
-				targets.clear();
-				turnFinished = true;
-				repaint();
-				whichTarget = null;
+				for (BoardCell[] row : grid) {
+					for (BoardCell eachCell : row) {
+						eachCell.setTargetFlag(false);
+					}
+					targets.clear();
+					turnFinished = true;
+					repaint();
+					whichTarget = null;
+				}
 			}
 		}
 	}
 
 	private void moveAndDraw(int row, int col) {
+		int overlap = 0;
 		int prevRow = players.get(currentPlayer).getRow();
 		int prevCol = players.get(currentPlayer).getColumn();
 		grid[prevRow][prevCol].setOccupied(false);
 		players.get(currentPlayer).setRow(row);
 		players.get(currentPlayer).setColumn(col);
-		players.get(currentPlayer).draw(getGraphics(), size);
-		if(grid[prevRow][prevCol].getInitial() == 'W') {
+		for(Player p : players) {
+			if(p.getRow() == row && p.getColumn() == col) {
+				overlap++;
+			}
+		}
+		if(overlap > 0) {
+			players.get(currentPlayer).translate(getGraphics(), size, overlap);
+		}
+		else {
+			players.get(currentPlayer).draw(getGraphics(), size);
+		}
+		if (grid[prevRow][prevCol].getInitial() == 'W') {
 			grid[row][col].setOccupied(true);
 		}
 	}
-	
+
 	public void highlight(int row, int col, int i) {
 		BoardCell cell = grid[row][col];
 		calcTargets(cell, i);
 		for (BoardCell c : targets) {
-			if(c.isRoomCenter()) {
-				for(BoardCell[] rows : grid) {
-					for(BoardCell eachCell : rows) {
-						if (eachCell.getInitial() == c.getInitial()){
+			if (c.isRoomCenter()) {
+				for (BoardCell[] rows : grid) {
+					for (BoardCell eachCell : rows) {
+						if (eachCell.getInitial() == c.getInitial()) {
 							eachCell.setTargetFlag(true);
 						}
 					}
@@ -144,7 +166,7 @@ public class Board extends JPanel {
 		}
 		repaint();
 	}
-	
+
 	public void updatePlayer() {
 		currentPlayer = (currentPlayer + 1) % PLAYER_NUM;
 		turnFinished = false;
