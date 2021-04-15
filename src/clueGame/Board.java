@@ -122,7 +122,27 @@ public class Board extends JPanel {
 		players.get(currentPlayer).setRow(row);
 		players.get(currentPlayer).setColumn(col);
 		players.get(currentPlayer).draw(getGraphics(), size);
-		grid[row][col].setOccupied(true);
+		if(grid[prevRow][prevCol].getInitial() == 'W') {
+			grid[row][col].setOccupied(true);
+		}
+	}
+	
+	public void highlight(int row, int col, int i) {
+		BoardCell cell = grid[row][col];
+		calcTargets(cell, i);
+		for (BoardCell c : targets) {
+			if(c.isRoomCenter()) {
+				for(BoardCell[] rows : grid) {
+					for(BoardCell eachCell : rows) {
+						if (eachCell.getInitial() == c.getInitial()){
+							eachCell.setTargetFlag(true);
+						}
+					}
+				}
+			}
+			c.setTargetFlag(true);
+		}
+		repaint();
 	}
 	
 	public void updatePlayer() {
@@ -541,15 +561,6 @@ public class Board extends JPanel {
 
 	public boolean isTurnFinished() {
 		return turnFinished;
-	}
-
-	public void highlight(int row, int col, int i) {
-		BoardCell cell = grid[row][col];
-		calcTargets(cell, i);
-		for (BoardCell c : targets) {
-			c.setTargetFlag(true);
-		}
-		repaint();
 	}
 
 	public Player getCurrentPlayer() {
