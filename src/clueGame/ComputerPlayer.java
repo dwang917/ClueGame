@@ -48,6 +48,7 @@ public class ComputerPlayer extends Player {
 	
 	public BoardCell selectTargets(Set<BoardCell> targets) {
 		int randomNum;
+		ArrayList <BoardCell> targetCells = new ArrayList <BoardCell>();
 		ArrayList <BoardCell> targetRooms = new ArrayList <BoardCell>();
 		boolean inSeen = false;
 		
@@ -60,14 +61,27 @@ public class ComputerPlayer extends Player {
 					}
 				}
 				if(!inSeen) {
-					targetRooms.add(target);
+					targetCells.add(target);
 				}
 			}
 			inSeen = false;
 		}
 		
-		randomNum =  (int)(Math.random() * targetRooms.size());
-		return targetRooms.get(randomNum);
+		//add any room targets to a separate array list
+		for(BoardCell cell : targetCells) {
+			if(cell.getInitial() != 'W') {
+				targetRooms.add(cell);
+			}
+		}
+		
+		//if there are room options then the computer must chose a room, not a walkway
+		if(targetRooms.size() > 0) {
+			randomNum =  (int)(Math.random() * targetRooms.size());
+			return targetRooms.get(randomNum);
+		}
+		
+		randomNum =  (int)(Math.random() * targetCells.size());
+		return targetCells.get(randomNum);
 	}
 
 	public Solution createSuggestion(Card r, Card p, Card w) {
