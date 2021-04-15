@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -29,8 +30,21 @@ public class GameControlPanel extends JPanel {
 	private JPanel guessPanel;
 	private JPanel resultPanel;
 	
+	private Board board;
+	
+	
+	public GameControlPanel(Board board) {
+		this.board = board;
+		//set up panel that houses all the panels
+		setLayout(new GridLayout(2,0));
+		
+		//add panels
+		createUperPanel();
+		lowerPanel();
+	}
 	
 	public GameControlPanel() {
+		board.getInstance();
 		//set up panel that houses all the panels
 		setLayout(new GridLayout(2,0));
 		
@@ -53,7 +67,7 @@ public class GameControlPanel extends JPanel {
 		accuseButton.setBackground(Color.blue);
 		accuseButton.setOpaque(true);
 		JButton nextButton = new JButton("NEXT!");
-		nextButton.addActionListener(new ButtonListener());
+		nextButton.addActionListener(new NextListener());
 		nextButton.setBackground(Color.blue);
 		nextButton.setOpaque(true);
 
@@ -69,11 +83,16 @@ public class GameControlPanel extends JPanel {
 		
 	}
 	
-	private class ButtonListener implements ActionListener {
+	private class NextListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("hehe");
+			if(board.isTurnFinished()) {
+				board.updatePlayer();
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Please finish your turn first.");
+			}
 		}
 		
 	}
@@ -127,7 +146,7 @@ public class GameControlPanel extends JPanel {
 		
 		//create label
 		JLabel turnLabel = new JLabel("Whose turn?");
-		turnText = new JTextField(10);
+		turnText = new JTextField(board.getPlayers().get(0).getName());
 		
 		//add label and text to panel
 		turnPanel.add(turnLabel, BorderLayout.CENTER);
@@ -161,7 +180,6 @@ public class GameControlPanel extends JPanel {
 		panel.setTurn(new ComputerPlayer( "Col. Mustard", Color.orange, 0,0), 5);
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
-		
 	}
 
 	private void setGuessResult(String string) {

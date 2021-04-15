@@ -30,7 +30,7 @@ public class KnownCardsPanel extends JPanel {
 		add(peoplePanel);
 		add(roomPanel);
 		add(weaponPanel);
-		setPreferredSize(new Dimension(150, 700)); 
+		setPreferredSize(new Dimension(180, 700)); 
 	}
 
 	//Create panels for people, rooms and weapons

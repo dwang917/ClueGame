@@ -40,6 +40,7 @@ public class Board extends JPanel {
 	private Solution solution;
 	private BoardCell whichTarget;
 	private static int currentPlayer = 0;
+	private boolean turnFinished = false;
 
 	// draw board
 	public void paintComponent(Graphics g) {
@@ -99,8 +100,12 @@ public class Board extends JPanel {
 				players.get(currentPlayer).setRow(whichTarget.getRow());
 				players.get(currentPlayer).setColumn(whichTarget.getCol());
 				players.get(currentPlayer).draw(getGraphics(), size);
+				for(BoardCell c: targets) {
+					c.setTargetFlag(false);
+				}
+				targets.clear();
+				turnFinished = true;
 				repaint();
-				currentPlayer++;
 				whichTarget = null;
 			}
 		}
@@ -500,6 +505,15 @@ public class Board extends JPanel {
 
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
+	}
+	
+	public void updatePlayer() {
+		currentPlayer = (currentPlayer+1)%PLAYER_NUM;
+		turnFinished = false;
+	}
+
+	public boolean isTurnFinished() {
+		return turnFinished;
 	}
 
 	public void highlight(int row, int col, int i) {

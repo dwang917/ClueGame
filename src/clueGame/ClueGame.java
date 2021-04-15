@@ -17,7 +17,7 @@ public class ClueGame extends JFrame{
 		board = Board.getInstance();
 		human = (HumanPlayer) board.getHumanPlayer();
 		setTitle("Clue Game");
-		controlPanel = new GameControlPanel();
+		controlPanel = new GameControlPanel(board);
 		cardsPanel = new KnownCardsPanel();
 		setSize(800, 750);
 		//adding the components
