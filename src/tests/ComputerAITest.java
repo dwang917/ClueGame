@@ -46,8 +46,7 @@ class ComputerAITest {
 		 
 		 seen.add(new Card("Master Bedroom", CardType.ROOM));
 		 player.setSeenCards(seen);
-		 player.setTargets(targets);
-		 target = player.selectTargets();
+		 target = player.selectTargets(targets);
 		 
 		 for(Card thisCard: player.getnotSeenCards()) {
 			 if(thisCard.getType() == CardType.ROOM){

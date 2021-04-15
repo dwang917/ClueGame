@@ -65,6 +65,7 @@ public class GameControlPanel extends JPanel {
 	private void nextTurn() {
 		roll = dieRoll();
 		setTurn(board.getCurrentPlayer(), roll);
+		board.movePlayer(roll);
 		
 	}
 

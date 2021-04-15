@@ -28,9 +28,6 @@ public abstract class Player {
 		this.column = column;
 	}
 	
-	public void move(Board b, int roll) {
-		b.highlight(row, column, roll);
-	}
 	
 	public void addHand(Card card) {
 		hand.add(card);

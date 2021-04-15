@@ -8,5 +8,9 @@ public class HumanPlayer extends Player {
 		super(name, coler, row, column);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void move(Board b, int roll) {
+		b.highlight(row, column, roll);
+	}
 
 }

@@ -46,7 +46,7 @@ public class ComputerPlayer extends Player {
 		return suggestion;
 	}
 	
-	public BoardCell selectTargets() {
+	public BoardCell selectTargets(Set<BoardCell> targets) {
 		int randomNum;
 		ArrayList <BoardCell> targetRooms = new ArrayList <BoardCell>();
 		boolean inSeen = false;

@@ -110,6 +110,18 @@ public class Board extends JPanel {
 			}
 		}
 	}
+	
+	public void updatePlayer() {
+		currentPlayer = (currentPlayer+1)%PLAYER_NUM;
+		turnFinished = false;
+	}
+	
+	public void movePlayer(int roll) {
+		Player nowPlayer = players.get(currentPlayer);
+		
+		calcTargets(grid[nowPlayer.getRow()][nowPlayer.getColumn()], roll);
+		
+	}
 
 	private Board() {
 		super();
@@ -505,11 +517,6 @@ public class Board extends JPanel {
 
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
-	}
-	
-	public void updatePlayer() {
-		currentPlayer = (currentPlayer+1)%PLAYER_NUM;
-		turnFinished = false;
 	}
 
 	public boolean isTurnFinished() {
