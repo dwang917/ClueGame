@@ -28,7 +28,7 @@ public class Board extends JPanel {
 	private static Board theInstance = new Board(); // creates a new board
 	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
 	private Set<BoardCell> visited = new HashSet<BoardCell>(); // holds the visited list of the user
-	private Set<BoardCell> compVisited = new HashSet <BoardCell>();
+	//private Set<BoardCell> compVisited = new HashSet <BoardCell>();
 	public static final int SETUP_LINE_LENGTH = 3; // unchangeable number for how many words there are in each set up
 													// line
 	public static final int WEAPON_NUM = 6;
@@ -186,12 +186,7 @@ public class Board extends JPanel {
 			highlight(nowPlayer.getRow(), nowPlayer.getColumn(), roll);
 		} else {
 			calcTargets(grid[nowPlayer.getRow()][nowPlayer.getColumn()], roll);
-			BoardCell targetSelected = ((ComputerPlayer) nowPlayer).selectTargets(targets, compVisited);
-			
-			//keep track of rooms that the Computer Player has visited
-			if(targetSelected.getInitial() != 'W') {
-				compVisited.add(targetSelected);
-			}
+			BoardCell targetSelected = ((ComputerPlayer) nowPlayer).selectTargets(targets);
 			
 			moveAndDraw(targetSelected.getRow(), targetSelected.getCol());
 			turnFinished = true;

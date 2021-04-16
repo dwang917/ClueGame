@@ -10,6 +10,7 @@ public class ComputerPlayer extends Player {
 	
 	private Solution suggestion;
 	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
+	private Set <BoardCell> visited = new HashSet<BoardCell>();
 
 
 	public ComputerPlayer(String name, Color coler, int row, int column) {
@@ -46,8 +47,9 @@ public class ComputerPlayer extends Player {
 		return suggestion;
 	}
 	
-	public BoardCell selectTargets(Set<BoardCell> targets, Set <BoardCell> visited) {
+	public BoardCell selectTargets(Set<BoardCell> targets) {
 		int randomNum;
+		BoardCell chosenTarget;
 		ArrayList <BoardCell> targetCells = new ArrayList <BoardCell>();
 		ArrayList <BoardCell> targetRooms = new ArrayList <BoardCell>();
 		boolean inSeen = false;
@@ -77,7 +79,13 @@ public class ComputerPlayer extends Player {
 		//if there are room options then the computer must chose a room, not a walkway
 		if(targetRooms.size() > 0) {
 			randomNum =  (int)(Math.random() * targetRooms.size());
-			return targetRooms.get(randomNum);
+			chosenTarget = targetRooms.get(randomNum);
+			//keep track of rooms that the Computer Player has visited
+			if(chosenTarget.getInitial() != 'W') {
+				visited.add(chosenTarget);
+			}
+			
+			return chosenTarget;
 		}
 		
 		randomNum =  (int)(Math.random() * targetCells.size());
