@@ -33,10 +33,10 @@ public class BoardCell {
 		this.secretPassage = ' ';
 		this.adjList = new HashSet<BoardCell>();
 	}
-	
+
 	public boolean containsClick(int mouseX, int mouseY, int size) {
-		Rectangle rect= new Rectangle(col * size, row * size, size, size);
-		return(rect.contains(new Point(mouseX, mouseY)));
+		Rectangle rect = new Rectangle(col * size, row * size, size, size);
+		return (rect.contains(new Point(mouseX, mouseY)));
 	}
 
 	public boolean isTargetFlag() {
@@ -63,18 +63,18 @@ public class BoardCell {
 		}
 		// fill cells
 		g.fillRect(col * size, row * size, size, size);
-		
-		if(targetFlag) {
+		// If it's a target then highlight the cell
+		if (targetFlag) {
 			g.setColor(Color.MAGENTA);
 			g.fillRect(col * size, row * size, size, size);
 		}
 	}
 
-	//draw the doorway rectangle on boardcells
+	// draw the doorway rectangle on boardcells
 	public void drawDoorway(Graphics g, int size) {
 		int doorX = 0, doorY = 0;
 		g.setColor(Color.BLUE);
-		//if current cell is a doorway, then calculate the rectangle location
+		// if current cell is a doorway, then calculate the rectangle location
 		if (doorDirection != null) {
 			if (doorDirection == DoorDirection.UP) {
 				doorX = col * size;
@@ -89,7 +89,7 @@ public class BoardCell {
 				doorX = col * size - 3;
 				doorY = row * size;
 			}
-			//check the orientation of the doorways
+			// check the orientation of the doorways
 			if (doorDirection == DoorDirection.RIGHT || doorDirection == DoorDirection.LEFT) {
 				g.fillRect(doorX, doorY, 3, size);
 			} else {
@@ -97,23 +97,23 @@ public class BoardCell {
 			}
 		}
 	}
-	
+
 	public void drawSPassage(Graphics g, int size) {
-		int passageX = 0, passageY = 0;
-		if(secretPassage != ' ') {
-			if(secretPassage == 'K' || secretPassage == 'M') {
+		if (secretPassage != ' ') {
+			if (secretPassage == 'K' || secretPassage == 'M') {
 				g.setColor(Color.white);
-			}
-			else if(secretPassage == 'S' || secretPassage == 'O') {
+			} else if (secretPassage == 'S' || secretPassage == 'O') {
 				g.setColor(Color.CYAN);
 			}
-			passageX = col * size;
-			passageY = row * size ;
-			g.fillRect(passageX, passageY, size, size);
-			Font font = new Font("Verdana",Font.PLAIN, 15);
+			g.fillRect(col * size, row * size, size, size);
+			Font font = new Font("Verdana", Font.PLAIN, 15);
 			g.setFont(font);
 			g.setColor(Color.black);
-			g.drawString(Character.toString(secretPassage), col* size, (row+1)* size);
+			g.drawString(Character.toString(secretPassage), col * size, (row + 1) * size);
+		}
+		if (targetFlag) {
+			g.setColor(Color.MAGENTA);
+			g.fillRect(col * size, row * size, size, size);
 		}
 	}
 

@@ -10,17 +10,19 @@ public abstract class Player {
 	private Color coler;
 	protected int row, column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
-	protected ArrayList<Card> seenCards = new ArrayList<Card>(); //arraylist to hold all the cards that the player has seen
-	protected ArrayList<Card> notSeenCards = new ArrayList<Card>();//arraylist to hold all the cards that the player has not seen
+	protected ArrayList<Card> seenCards = new ArrayList<Card>(); // arraylist to hold all the cards that the player has
+																	// seen
+	protected ArrayList<Card> notSeenCards = new ArrayList<Card>();// arraylist to hold all the cards that the player
+																	// has not seen
 	private int offset = 0;
-	
+
 	private Card[] Accusation = new Card[3];
 
 	public void draw(Graphics g, int size) {
 		g.setColor(coler);
-		g.fillOval(column*size + offset, row*size, size - 1, size - 1);
+		g.fillOval(column * size + offset, row * size, size - 1, size - 1);
 	}
-	
+
 	public Player(String name, Color coler, int row, int column) {
 		super();
 		this.name = name;
@@ -28,47 +30,52 @@ public abstract class Player {
 		this.row = row;
 		this.column = column;
 	}
-	
+
 	public void resetOffset() {
 		offset = 0;
 	}
-	
-	public void offsetIncrement() {
-		offset+=6;
+
+	public int getOffset() {
+		return offset;
 	}
-	
+
+	// if multiple players in one room, shift the later players
+	public void offsetIncrement(int i) {
+		if ((i + 6) > offset) {
+			offset = i + 6;
+		}
+	}
+
 	public void addHand(Card card) {
 		hand.add(card);
 		card.setColor(coler);
 		notSeenCards.remove(notSeenCards.indexOf(card));
 	}
-	
+
 	public Card disproveSuggestion(Solution s) {
 		ArrayList<Card> match = new ArrayList<Card>();
-		for(Card card : hand) {
-			if(card.equals(s.getPerson()) || card.equals(s.getRoom()) || card.equals(s.getWeapon())) {
+		for (Card card : hand) {
+			if (card.equals(s.getPerson()) || card.equals(s.getRoom()) || card.equals(s.getWeapon())) {
 				match.add(card);
 			}
 		}
-		if(match.size() == 0) {
+		if (match.size() == 0) {
 			return null;
-		}
-		else if(match.size() == 1) {
+		} else if (match.size() == 1) {
 			return match.get(0);
-		}
-		else {
-			return match.get((int) (Math.random()*match.size()));
+		} else {
+			return match.get((int) (Math.random() * match.size()));
 		}
 	}
 
 	public ArrayList<Card> getSeenCards() {
 		return seenCards;
 	}
-	
-	public ArrayList<Card> getnotSeenCards(){
+
+	public ArrayList<Card> getnotSeenCards() {
 		return notSeenCards;
 	}
-	
+
 	public void addnotSeenCard(Card card) {
 		notSeenCards.add(card);
 	}
@@ -77,6 +84,7 @@ public abstract class Player {
 		seenCards.add(card);
 		notSeenCards.remove(notSeenCards.indexOf(card));
 	}
+
 	public void setSeenCards(ArrayList<Card> seenCards) {
 		this.seenCards = seenCards;
 	}
@@ -94,7 +102,7 @@ public abstract class Player {
 		Accusation[1] = r;
 		Accusation[2] = w;
 	}
-	
+
 	public int getRow() {
 		return row;
 	}
@@ -119,7 +127,6 @@ public abstract class Player {
 		this.name = name;
 	}
 
-
 	public Color getColer() {
 		return coler;
 	}
@@ -128,7 +135,7 @@ public abstract class Player {
 		this.coler = coler;
 	}
 
-	//for testing
+	// for testing
 	public ArrayList<Card> getHand() {
 		return hand;
 	}

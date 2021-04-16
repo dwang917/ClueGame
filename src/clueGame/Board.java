@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 //import experiment.TestBoardCell;
@@ -28,7 +29,7 @@ public class Board extends JPanel {
 	private static Board theInstance = new Board(); // creates a new board
 	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
 	private Set<BoardCell> visited = new HashSet<BoardCell>(); // holds the visited list of the user
-	//private Set<BoardCell> compVisited = new HashSet <BoardCell>();
+	// private Set<BoardCell> compVisited = new HashSet <BoardCell>();
 	public static final int SETUP_LINE_LENGTH = 3; // unchangeable number for how many words there are in each set up
 													// line
 	public static final int WEAPON_NUM = 6;
@@ -39,14 +40,14 @@ public class Board extends JPanel {
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
-	private BoardCell whichTarget;
-	private static int currentPlayer = 0;
+	private int currentPlayer = 0;
 	private boolean turnFinished = false;
 	private boolean humanMoved = false;
+
 	// draw board
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
+		// calculate the cell size
 		int height = getHeight() / numRows;
 		int width = getWidth() / numCols;
 		if (height > width) {
@@ -66,8 +67,7 @@ public class Board extends JPanel {
 				cell.drawDoorway(g, size);
 			}
 		}
-		
-		//draw secret passage
+		// draw secret passage
 		for (BoardCell[] two_cell : grid) {
 			for (BoardCell cell : two_cell) { // get each cell
 				cell.drawSPassage(g, size);
@@ -82,29 +82,25 @@ public class Board extends JPanel {
 		// draw players
 		for (Player p : players) {
 			p.draw(g, size);
+			grid[p.getRow()][p.getColumn()].setOccupied(true);
 		}
 	}
 
 	private class TargetListener implements MouseListener {
-		public void mousePressed(MouseEvent e) {
-		}
-
-		public void mouseReleased(MouseEvent e) {
-		}
-
-		public void mouseEntered(MouseEvent e) {
-		}
-
-		public void mouseExited(MouseEvent e) {
-		}
-
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		
 		BoardCell whichTarget = null;
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if(humanMoved) {
+			// if human has already moved, disable the mouse clicks on the grid
+			if (humanMoved) {
 				return;
 			}
+			// check if user clicks on any valid target
 			for (BoardCell[] row : grid) {
 				for (BoardCell eachCell : row) {
 					if (eachCell.isTargetFlag()) {
@@ -116,14 +112,16 @@ public class Board extends JPanel {
 				}
 			}
 			if (whichTarget == null) {
-				System.out.println("Not a target");
-			} else if (players.get(currentPlayer) instanceof HumanPlayer) {
-				if (whichTarget.getInitial()!='W') {
+				JOptionPane.showMessageDialog(null, "This is not a target");
+			} else {
+				// if a target is a room, only move the player to the center cell
+				if (whichTarget.getInitial() != 'W') {
 					BoardCell centerCell = roomMap.get(whichTarget.getInitial()).getCenterCell();
 					moveAndDraw(centerCell.getRow(), centerCell.getCol());
 				} else {
 					moveAndDraw(whichTarget.getRow(), whichTarget.getCol());
 				}
+				// finish the human turn
 				for (BoardCell[] row : grid) {
 					for (BoardCell eachCell : row) {
 						eachCell.setTargetFlag(false);
@@ -138,28 +136,44 @@ public class Board extends JPanel {
 		}
 	}
 
+	// move and draw the players
 	private void moveAndDraw(int row, int col) {
-		players.get(currentPlayer).resetOffset();
-		int prevRow = players.get(currentPlayer).getRow();
-		int prevCol = players.get(currentPlayer).getColumn();
+		Player currPlayer = players.get(currentPlayer);
+		// reset the offset to 0
+		currPlayer.resetOffset();
+		int prevRow = currPlayer.getRow();
+		int prevCol = currPlayer.getColumn();
+		// set previous cell unoccupied
 		grid[prevRow][prevCol].setOccupied(false);
-		for(Player p : players) {
-			if(p.getRow()==row && p.getColumn()==col) {
-				players.get(currentPlayer).offsetIncrement();
+		for (Player p : players) {
+			// if players overlap in a room, set an offset for the later player
+			if (p.getRow() == row && p.getColumn() == col) {
+				currPlayer.offsetIncrement(p.getOffset());
 			}
 		}
-		players.get(currentPlayer).setRow(row);
-		players.get(currentPlayer).setColumn(col);
-		players.get(currentPlayer).draw(getGraphics(), size);
-		if(grid[row][col].getInitial() == 'W') {
+		currPlayer.setRow(row);
+		currPlayer.setColumn(col);
+		currPlayer.draw(getGraphics(), size);
+		// set the destination walkway cell occupied
+		if (grid[row][col].getInitial() == 'W') {
 			grid[row][col].setOccupied(true);
 		}
 	}
 
-	public void highlight(int row, int col, int i) {
+	// highlight the target cells for the user
+	public void highlight(int row, int col, int roll) {
 		BoardCell cell = grid[row][col];
-		calcTargets(cell, i);
+		calcTargets(cell, roll);
+		// if there's no possible move, display the message and end the turn
+		if (targets.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "There's no possible move, click Next.");
+			turnFinished = true;
+			humanMoved = true;
+			return;
+		}
+		// set the highlight flag of target cells to true
 		for (BoardCell c : targets) {
+			// if a room is a target, highlight the whole room
 			if (c.isRoomCenter()) {
 				for (BoardCell[] rows : grid) {
 					for (BoardCell eachCell : rows) {
@@ -174,20 +188,28 @@ public class Board extends JPanel {
 		repaint();
 	}
 
+	// indicates a new turn
 	public void updatePlayer() {
 		currentPlayer = (currentPlayer + 1) % PLAYER_NUM;
 		turnFinished = false;
 	}
 
-	public void movePlayer(int roll) {
+	//
+	public void processTurn(int roll) {
 		Player nowPlayer = players.get(currentPlayer);
+		// if the player is human, highlight the cells
 		if (nowPlayer instanceof HumanPlayer) {
 			humanMoved = false;
 			highlight(nowPlayer.getRow(), nowPlayer.getColumn(), roll);
 		} else {
 			calcTargets(grid[nowPlayer.getRow()][nowPlayer.getColumn()], roll);
+			// if computer player doesn't have possible targets, end the turn
+			if (targets.isEmpty()) {
+				turnFinished = true;
+				return;
+			}
 			BoardCell targetSelected = ((ComputerPlayer) nowPlayer).selectTargets(targets);
-			
+
 			moveAndDraw(targetSelected.getRow(), targetSelected.getCol());
 			turnFinished = true;
 			repaint();
@@ -597,5 +619,4 @@ public class Board extends JPanel {
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayer);
 	}
-
 }
