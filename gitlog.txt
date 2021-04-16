@@ -1,66 +1,119 @@
-commit 7f42550d9f95eac89ff4011cbe6064355da7f5b3 (HEAD -> main, origin/main, origin/HEAD)
+commit 1e97e13e794e0fd1b88b258b414fb00cd79e5414 (HEAD -> main)
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Thu Apr 15 22:52:06 2021 -0600
+
+    Commented and refactored
+
+commit 05df1d697703d15f9cb4c187195e70cf0370a9ea (origin/main, origin/HEAD)
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Sun Apr 11 23:06:19 2021 -0600
+Date:   Thu Apr 15 18:36:21 2021 -0600
 
-    refactored
+    bug fixed: visited cells are now individual to players
 
-commit 79cb3323bbf10e5474a9e45d2274d25d5fddfb3c
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sun Apr 11 23:02:54 2021 -0600
-
-    Commented
-
-commit bcdfd0e5a46cee594d08ca5209783f8964e2a319
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sun Apr 11 22:50:41 2021 -0600
-
-    Got everything working
-
-commit 19c040008b51fab5e20e5384d53621a07720e939
+commit 68cfd93be62f9b6d4b42deaf5da9bcc23204269f
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Sun Apr 11 20:57:48 2021 -0600
+Date:   Thu Apr 15 17:54:08 2021 -0600
 
-    add doorway
+    Fix Bug: Computer player no longer just switches between connected rooms
 
-commit 73c8ea69479df7084c560b638c3c0fe9ef53bf39
+commit 84082c7194620cf55635f5a19b5af0b071ec8232
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sun Apr 11 19:12:23 2021 -0600
+Date:   Thu Apr 15 17:29:56 2021 -0600
 
-    comments added for creating board and room label gui
+    Added file
 
-commit 535b5b26bc9e06aa616d5b46586378b23c37de2c
+commit 70b4aed3c4a29c437f7d782b8e2add9a5d2fa7f8
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Thu Apr 15 17:29:05 2021 -0600
+
+    Disabled mouseclicked when the player has moved
+
+commit 7bf07512065923ca15c4752fbe162a66af464e96
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Thu Apr 15 15:25:03 2021 -0600
+
+    show secret passages with colored squares
+
+commit 3df1915185e35934096e75de029b6e8e8c64a972
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Sun Apr 11 19:06:38 2021 -0600
+Date:   Thu Apr 15 15:05:19 2021 -0600
 
-    fix size of board
+    fix bug: computer will always chose a room if it is a target
 
-commit 9117ebb67e2add3e6de969870a321c56f89fa670
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sun Apr 11 18:55:57 2021 -0600
-
-    room name labels complete
-
-commit b8476650c2cb2ec9a814b74ae817b125c5e66b74
+commit e4cef818fbfbd05d2f56d233a3669d061bd9a6e3
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Sun Apr 11 18:52:30 2021 -0600
+Date:   Thu Apr 15 14:38:35 2021 -0600
 
-    fix setting label room and center room in room map
+    bug fix: cannot select occupied walkway
 
-commit 8fd7ff646006c3886cd0d9066f042d5d7507ce7f
+commit a3693d963e66aae7c1968cfc359f13a886397050
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Thu Apr 15 12:31:39 2021 -0600
+
+    Fixed issues with overlaps
+
+commit 265d0d89a9ba4368912f13be77e4f38630daa1ad
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Sun Apr 11 16:54:29 2021 -0600
+Date:   Thu Apr 15 12:21:30 2021 -0600
 
-    fill board squares
+    Trying to set offset
 
-commit 45f613af4cee507957692aa443422cf30164d330
+commit de5f9a1e0e9311bb1b8181c36ca92b78256680d7
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sun Apr 11 16:51:33 2021 -0600
+Date:   Wed Apr 14 21:39:52 2021 -0600
 
-    draw board outline
+    Got the whole room to display color
 
-commit f1d009d854f08059af65f02017f671b3910d3817
+commit 48525efe3a89f6aebe3b8f1c6cada94e8ee90390
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Apr 14 21:05:37 2021 -0600
+
+    computer players now move
+
+commit 248032a8beedc33bb5020714c17dbfd7dd4040a8
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Apr 14 19:40:52 2021 -0600
+
+    Created dieRoll and nextTurn
+
+commit bfe3e50aa2d632f1280a602bf62b10db774ba7cc
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Sat Apr 10 20:03:03 2021 -0600
+Date:   Wed Apr 14 19:23:19 2021 -0600
 
-    Created ClueGame class
+    Control panel now displays the player and roll
 
+commit 8749f374cddaacfaeea8338b241a3a0809eb5d18
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Apr 14 18:08:13 2021 -0600
+
+    Added updatePlayer and error msg
+
+commit 78222b52fb5a562e683179f5cea723c3cdf31026
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Apr 14 17:27:44 2021 -0600
+
+    Added player movement on the board
+
+commit 810f600e4111ce59612466608b1c72b80a55e10e
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Wed Apr 14 14:47:19 2021 -0600
+
+    Fixed the grid size and clicking targets
+
+commit 10004ad7b61a2ed8d519968569454fed3267bce6
+Author: kdetienne <kelsey.detienne@mymail.mines.edu>
+Date:   Tue Apr 13 16:49:11 2021 -0600
+
+    Created mouse listener
+
+commit d585c5ace29d2d50c4afbcacbc834f07c24bf684
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Mon Apr 12 22:29:01 2021 -0600
+
+    Added ButtonListener and highlight
+
+commit 71e9812ca06b9ec9fa0eb6ddb95a7597045a8190
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Mon Apr 12 18:06:13 2021 -0600
+
+    Added the splash screen
