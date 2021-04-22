@@ -119,6 +119,14 @@ public class GameControlPanel extends JPanel {
 		}
 	}
 
+	
+	private class AccuseListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}
+	
 	private void lowerPanel() {
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new GridLayout(0, 2));
