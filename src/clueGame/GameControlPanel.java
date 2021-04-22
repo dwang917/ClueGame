@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +29,9 @@ public class GameControlPanel extends JPanel {
 	private JPanel turnPanel;
 	private JPanel guessPanel;
 	private JPanel resultPanel;
+	
+	JButton accuseButton;
+	
 	private HumanPlayer human;
 	private int rollValue;
 
@@ -84,9 +88,11 @@ public class GameControlPanel extends JPanel {
 		// Create panels and buttons in this panel
 		createRollPanel();
 		createTurnPanel();
-		JButton accuseButton = new JButton("Make Accusation");
+		
+		accuseButton = new JButton("Make Accusation");
 		accuseButton.setBackground(Color.blue);
 		accuseButton.setOpaque(true);
+		accuseButton.addActionListener(new AccuseListener());
 		JButton nextButton = new JButton("NEXT!");
 		nextButton.addActionListener(new NextListener());
 		nextButton.setBackground(Color.blue);
@@ -100,31 +106,6 @@ public class GameControlPanel extends JPanel {
 
 		// add the top panel to the housing panel
 		add(top);
-	}
-
-	private class NextListener implements ActionListener {
-
-		// if the current turn is finished, start the next turn
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (board.isTurnFinished()) {
-				board.updatePlayer();
-				nextTurn();
-			}
-			// when the user tries to click next without finishing the turn,
-			// display the splash screen
-			else {
-				JOptionPane.showMessageDialog(null, "Please finish your turn first.");
-			}
-		}
-	}
-
-	
-	private class AccuseListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-		}
 	}
 	
 	private void lowerPanel() {
@@ -181,6 +162,7 @@ public class GameControlPanel extends JPanel {
 	}
 
 	private void createRollPanel() {
+
 		rollPanel = new JPanel(); // set up roll panel
 		JLabel rollLabel = new JLabel("Roll"); // create label
 		Roll = new JTextField(10);
@@ -190,6 +172,42 @@ public class GameControlPanel extends JPanel {
 		rollPanel.add(Roll);
 	}
 
+	private void createAccusationPanel(JFrame frame) {
+		JComboBox<String> roomBox, personBox, weaponBox;
+		JTextField roomText, personText, weaponText;
+		JPanel accuse = new JPanel();
+		accuse.setLayout(new GridLayout(4,2));
+		
+		roomText = new JTextField("Room"); 
+		personText = new JTextField("Person"); 
+		weaponText = new JTextField("Weapon"); 
+		
+		roomBox = new JComboBox<String>();
+		personBox = new JComboBox<String>();
+		weaponBox = new JComboBox<String>();
+		
+		for(Card card: board.getDeck()) {
+			if(card.getType() == CardType.ROOM) {
+				roomBox.addItem(card.getName());
+			}
+			else if(card.getType() == CardType.PERSON) {
+				personBox.addItem(card.getName());
+			}
+			else if(card.getType() == CardType.WEAPON) {
+				weaponBox.addItem(card.getName());
+			}
+		}
+		
+		accuse.add(roomText);
+		accuse.add(roomBox);
+		accuse.add(personText);
+		accuse.add(personBox);
+		accuse.add(weaponText);
+		accuse.add(weaponBox);
+		
+		frame.add(accuse);
+	}
+	
 	private void setGuessResult(String string) {
 		resultText.setText(string);
 	}
@@ -219,4 +237,34 @@ public class GameControlPanel extends JPanel {
 	 * panel.setGuess( "I have no guess!"); panel.setGuessResult(
 	 * "So you have nothing?"); }
 	 */
+	
+	private class NextListener implements ActionListener {
+
+		// if the current turn is finished, start the next turn
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (board.isTurnFinished()) {
+				board.updatePlayer();
+				nextTurn();
+			}
+			// when the user tries to click next without finishing the turn,
+			// display the splash screen
+			else {
+				JOptionPane.showMessageDialog(null, "Please finish your turn first.");
+			}
+		}
+	}
+
+	
+	private class AccuseListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JFrame frame = new JFrame();
+			frame.setSize(200,300);
+			frame.setTitle("Accuse");
+			createAccusationPanel(frame);
+			frame.setVisible(true);
+			//JOptionPane.showConfirmDialog(paintingChild, aaHint);
+		}
+	}
 }
