@@ -294,7 +294,7 @@ public class GameControlPanel extends JPanel {
 				}
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Oh no! You're accusation was wrong! You lose!");
+				JOptionPane.showMessageDialog(null, "Oh no! Your accusation was wrong! You lose!");
 			}
 			System.exit(0);
 		}
