@@ -619,4 +619,5 @@ public class Board extends JPanel {
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayer);
 	}
+
 }

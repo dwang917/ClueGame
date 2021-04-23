@@ -3,16 +3,19 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
@@ -31,6 +34,10 @@ public class GameControlPanel extends JPanel {
 	private JPanel resultPanel;
 	
 	JButton accuseButton;
+	
+	// initialize accuse panel
+	JComboBox<String> roomBox, personBox, weaponBox;
+	JTextField roomText, personText, weaponText;
 	
 	private HumanPlayer human;
 	private int rollValue;
@@ -173,8 +180,8 @@ public class GameControlPanel extends JPanel {
 	}
 
 	private void createAccusationPanel(JFrame frame) {
-		JComboBox<String> roomBox, personBox, weaponBox;
-		JTextField roomText, personText, weaponText;
+		JButton submit, cancel;
+		
 		JPanel accuse = new JPanel();
 		accuse.setLayout(new GridLayout(4,2));
 		
@@ -198,12 +205,20 @@ public class GameControlPanel extends JPanel {
 			}
 		}
 		
+		submit = new JButton("Submit");
+		submit.addActionListener(new SubmitListener());
+		cancel = new JButton("Cancel");
+		cancel.addActionListener(new CancelListener());
+		
+		
 		accuse.add(roomText);
 		accuse.add(roomBox);
 		accuse.add(personText);
 		accuse.add(personBox);
 		accuse.add(weaponText);
 		accuse.add(weaponBox);
+		accuse.add(submit);
+		accuse.add(cancel);
 		
 		frame.add(accuse);
 	}
@@ -251,6 +266,7 @@ public class GameControlPanel extends JPanel {
 			// display the splash screen
 			else {
 				JOptionPane.showMessageDialog(null, "Please finish your turn first.");
+				
 			}
 		}
 	}
@@ -267,4 +283,29 @@ public class GameControlPanel extends JPanel {
 			//JOptionPane.showConfirmDialog(paintingChild, aaHint);
 		}
 	}
+	
+	private class SubmitListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if(roomBox.getSelectedItem().equals(board.getSolution().getRoom().getName())) {
+				if(personBox.getSelectedItem().equals(board.getSolution().getPerson().getName())) {
+					if(weaponBox.getSelectedItem().equals(board.getSolution().getWeapon().getName())) {
+						JOptionPane.showMessageDialog(null, "Congradulations! You won!");
+					}
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Oh no! You're accusation was wrong! You lose!");
+			}
+			System.exit(0);
+		}
+	}
+	
+	private class CancelListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			JComponent comp = (JComponent) e.getSource();
+			Window win = SwingUtilities.getWindowAncestor(comp);
+			win.dispose();
+		}
+	}
+
 }

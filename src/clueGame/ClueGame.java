@@ -29,6 +29,7 @@ public class ClueGame extends JFrame {
 	public void start() {
 		controlPanel.startTurn();
 	}
+	
 
 	
 	public static void main(String[] args) {
