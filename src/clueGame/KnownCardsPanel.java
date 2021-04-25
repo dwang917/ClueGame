@@ -24,9 +24,7 @@ public class KnownCardsPanel extends JPanel {
 		roomPanel = createPanel("Rooms");
 		weaponPanel = createPanel("Weapons");
 		//update the cards displayed in the panels
-		updatePanel(peoplePanel, CardType.PERSON);
-		updatePanel(roomPanel, CardType.ROOM);
-		updatePanel(weaponPanel, CardType.WEAPON);
+		update();
 		add(peoplePanel);
 		add(roomPanel);
 		add(weaponPanel);
@@ -40,13 +38,17 @@ public class KnownCardsPanel extends JPanel {
 		roomPanel = createPanel("Rooms");
 		weaponPanel = createPanel("Weapons");
 		//update the cards displayed in the panels
-		updatePanel(peoplePanel, CardType.PERSON);
-		updatePanel(roomPanel, CardType.ROOM);
-		updatePanel(weaponPanel, CardType.WEAPON);
+		update();
 		add(peoplePanel);
 		add(roomPanel);
 		add(weaponPanel);
 		setPreferredSize(new Dimension(180, 700)); 
+	}
+	
+	public void update() {
+		updatePanel(peoplePanel, CardType.PERSON);
+		updatePanel(roomPanel, CardType.ROOM);
+		updatePanel(weaponPanel, CardType.WEAPON);
 	}
 
 	//Create panels for people, rooms and weapons

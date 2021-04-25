@@ -167,7 +167,7 @@ public class Board extends JPanel {
 		currPlayer.draw(getGraphics(), size);
 		if(grid[row][col].isRoomCenter()) {
 			if(currPlayer instanceof HumanPlayer) {
-				createSuggestionPanel(currPlayer);
+				createSuggestionPanel(grid[row][col]);
 			}
 		}
 		// set the destination walkway cell occupied
@@ -176,9 +176,9 @@ public class Board extends JPanel {
 		}
 	}
 	
-	public void createSuggestionPanel(Player p) {
+	public void createSuggestionPanel(BoardCell cell) {
 		JFrame frame = new JFrame();
-		frame.setSize(200,300);
+		frame.setSize(300,300);
 		frame.setTitle("Suggest");
 		frame.setVisible(true);
 		
@@ -191,15 +191,12 @@ public class Board extends JPanel {
 		JTextField personText = new JTextField("Person"); 
 		JTextField weaponText = new JTextField("Weapon"); 
 		
-		JComboBox<String> roomBox = new JComboBox<String>();
+		JTextField roomBox = new JTextField(roomMap.get(cell.getInitial()).getName());
 		JComboBox<String> personBox = new JComboBox<String>();
 		JComboBox<String> weaponBox = new JComboBox<String>();
 		
-		for(Card card: p.getnotSeenCards()) {
-			if(card.getType() == CardType.ROOM) {
-				roomBox.addItem(card.getName());
-			}
-			else if(card.getType() == CardType.PERSON) {
+		for(Card card: deck) {
+			if(card.getType() == CardType.PERSON) {
 				personBox.addItem(card.getName());
 			}
 			else if(card.getType() == CardType.WEAPON) {
@@ -354,8 +351,9 @@ public class Board extends JPanel {
 				initial = thisLine[2].charAt(0);
 				Room newRoom = new Room(roomName);
 				roomMap.put(initial, newRoom);
-				if (!(thisLine[0].equals("Space")))
+				if (!(thisLine[0].equals("Space"))) {
 					deck.add(new Card(roomName, CardType.ROOM));
+				}
 			}
 			// If this line is player info, then create the corresponding player card and
 			// add that to the deck
@@ -369,6 +367,11 @@ public class Board extends JPanel {
 				for (int i = 0; i < WEAPON_NUM; i++) {
 					deck.add(new Card(thisLine[i], CardType.WEAPON));
 				}
+			}
+		}
+		for (Player thisPlayer : players) {
+			for (Card thisCard : deck) {
+				thisPlayer.addnotSeenCard(thisCard);
 			}
 		}
 		dealCards();
@@ -393,11 +396,7 @@ public class Board extends JPanel {
 		deckClone.remove(randWeapon);
 		deckClone.remove(randPlayer);
 		deckClone.remove(randRoom);
-		for (Player thisPlayer : players) {
-			for (Card thisCard : deckClone) {
-				thisPlayer.addnotSeenCard(thisCard);
-			}
-		}
+
 		// make sure each player gets roughly same number of cards
 		while (deckClone.size() != 0) {
 			int randInt = (int) (Math.random() * deckClone.size());
