@@ -2,6 +2,10 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
@@ -13,8 +17,15 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 
 //import experiment.TestBoardCell;
 
@@ -154,11 +165,86 @@ public class Board extends JPanel {
 		currPlayer.setRow(row);
 		currPlayer.setColumn(col);
 		currPlayer.draw(getGraphics(), size);
+		if(grid[row][col].isRoomCenter()) {
+			if(currPlayer instanceof HumanPlayer) {
+				createSuggestionPanel(currPlayer);
+			}
+		}
 		// set the destination walkway cell occupied
 		if (grid[row][col].getInitial() == 'W') {
 			grid[row][col].setOccupied(true);
 		}
 	}
+	
+	public void createSuggestionPanel(Player p) {
+		JFrame frame = new JFrame();
+		frame.setSize(200,300);
+		frame.setTitle("Suggest");
+		frame.setVisible(true);
+		
+		JButton submit, cancel;
+		
+		JPanel suggestion = new JPanel();
+		suggestion.setLayout(new GridLayout(4,2));
+		
+		JTextField roomText = new JTextField("Room"); 
+		JTextField personText = new JTextField("Person"); 
+		JTextField weaponText = new JTextField("Weapon"); 
+		
+		JComboBox<String> roomBox = new JComboBox<String>();
+		JComboBox<String> personBox = new JComboBox<String>();
+		JComboBox<String> weaponBox = new JComboBox<String>();
+		
+		for(Card card: p.getnotSeenCards()) {
+			if(card.getType() == CardType.ROOM) {
+				roomBox.addItem(card.getName());
+			}
+			else if(card.getType() == CardType.PERSON) {
+				personBox.addItem(card.getName());
+			}
+			else if(card.getType() == CardType.WEAPON) {
+				weaponBox.addItem(card.getName());
+			}
+		}
+		
+		class SubmitListener implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		}
+		
+		class CancelListener implements ActionListener{
+			public void actionPerformed(ActionEvent e) {
+				JComponent comp = (JComponent) e.getSource();
+				Window win = SwingUtilities.getWindowAncestor(comp);
+				win.dispose();
+			}
+		}
+		
+		submit = new JButton("Submit");
+		submit.addActionListener(new SubmitListener());
+		cancel = new JButton("Cancel");
+		cancel.addActionListener(new CancelListener());
+		
+		
+		suggestion.add(roomText);
+		suggestion.add(roomBox);
+		suggestion.add(personText);
+		suggestion.add(personBox);
+		suggestion.add(weaponText);
+		suggestion.add(weaponBox);
+		suggestion.add(submit);
+		suggestion.add(cancel);
+		
+		frame.add(suggestion);
+		
+	}
+	
+	
 
 	// highlight the target cells for the user
 	public void highlight(int row, int col, int roll) {

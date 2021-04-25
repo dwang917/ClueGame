@@ -17,6 +17,22 @@ public class KnownCardsPanel extends JPanel {
 	private JPanel peoplePanel, roomPanel, weaponPanel;
 	private Board board;
 
+	public KnownCardsPanel(Board b) {
+		board = b;
+		setLayout(new GridLayout(0, 1));
+		peoplePanel = createPanel("People");
+		roomPanel = createPanel("Rooms");
+		weaponPanel = createPanel("Weapons");
+		//update the cards displayed in the panels
+		updatePanel(peoplePanel, CardType.PERSON);
+		updatePanel(roomPanel, CardType.ROOM);
+		updatePanel(weaponPanel, CardType.WEAPON);
+		add(peoplePanel);
+		add(roomPanel);
+		add(weaponPanel);
+		setPreferredSize(new Dimension(180, 700)); 
+	}
+	
 	public KnownCardsPanel() {
 		board = Board.getInstance();
 		setLayout(new GridLayout(0, 1));
