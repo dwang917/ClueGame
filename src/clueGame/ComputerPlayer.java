@@ -7,7 +7,6 @@ import java.util.Set;
 
 public class ComputerPlayer extends Player {
 
-	private Solution suggestion;
 	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 

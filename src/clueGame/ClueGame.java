@@ -8,15 +8,15 @@ import javax.swing.JOptionPane;
 public class ClueGame extends JFrame {
 
 	private Board board;
-	private GameControlPanel controlPanel;
-	private KnownCardsPanel cardsPanel;
+	private static GameControlPanel controlPanel;
+	private static KnownCardsPanel cardsPanel;
 
 	
 	public ClueGame() {
 		board = Board.getInstance();
 		setTitle("Clue Game");
-		controlPanel = new GameControlPanel(board);
 		cardsPanel = new KnownCardsPanel(board);
+		controlPanel = new GameControlPanel(board, cardsPanel);
 		setSize(800, 750);
 		// adding the components
 		add(board, BorderLayout.CENTER);
@@ -28,6 +28,11 @@ public class ClueGame extends JFrame {
 	// start the game
 	public void start() {
 		controlPanel.startTurn();
+	}
+	
+	public static void updatePanels() {
+		controlPanel.update();
+		cardsPanel.update();
 	}
 	
 

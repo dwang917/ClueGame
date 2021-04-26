@@ -3,14 +3,17 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Player {
 
+	protected Solution suggestion;
 	private String name;
 	private Color coler;
 	protected int row, column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
-	protected ArrayList<Card> seenCards = new ArrayList<Card>(); // arraylist to hold all the cards that the player has
+	protected Set<Card> seenCards = new HashSet<Card>(); // arraylist to hold all the cards that the player has
 																	// seen
 	protected ArrayList<Card> notSeenCards = new ArrayList<Card>();// arraylist to hold all the cards that the player
 																	// has not seen
@@ -68,7 +71,7 @@ public abstract class Player {
 		}
 	}
 
-	public ArrayList<Card> getSeenCards() {
+	public Set<Card> getSeenCards() {
 		return seenCards;
 	}
 
@@ -85,7 +88,7 @@ public abstract class Player {
 		notSeenCards.remove(notSeenCards.indexOf(card));
 	}
 
-	public void setSeenCards(ArrayList<Card> seenCards) {
+	public void setSeenCards(Set<Card> seenCards) {
 		this.seenCards = seenCards;
 	}
 

@@ -32,6 +32,7 @@ public class GameControlPanel extends JPanel {
 	private JPanel turnPanel;
 	private JPanel guessPanel;
 	private JPanel resultPanel;
+	private KnownCardsPanel cardsPanel;
 	
 	JButton accuseButton;
 	
@@ -44,7 +45,8 @@ public class GameControlPanel extends JPanel {
 
 	private Board board;
 
-	public GameControlPanel(Board board) {
+	public GameControlPanel(Board board, KnownCardsPanel cardsPanel) {
+		this.cardsPanel = cardsPanel; 
 		this.board = board;
 		human = board.getHumanPlayer();
 		// set up panel that houses all the panels
@@ -69,7 +71,7 @@ public class GameControlPanel extends JPanel {
 	public void startTurn() {
 		rollValue = dieRoll();
 		// update the control panel
-		setTurn(human, rollValue);
+		update();
 		human.start(board, rollValue);
 	}
 
@@ -77,7 +79,7 @@ public class GameControlPanel extends JPanel {
 	private void nextTurn() {
 		rollValue = dieRoll();
 		// update the panel
-		setTurn(board.getCurrentPlayer(), rollValue);
+		update();
 		board.processTurn(rollValue);
 	}
 
@@ -167,6 +169,8 @@ public class GameControlPanel extends JPanel {
 		turnPanel.add(turnText);
 
 	}
+	
+	
 
 	private void createRollPanel() {
 
@@ -223,21 +227,27 @@ public class GameControlPanel extends JPanel {
 		frame.add(accuse);
 	}
 	
-	private void setGuessResult(String string) {
-		resultText.setText(string);
-	}
+	private void setGuessResult() {
+		if(board.getDisproveCard() != null) {
+		resultText.setText(board.getDisproveCard().getName());
+	}}
 
-	private void setGuess(String string) {
-		guessText.setText(string);
+	private void setGuess() {
+		Solution guess = board.getGuess();
+		if(guess != null) {
+		guessText.setText(guess.getRoom().getName() + ", " + guess.getPerson().getName() + ", " + guess.getWeapon().getName());
 	}
-
+	}
 	// update the roll and player on the panel
-	private void setTurn(Player Player, int dieRoll) {
-		turnText.setText(Player.getName());
-		turnText.setSelectionColor(Player.getColer());
+	public void update() {
+		turnText.setText(board.getCurrentPlayer().getName());
+		turnText.setSelectionColor(board.getCurrentPlayer().getColer());
 		String roll = "";
-		roll += dieRoll;
+		roll += rollValue;
 		Roll.setText(roll);
+		setGuess();
+		setGuessResult();
+		repaint();
 	}
 
 	/*

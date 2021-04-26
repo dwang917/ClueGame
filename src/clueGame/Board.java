@@ -54,6 +54,9 @@ public class Board extends JPanel {
 	private int currentPlayer = 0;
 	private boolean turnFinished = false;
 	private boolean humanMoved = false;
+	private Card disproveCard = null;
+	private Solution guess;
+	private Player disprovePerson = null;
 
 	// draw board
 	public void paintComponent(Graphics g) {
@@ -204,12 +207,17 @@ public class Board extends JPanel {
 			}
 		}
 		
+		Card personChosen = getCard((String) personBox.getSelectedItem());
+		Card weaponChosen = getCard((String) weaponBox.getSelectedItem());
+		Card roomChosen = getCard(roomMap.get(cell.getInitial()).getName());
+		guess = new Solution(roomChosen, personChosen, weaponChosen);
+		
 		class SubmitListener implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				disprovePhase(guess);
+				frame.dispose();
 			}
 			
 		}
@@ -241,7 +249,33 @@ public class Board extends JPanel {
 		
 	}
 	
-	
+	public Solution getGuess() {
+		return guess;
+	}
+
+	public Card getDisproveCard() {
+		return disproveCard;
+	}
+
+	public Player getDisprovePerson() {
+		return disprovePerson;
+	}
+
+	public void disprovePhase(Solution s){
+		boolean disproved = false;
+		for(Player p : players) {
+			if(!p.equals(players.get(currentPlayer))) {
+				disproveCard = p.disproveSuggestion(s);
+				if(disproveCard != null) {
+					disproved = true;
+					disprovePerson = p;
+					players.get(currentPlayer).addSeenCard(disproveCard);
+					break;
+				}
+			}
+		}
+		ClueGame.updatePanels();
+	}
 
 	// highlight the target cells for the user
 	public void highlight(int row, int col, int roll) {
@@ -640,6 +674,14 @@ public class Board extends JPanel {
 					return thisPlayer.disproveSuggestion(suggestion);
 				}
 			}
+		}
+		return null;
+	}
+	
+	public Card getCard(String s) {
+		for(Card c : deck) {
+			if(c.getName() == s)
+				return c;
 		}
 		return null;
 	}

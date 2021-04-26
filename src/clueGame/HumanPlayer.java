@@ -11,4 +11,8 @@ public class HumanPlayer extends Player {
 	public void start(Board b, int roll) {
 		b.highlight(row, column, roll);
 	}
+	
+	public void addSeenCard(Card card) {
+		seenCards.add(card);
+	}
 }

@@ -38,7 +38,7 @@ class ComputerAITest {
 		BoardCell target;
 		boolean inSeen = false;
 		 Set<BoardCell> targets = new HashSet<BoardCell>();
-		 ArrayList <Card> seen = new ArrayList<Card>(); 
+		 Set <Card> seen = new HashSet<Card>(); 
 		 //Set <BoardCell> visited = new HashSet <BoardCell>();
 		 targets.add(board.getRoom(('M')).getCenterCell());
 		 targets.add(board.getRoom(('R')).getCenterCell());
