@@ -223,11 +223,23 @@ public class GameControlPanel extends JPanel {
 	}
 
 	private void setGuessResult() {
-		if (board.getDisproveCard() != null) {
-			resultText.setText(board.getDisproveCard().getName());
-		}
-		else
+		if (board.isSuggestionMade()) {
+			if (board.getCurrentPlayer() instanceof HumanPlayer) {
+				if (board.getDisproveCard() != null) {
+					resultText.setText(board.getDisproveCard().getName());
+				} else
+					resultText.setText("Not Disproven");
+			}
+
+			else {
+				if (board.getDisproveCard() != null) {
+					resultText.setText("Disproven");
+				} else
+					resultText.setText("Not Disproven");
+			}
+		} else {
 			resultText.setText("");
+		}
 	}
 
 	private void setGuess() {
@@ -235,8 +247,7 @@ public class GameControlPanel extends JPanel {
 		if (guess != null) {
 			guessText.setText(guess.getRoom().getName() + ", " + guess.getPerson().getName() + ", "
 					+ guess.getWeapon().getName());
-		}
-		else
+		} else
 			guessText.setText("");
 	}
 

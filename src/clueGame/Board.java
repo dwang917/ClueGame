@@ -58,6 +58,7 @@ public class Board extends JPanel {
 	private Card disproveCard = null;
 	private Solution guess;
 	private Player disprovePerson = null;
+	private boolean suggestionMade = false;
 
 	// draw board
 	public void paintComponent(Graphics g) {
@@ -253,6 +254,7 @@ public class Board extends JPanel {
 	}
 
 	public void newTurn() {
+		suggestionMade = false;
 		guess = null;
 		disproveCard = null;
 		turnFinished = false;
@@ -260,6 +262,10 @@ public class Board extends JPanel {
 		currentPlayer = players.get(currentPlayerCount);
 	}
 	
+	public boolean isSuggestionMade() {
+		return suggestionMade;
+	}
+
 	public Card getDisproveCard() {
 		return disproveCard;
 	}
@@ -269,6 +275,7 @@ public class Board extends JPanel {
 	}
 
 	public void disprovePhase(Solution s){
+		suggestionMade = true;
 		if(!s.getPerson().getName().equals(currentPlayer.getName())) {
 		gatherPlayer(s.getPerson(), s.getRoom());
 		}
@@ -355,6 +362,11 @@ public class Board extends JPanel {
 			BoardCell targetSelected = ((ComputerPlayer) currentPlayer).selectTargets(targets);
 
 			moveAndDraw(targetSelected.getRow(), targetSelected.getCol());
+			if(targetSelected.isRoomCenter()) {
+				Card roomCard = getCard(roomMap.get(targetSelected.getInitial()).getName());
+				guess = ((ComputerPlayer) currentPlayer).createSuggestion(roomCard);
+				disprovePhase(guess);
+			}
 			turnFinished = true;
 			repaint();
 		}
