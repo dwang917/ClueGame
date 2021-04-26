@@ -217,15 +217,14 @@ public class Board extends JPanel {
 			}
 		}
 		
-		Card personChosen = getCard((String) personBox.getSelectedItem());
-		Card weaponChosen = getCard((String) weaponBox.getSelectedItem());
-		Card roomChosen = getCard(roomMap.get(cell.getInitial()).getName());
-		guess = new Solution(roomChosen, personChosen, weaponChosen);
-		
 		class SubmitListener implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Card personChosen = getCard((String) personBox.getSelectedItem());
+				Card weaponChosen = getCard((String) weaponBox.getSelectedItem());
+				Card roomChosen = getCard(roomMap.get(cell.getInitial()).getName());
+				guess = new Solution(roomChosen, personChosen, weaponChosen);
 				disprovePhase(guess);
 				frame.dispose();
 			}
@@ -270,6 +269,9 @@ public class Board extends JPanel {
 	}
 
 	public void disprovePhase(Solution s){
+		if(!s.getPerson().getName().equals(currentPlayer.getName())) {
+		gatherPlayer(s.getPerson(), s.getRoom());
+		}
 		for(Player p : players) {
 			if(!p.equals(currentPlayer)) {
 				disproveCard = p.disproveSuggestion(s);
@@ -282,6 +284,32 @@ public class Board extends JPanel {
 		}
 		ClueGame.updatePanels();
 	}
+	
+	public void gatherPlayer(Card playerCalled, Card roomCalled) {
+		Player p = null;
+		Room r;
+		for(Player player : players) {
+			if(player.getName() == playerCalled.getName())
+				p = player;
+		}
+		r = roomMap.get(grid[currentPlayer.getRow()][currentPlayer.getColumn()].getInitial());
+		p.resetOffset();
+		int prevRow = p.getRow();
+		int prevCol = p.getColumn();
+		// set previous cell unoccupied
+		grid[prevRow][prevCol].setOccupied(false);
+		for (Player player : players) {
+			// if players overlap in a room, set an offset for the later player
+			if (player.getRow() == r.getCenterCell().getRow() && player.getColumn() == r.getCenterCell().getCol()) {
+				p.offsetIncrement(p.getOffset());
+			}
+		}
+		p.setRow(r.getCenterCell().getRow());
+		p.setColumn(r.getCenterCell().getCol());
+		p.draw(getGraphics(), size);
+		repaint();
+		}
+	
 
 	// highlight the target cells for the user
 	public void highlight(int row, int col, int roll) {
