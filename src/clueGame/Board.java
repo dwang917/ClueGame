@@ -51,7 +51,8 @@ public class Board extends JPanel {
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
-	private int currentPlayer = 0;
+	private int currentPlayerCount = 0;
+	private Player currentPlayer = null;
 	private boolean turnFinished = false;
 	private boolean humanMoved = false;
 	private Card disproveCard = null;
@@ -152,24 +153,23 @@ public class Board extends JPanel {
 
 	// move and draw the players
 	private void moveAndDraw(int row, int col) {
-		Player currPlayer = players.get(currentPlayer);
 		// reset the offset to 0
-		currPlayer.resetOffset();
-		int prevRow = currPlayer.getRow();
-		int prevCol = currPlayer.getColumn();
+		currentPlayer.resetOffset();
+		int prevRow = currentPlayer.getRow();
+		int prevCol = currentPlayer.getColumn();
 		// set previous cell unoccupied
 		grid[prevRow][prevCol].setOccupied(false);
 		for (Player p : players) {
 			// if players overlap in a room, set an offset for the later player
 			if (p.getRow() == row && p.getColumn() == col) {
-				currPlayer.offsetIncrement(p.getOffset());
+				currentPlayer.offsetIncrement(p.getOffset());
 			}
 		}
-		currPlayer.setRow(row);
-		currPlayer.setColumn(col);
-		currPlayer.draw(getGraphics(), size);
+		currentPlayer.setRow(row);
+		currentPlayer.setColumn(col);
+		currentPlayer.draw(getGraphics(), size);
 		if(grid[row][col].isRoomCenter()) {
-			if(currPlayer instanceof HumanPlayer) {
+			if(currentPlayer instanceof HumanPlayer) {
 				createSuggestionPanel(grid[row][col]);
 			}
 		}
@@ -197,6 +197,16 @@ public class Board extends JPanel {
 		JTextField roomBox = new JTextField(roomMap.get(cell.getInitial()).getName());
 		JComboBox<String> personBox = new JComboBox<String>();
 		JComboBox<String> weaponBox = new JComboBox<String>();
+		
+		suggestion.add(roomText);
+		suggestion.add(roomBox);
+		suggestion.add(personText);
+		suggestion.add(personBox);
+		suggestion.add(weaponText);
+		suggestion.add(weaponBox);
+		
+		frame.add(suggestion);
+		
 		
 		for(Card card: deck) {
 			if(card.getType() == CardType.PERSON) {
@@ -235,24 +245,22 @@ public class Board extends JPanel {
 		cancel = new JButton("Cancel");
 		cancel.addActionListener(new CancelListener());
 		
-		
-		suggestion.add(roomText);
-		suggestion.add(roomBox);
-		suggestion.add(personText);
-		suggestion.add(personBox);
-		suggestion.add(weaponText);
-		suggestion.add(weaponBox);
 		suggestion.add(submit);
 		suggestion.add(cancel);
-		
-		frame.add(suggestion);
-		
 	}
 	
 	public Solution getGuess() {
 		return guess;
 	}
 
+	public void newTurn() {
+		guess = null;
+		disproveCard = null;
+		turnFinished = false;
+		currentPlayerCount = (currentPlayerCount + 1) % PLAYER_NUM;
+		currentPlayer = players.get(currentPlayerCount);
+	}
+	
 	public Card getDisproveCard() {
 		return disproveCard;
 	}
@@ -262,14 +270,12 @@ public class Board extends JPanel {
 	}
 
 	public void disprovePhase(Solution s){
-		boolean disproved = false;
 		for(Player p : players) {
-			if(!p.equals(players.get(currentPlayer))) {
+			if(!p.equals(currentPlayer)) {
 				disproveCard = p.disproveSuggestion(s);
 				if(disproveCard != null) {
-					disproved = true;
 					disprovePerson = p;
-					players.get(currentPlayer).addSeenCard(disproveCard);
+					currentPlayer.addSeenCard(disproveCard);
 					break;
 				}
 			}
@@ -305,27 +311,20 @@ public class Board extends JPanel {
 		repaint();
 	}
 
-	// indicates a new turn
-	public void updatePlayer() {
-		currentPlayer = (currentPlayer + 1) % PLAYER_NUM;
-		turnFinished = false;
-	}
-
 	//
 	public void processTurn(int roll) {
-		Player nowPlayer = players.get(currentPlayer);
 		// if the player is human, highlight the cells
-		if (nowPlayer instanceof HumanPlayer) {
+		if (currentPlayer instanceof HumanPlayer) {
 			humanMoved = false;
-			highlight(nowPlayer.getRow(), nowPlayer.getColumn(), roll);
+			highlight(currentPlayer.getRow(), currentPlayer.getColumn(), roll);
 		} else {
-			calcTargets(grid[nowPlayer.getRow()][nowPlayer.getColumn()], roll);
+			calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], roll);
 			// if computer player doesn't have possible targets, end the turn
 			if (targets.isEmpty()) {
 				turnFinished = true;
 				return;
 			}
-			BoardCell targetSelected = ((ComputerPlayer) nowPlayer).selectTargets(targets);
+			BoardCell targetSelected = ((ComputerPlayer) currentPlayer).selectTargets(targets);
 
 			moveAndDraw(targetSelected.getRow(), targetSelected.getCol());
 			turnFinished = true;
@@ -403,6 +402,7 @@ public class Board extends JPanel {
 				}
 			}
 		}
+		currentPlayer = players.get(0);
 		for (Player thisPlayer : players) {
 			for (Card thisCard : deck) {
 				thisPlayer.addnotSeenCard(thisCard);
@@ -744,7 +744,7 @@ public class Board extends JPanel {
 	}
 
 	public Player getCurrentPlayer() {
-		return players.get(currentPlayer);
+		return currentPlayer;
 	}
 
 }

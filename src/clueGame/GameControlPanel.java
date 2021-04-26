@@ -33,20 +33,20 @@ public class GameControlPanel extends JPanel {
 	private JPanel guessPanel;
 	private JPanel resultPanel;
 	private KnownCardsPanel cardsPanel;
-	
+
 	JButton accuseButton;
-	
+
 	// initialize accuse panel
 	JComboBox<String> roomBox, personBox, weaponBox;
 	JTextField roomText, personText, weaponText;
-	
+
 	private HumanPlayer human;
 	private int rollValue;
 
 	private Board board;
 
 	public GameControlPanel(Board board, KnownCardsPanel cardsPanel) {
-		this.cardsPanel = cardsPanel; 
+		this.cardsPanel = cardsPanel;
 		this.board = board;
 		human = board.getHumanPlayer();
 		// set up panel that houses all the panels
@@ -97,7 +97,7 @@ public class GameControlPanel extends JPanel {
 		// Create panels and buttons in this panel
 		createRollPanel();
 		createTurnPanel();
-		
+
 		accuseButton = new JButton("Make Accusation");
 		accuseButton.setBackground(Color.blue);
 		accuseButton.setOpaque(true);
@@ -116,7 +116,7 @@ public class GameControlPanel extends JPanel {
 		// add the top panel to the housing panel
 		add(top);
 	}
-	
+
 	private void lowerPanel() {
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new GridLayout(0, 2));
@@ -169,8 +169,6 @@ public class GameControlPanel extends JPanel {
 		turnPanel.add(turnText);
 
 	}
-	
-	
 
 	private void createRollPanel() {
 
@@ -185,36 +183,33 @@ public class GameControlPanel extends JPanel {
 
 	private void createAccusationPanel(JFrame frame) {
 		JButton submit, cancel;
-		
+
 		JPanel accuse = new JPanel();
-		accuse.setLayout(new GridLayout(4,2));
-		
-		roomText = new JTextField("Room"); 
-		personText = new JTextField("Person"); 
-		weaponText = new JTextField("Weapon"); 
-		
+		accuse.setLayout(new GridLayout(4, 2));
+
+		roomText = new JTextField("Room");
+		personText = new JTextField("Person");
+		weaponText = new JTextField("Weapon");
+
 		roomBox = new JComboBox<String>();
 		personBox = new JComboBox<String>();
 		weaponBox = new JComboBox<String>();
-		
-		for(Card card: board.getDeck()) {
-			if(card.getType() == CardType.ROOM) {
+
+		for (Card card : board.getDeck()) {
+			if (card.getType() == CardType.ROOM) {
 				roomBox.addItem(card.getName());
-			}
-			else if(card.getType() == CardType.PERSON) {
+			} else if (card.getType() == CardType.PERSON) {
 				personBox.addItem(card.getName());
-			}
-			else if(card.getType() == CardType.WEAPON) {
+			} else if (card.getType() == CardType.WEAPON) {
 				weaponBox.addItem(card.getName());
 			}
 		}
-		
+
 		submit = new JButton("Submit");
 		submit.addActionListener(new SubmitListener());
 		cancel = new JButton("Cancel");
 		cancel.addActionListener(new CancelListener());
-		
-		
+
 		accuse.add(roomText);
 		accuse.add(roomBox);
 		accuse.add(personText);
@@ -223,21 +218,28 @@ public class GameControlPanel extends JPanel {
 		accuse.add(weaponBox);
 		accuse.add(submit);
 		accuse.add(cancel);
-		
+
 		frame.add(accuse);
 	}
-	
+
 	private void setGuessResult() {
-		if(board.getDisproveCard() != null) {
-		resultText.setText(board.getDisproveCard().getName());
-	}}
+		if (board.getDisproveCard() != null) {
+			resultText.setText(board.getDisproveCard().getName());
+		}
+		else
+			resultText.setText("");
+	}
 
 	private void setGuess() {
 		Solution guess = board.getGuess();
-		if(guess != null) {
-		guessText.setText(guess.getRoom().getName() + ", " + guess.getPerson().getName() + ", " + guess.getWeapon().getName());
+		if (guess != null) {
+			guessText.setText(guess.getRoom().getName() + ", " + guess.getPerson().getName() + ", "
+					+ guess.getWeapon().getName());
+		}
+		else
+			guessText.setText("");
 	}
-	}
+
 	// update the roll and player on the panel
 	public void update() {
 		turnText.setText(board.getCurrentPlayer().getName());
@@ -262,55 +264,53 @@ public class GameControlPanel extends JPanel {
 	 * panel.setGuess( "I have no guess!"); panel.setGuessResult(
 	 * "So you have nothing?"); }
 	 */
-	
+
 	private class NextListener implements ActionListener {
 
 		// if the current turn is finished, start the next turn
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (board.isTurnFinished()) {
-				board.updatePlayer();
+				board.newTurn();
 				nextTurn();
 			}
 			// when the user tries to click next without finishing the turn,
 			// display the splash screen
 			else {
 				JOptionPane.showMessageDialog(null, "Please finish your turn first.");
-				
+
 			}
 		}
 	}
 
-	
-	private class AccuseListener implements ActionListener{
+	private class AccuseListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFrame frame = new JFrame();
-			frame.setSize(200,300);
+			frame.setSize(200, 300);
 			frame.setTitle("Accuse");
 			createAccusationPanel(frame);
 			frame.setVisible(true);
-			//JOptionPane.showConfirmDialog(paintingChild, aaHint);
+			// JOptionPane.showConfirmDialog(paintingChild, aaHint);
 		}
 	}
-	
-	private class SubmitListener implements ActionListener{
+
+	private class SubmitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(roomBox.getSelectedItem().equals(board.getSolution().getRoom().getName())) {
-				if(personBox.getSelectedItem().equals(board.getSolution().getPerson().getName())) {
-					if(weaponBox.getSelectedItem().equals(board.getSolution().getWeapon().getName())) {
+			if (roomBox.getSelectedItem().equals(board.getSolution().getRoom().getName())) {
+				if (personBox.getSelectedItem().equals(board.getSolution().getPerson().getName())) {
+					if (weaponBox.getSelectedItem().equals(board.getSolution().getWeapon().getName())) {
 						JOptionPane.showMessageDialog(null, "Congradulations! You won!");
 					}
 				}
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(null, "Oh no! Your accusation was wrong! You lose!");
 			}
 			System.exit(0);
 		}
 	}
-	
-	private class CancelListener implements ActionListener{
+
+	private class CancelListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JComponent comp = (JComponent) e.getSource();
 			Window win = SwingUtilities.getWindowAncestor(comp);
