@@ -154,6 +154,12 @@ public class Board extends JPanel {
 
 	// move and draw the players
 	private void moveAndDraw(int row, int col) {
+		if(currentPlayer.getRow() == row && currentPlayer.getColumn() == col) {
+			if(currentPlayer instanceof HumanPlayer) {
+				createSuggestionPanel(grid[row][col]);
+			}
+			return;
+		}
 		// reset the offset to 0
 		currentPlayer.resetOffset();
 		int prevRow = currentPlayer.getRow();
@@ -161,11 +167,12 @@ public class Board extends JPanel {
 		// set previous cell unoccupied
 		grid[prevRow][prevCol].setOccupied(false);
 		for (Player p : players) {
+			if(!p.equals(currentPlayer)) {
 			// if players overlap in a room, set an offset for the later player
 			if (p.getRow() == row && p.getColumn() == col) {
 				currentPlayer.offsetIncrement(p.getOffset());
 			}
-		}
+		}}
 		currentPlayer.setRow(row);
 		currentPlayer.setColumn(col);
 		currentPlayer.draw(getGraphics(), size);
@@ -279,16 +286,10 @@ public class Board extends JPanel {
 		if(!s.getPerson().getName().equals(currentPlayer.getName())) {
 		gatherPlayer(s.getPerson(), s.getRoom());
 		}
-		for(Player p : players) {
-			if(!p.equals(currentPlayer)) {
-				disproveCard = p.disproveSuggestion(s);
+		disproveCard = handleSuggestion(s, currentPlayer);
 				if(disproveCard != null) {
-					disprovePerson = p;
 					currentPlayer.addSeenCard(disproveCard);
-					break;
 				}
-			}
-		}
 		ClueGame.updatePanels();
 	}
 	
@@ -299,7 +300,11 @@ public class Board extends JPanel {
 			if(player.getName() == playerCalled.getName())
 				p = player;
 		}
+		p.setCalledToARoom(true);
 		r = roomMap.get(grid[currentPlayer.getRow()][currentPlayer.getColumn()].getInitial());
+		if(p.getRow() == r.getCenterCell().getRow() && p.getColumn() == r.getCenterCell().getCol()) {
+			return;
+		}
 		p.resetOffset();
 		int prevRow = p.getRow();
 		int prevCol = p.getColumn();
@@ -308,7 +313,7 @@ public class Board extends JPanel {
 		for (Player player : players) {
 			// if players overlap in a room, set an offset for the later player
 			if (player.getRow() == r.getCenterCell().getRow() && player.getColumn() == r.getCenterCell().getCol()) {
-				p.offsetIncrement(p.getOffset());
+				p.offsetIncrement(player.getOffset());
 			}
 		}
 		p.setRow(r.getCenterCell().getRow());
@@ -322,6 +327,10 @@ public class Board extends JPanel {
 	public void highlight(int row, int col, int roll) {
 		BoardCell cell = grid[row][col];
 		calcTargets(cell, roll);
+		if(currentPlayer.isCalledToARoom()) {
+			targets.add(cell);
+			currentPlayer.setCalledToARoom(false);
+		}
 		// if there's no possible move, display the message and end the turn
 		if (targets.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "There's no possible move, click Next.");
@@ -354,6 +363,10 @@ public class Board extends JPanel {
 			highlight(currentPlayer.getRow(), currentPlayer.getColumn(), roll);
 		} else {
 			calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], roll);
+			if(currentPlayer.isCalledToARoom()) {
+				targets.add(grid[currentPlayer.getRow()][currentPlayer.getColumn()]);
+				currentPlayer.setCalledToARoom(false);
+			}
 			// if computer player doesn't have possible targets, end the turn
 			if (targets.isEmpty()) {
 				turnFinished = true;

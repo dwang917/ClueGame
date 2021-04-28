@@ -17,6 +17,15 @@ public abstract class Player {
 																	// seen
 	protected ArrayList<Card> notSeenCards = new ArrayList<Card>();// arraylist to hold all the cards that the player
 																	// has not seen
+	private boolean calledToARoom = false;
+	public boolean isCalledToARoom() {
+		return calledToARoom;
+	}
+
+	public void setCalledToARoom(boolean calledToARoom) {
+		this.calledToARoom = calledToARoom;
+	}
+
 	private int offset = 0;
 
 	private Card[] Accusation = new Card[3];
@@ -44,8 +53,8 @@ public abstract class Player {
 
 	// if multiple players in one room, shift the later players
 	public void offsetIncrement(int i) {
-		if ((i + 6) > offset) {
-			offset = i + 6;
+		if ((i + 8) > offset) {
+			offset = i + 8;
 		}
 	}
 
