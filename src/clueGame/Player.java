@@ -33,6 +33,8 @@ public abstract class Player {
 	public void draw(Graphics g, int size) {
 		g.setColor(coler);
 		g.fillOval(column * size + offset, row * size, size - 1, size - 1);
+		g.setColor(Color.black);
+		g.drawOval(column * size + offset, row * size, size - 1, size - 1);
 	}
 
 	public Player(String name, Color coler, int row, int column) {

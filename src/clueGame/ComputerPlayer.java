@@ -9,6 +9,15 @@ public class ComputerPlayer extends Player {
 
 	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
+	private boolean makeAccusation = false;
+
+	public boolean isMakeAccusation() {
+		return makeAccusation;
+	}
+
+	public void setMakeAccusation(boolean makeAccusation) {
+		this.makeAccusation = makeAccusation;
+	}
 
 	public ComputerPlayer(String name, Color coler, int row, int column) {
 		super(name, coler, row, column);

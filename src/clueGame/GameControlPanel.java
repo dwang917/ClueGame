@@ -77,6 +77,8 @@ public class GameControlPanel extends JPanel {
 
 	// continue to the next turn
 	private void nextTurn() {
+		resultText.setBackground(null);
+		guessText.setBackground(null);
 		rollValue = dieRoll();
 		// update the panel
 		update();
@@ -99,12 +101,10 @@ public class GameControlPanel extends JPanel {
 		createTurnPanel();
 
 		accuseButton = new JButton("Make Accusation");
-		accuseButton.setBackground(Color.blue);
 		accuseButton.setOpaque(true);
 		accuseButton.addActionListener(new AccuseListener());
 		JButton nextButton = new JButton("NEXT!");
 		nextButton.addActionListener(new NextListener());
-		nextButton.setBackground(Color.blue);
 		nextButton.setOpaque(true);
 
 		// add panels to the top panel
@@ -226,14 +226,16 @@ public class GameControlPanel extends JPanel {
 		if (board.isSuggestionMade()) {
 			if (board.getCurrentPlayer() instanceof HumanPlayer) {
 				if (board.getDisproveCard() != null) {
-					resultText.setText(board.getDisproveCard().getName());
+					resultText.setText(board.getDisproveCard().getName() + " (from " + board.getDisprovePerson().getName() + ")");
+					resultText.setBackground(board.getDisprovePerson().getColer());
 				} else
 					resultText.setText("Not Disproven");
 			}
 
 			else {
 				if (board.getDisproveCard() != null) {
-					resultText.setText("Disproven");
+					resultText.setText("Disproven" + " (disproved by " + board.getDisprovePerson().getName() + ")");
+					resultText.setBackground(board.getDisprovePerson().getColer());
 				} else
 					resultText.setText("Not Disproven");
 			}
@@ -247,6 +249,7 @@ public class GameControlPanel extends JPanel {
 		if (guess != null) {
 			guessText.setText(guess.getRoom().getName() + ", " + guess.getPerson().getName() + ", "
 					+ guess.getWeapon().getName());
+			guessText.setBackground(board.getCurrentPlayer().getColer());
 		} else
 			guessText.setText("");
 	}
@@ -254,7 +257,7 @@ public class GameControlPanel extends JPanel {
 	// update the roll and player on the panel
 	public void update() {
 		turnText.setText(board.getCurrentPlayer().getName());
-		turnText.setSelectionColor(board.getCurrentPlayer().getColer());
+		turnText.setBackground(board.getCurrentPlayer().getColer());
 		String roll = "";
 		roll += rollValue;
 		Roll.setText(roll);
@@ -298,7 +301,7 @@ public class GameControlPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFrame frame = new JFrame();
-			frame.setSize(200, 300);
+			frame.setSize(300, 300);
 			frame.setTitle("Accuse");
 			createAccusationPanel(frame);
 			frame.setVisible(true);

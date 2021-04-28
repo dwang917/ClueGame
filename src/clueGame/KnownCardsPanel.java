@@ -72,6 +72,7 @@ public class KnownCardsPanel extends JPanel {
 		for (Card card : board.getHumanPlayer().getHand()) {
 			if (card.getType().equals(type)) {
 				JTextField text = new JTextField(card.getName());
+				text.setBackground(card.getColor());
 				panel.add(text);
 				handNotZero = true;
 			}

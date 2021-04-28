@@ -189,7 +189,7 @@ public class Board extends JPanel {
 	
 	public void createSuggestionPanel(BoardCell cell) {
 		JFrame frame = new JFrame();
-		frame.setSize(300,300);
+		frame.setSize(350,300);
 		frame.setTitle("Suggest");
 		frame.setVisible(true);
 		
@@ -264,6 +264,7 @@ public class Board extends JPanel {
 		suggestionMade = false;
 		guess = null;
 		disproveCard = null;
+		disprovePerson = null;
 		turnFinished = false;
 		currentPlayerCount = (currentPlayerCount + 1) % PLAYER_NUM;
 		currentPlayer = players.get(currentPlayerCount);
@@ -290,6 +291,10 @@ public class Board extends JPanel {
 				if(disproveCard != null) {
 					currentPlayer.addSeenCard(disproveCard);
 				}
+				else if(currentPlayer instanceof ComputerPlayer && !currentPlayer.getHand().contains(s.getRoom())) {
+					currentPlayer.setAccusation(s.getPerson(), s.getRoom(), s.getWeapon());
+					((ComputerPlayer) currentPlayer).setMakeAccusation(true);
+				}
 		ClueGame.updatePanels();
 	}
 	
@@ -300,11 +305,11 @@ public class Board extends JPanel {
 			if(player.getName() == playerCalled.getName())
 				p = player;
 		}
-		p.setCalledToARoom(true);
 		r = roomMap.get(grid[currentPlayer.getRow()][currentPlayer.getColumn()].getInitial());
 		if(p.getRow() == r.getCenterCell().getRow() && p.getColumn() == r.getCenterCell().getCol()) {
 			return;
 		}
+		p.setCalledToARoom(true);
 		p.resetOffset();
 		int prevRow = p.getRow();
 		int prevCol = p.getColumn();
@@ -362,6 +367,11 @@ public class Board extends JPanel {
 			humanMoved = false;
 			highlight(currentPlayer.getRow(), currentPlayer.getColumn(), roll);
 		} else {
+			if(((ComputerPlayer) currentPlayer).isMakeAccusation()) {
+				if(checkAccusation(currentPlayer.getAccusation())) {
+					youLost();
+				}
+			}
 			calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], roll);
 			if(currentPlayer.isCalledToARoom()) {
 				targets.add(grid[currentPlayer.getRow()][currentPlayer.getColumn()]);
@@ -383,6 +393,11 @@ public class Board extends JPanel {
 			turnFinished = true;
 			repaint();
 		}
+	}
+
+	private void youLost() {
+		JOptionPane.showMessageDialog(null, "Oh no! " + currentPlayer.getName() + " made the correct accusation! You lost!");
+		System.exit(0);
 	}
 
 	private Board() {
@@ -489,6 +504,7 @@ public class Board extends JPanel {
 			int randInt = (int) (Math.random() * deckClone.size());
 			Card randCard = deckClone.get(randInt);
 			players.get(count).addHand(randCard);
+			players.get(count).getHand();
 			deckClone.remove(randInt);
 			count++;
 			count = count % PLAYER_NUM;
@@ -512,8 +528,8 @@ public class Board extends JPanel {
 			case "cyan":
 				color = Color.cyan;
 				break;
-			case "blue":
-				color = Color.blue;
+			case "white":
+				color = Color.white;
 				break;
 			case "orange":
 				color = Color.orange;
@@ -724,6 +740,7 @@ public class Board extends JPanel {
 		for (Player thisPlayer : players) {
 			if (!thisPlayer.equals(accuser)) {
 				if (thisPlayer.disproveSuggestion(suggestion) != (null)) {
+					disprovePerson = thisPlayer;
 					return thisPlayer.disproveSuggestion(suggestion);
 				}
 			}
