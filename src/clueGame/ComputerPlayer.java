@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
-
-	private Set<BoardCell> targets = new HashSet<BoardCell>(); // holds the target of a certain board cell
-	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private boolean makeAccusation = false;
 
 	public boolean isMakeAccusation() {
@@ -53,48 +50,39 @@ public class ComputerPlayer extends Player {
 
 	public BoardCell selectTargets(Set<BoardCell> targets) {
 		int randomNum;
-		BoardCell chosenTarget;
-		ArrayList<BoardCell> targetCells = new ArrayList<BoardCell>();
+		BoardCell chosenTarget = null;
 		ArrayList<BoardCell> targetRooms = new ArrayList<BoardCell>();
 		boolean inSeen = false;
 
-		checkSeenRooms(targets, targetCells, inSeen);
-
-		// add any room targets to a separate array list
-		for (BoardCell cell : targetCells) {
-			if (cell.getInitial() != 'W' && !(visited.contains(cell))) {
-				targetRooms.add(cell);
+		for (BoardCell target : targets) {
+			for (Card thisCard : seenCards) {
+				if (thisCard.getName().equals((Board.roomMap.get(target.getInitial()).getName()))) {
+					inSeen = true;
+					break;
+				}
 			}
+			if (!inSeen && target.getInitial() != 'W') {
+				targetRooms.add(target);
+			}
+			inSeen = false;
 		}
+
 		// if there are room options then the computer must chose a room, not a walkway
 		if (targetRooms.size() > 0) {
 			randomNum = (int) (Math.random() * targetRooms.size());
 			chosenTarget = targetRooms.get(randomNum);
 			// keep track of rooms that the Computer Player has visited
-			if (chosenTarget.getInitial() != 'W') {
-				visited.add(chosenTarget);
-			}
 			return chosenTarget;
 		}
-		randomNum = (int) (Math.random() * targetCells.size());
-		return targetCells.get(randomNum);
-	}
-
-	private void checkSeenRooms(Set<BoardCell> targets, ArrayList<BoardCell> targetCells, boolean inSeen) {
-		for (BoardCell target : targets) {
-			if (Board.roomMap.containsKey(target.getInitial())) {
-				for (Card thisCard : seenCards) {
-					if (thisCard.getName().equals((Board.roomMap.get(target.getInitial()).getName()))) {
-						inSeen = true;
-						break;
-					}
-				}
-				if (!inSeen) {
-					targetCells.add(target);
-				}
+		randomNum = (int) (Math.random() * targets.size());
+		int i = 0;
+		for (BoardCell cell : targets) {
+			if (i == randomNum) {
+				chosenTarget = cell;
 			}
-			inSeen = false;
+			i++;
 		}
+		return chosenTarget;
 	}
 
 	public Solution createSuggestion(Card r, Card p, Card w) {
@@ -104,13 +92,5 @@ public class ComputerPlayer extends Player {
 
 	public ArrayList<Card> getNotSeen() {
 		return notSeenCards;
-	}
-
-	public Set<BoardCell> getTargets() {
-		return targets;
-	}
-
-	public void setTargets(Set<BoardCell> targets) {
-		this.targets = targets;
 	}
 }

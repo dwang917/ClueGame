@@ -55,8 +55,8 @@ public abstract class Player {
 
 	// if multiple players in one room, shift the later players
 	public void offsetIncrement(int i) {
-		if ((i + 8) > offset) {
-			offset = i + 8;
+		if ((i + 9) > offset) {
+			offset = i + 9;
 		}
 	}
 
@@ -96,7 +96,8 @@ public abstract class Player {
 
 	public void addSeenCard(Card card) {
 		seenCards.add(card);
-		notSeenCards.remove(notSeenCards.indexOf(card));
+		if(notSeenCards.contains(card))
+			notSeenCards.remove(notSeenCards.indexOf(card));
 	}
 
 	public void setSeenCards(Set<Card> seenCards) {

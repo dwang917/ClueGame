@@ -52,9 +52,11 @@ public class Board extends JPanel {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution solution;
 	private int currentPlayerCount = 0;
+	//keep track of the current players
 	private Player currentPlayer = null;
 	private boolean turnFinished = false;
 	private boolean humanMoved = false;
+	//record the disproving card
 	private Card disproveCard = null;
 	private Solution guess;
 	private Player disprovePerson = null;
