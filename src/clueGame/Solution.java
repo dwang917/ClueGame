@@ -4,7 +4,6 @@ public class Solution {
 	
 	public Solution() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Card person;
 	public Card room;

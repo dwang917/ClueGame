@@ -11,12 +11,11 @@ public class ClueGame extends JFrame {
 	private static GameControlPanel controlPanel;
 	private static KnownCardsPanel cardsPanel;
 
-	
 	public ClueGame() {
 		board = Board.getInstance();
 		setTitle("Clue Game");
 		cardsPanel = new KnownCardsPanel(board);
-		controlPanel = new GameControlPanel(board, cardsPanel);
+		controlPanel = new GameControlPanel(board);
 		setSize(800, 750);
 		// adding the components
 		add(board, BorderLayout.CENTER);
@@ -24,19 +23,17 @@ public class ClueGame extends JFrame {
 		add(cardsPanel, BorderLayout.EAST);
 	}
 
-	
 	// start the game
 	public void start() {
 		controlPanel.startTurn();
 	}
-	
+
+	// update both panels
 	public static void updatePanels() {
 		controlPanel.update();
 		cardsPanel.update();
 	}
-	
 
-	
 	public static void main(String[] args) {
 		Board b = Board.getInstance();
 		b.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");

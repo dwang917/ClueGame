@@ -32,7 +32,6 @@ public class GameControlPanel extends JPanel {
 	private JPanel turnPanel;
 	private JPanel guessPanel;
 	private JPanel resultPanel;
-	private KnownCardsPanel cardsPanel;
 
 	JButton accuseButton;
 
@@ -45,8 +44,7 @@ public class GameControlPanel extends JPanel {
 
 	private Board board;
 
-	public GameControlPanel(Board board, KnownCardsPanel cardsPanel) {
-		this.cardsPanel = cardsPanel;
+	public GameControlPanel(Board board) {
 		this.board = board;
 		human = board.getHumanPlayer();
 		// set up panel that houses all the panels
@@ -223,21 +221,26 @@ public class GameControlPanel extends JPanel {
 	}
 
 	private void setGuessResult() {
+		// check if a suggestion was made in the turn
 		if (board.isSuggestionMade()) {
+			// if this is a human player, display the disproving card
 			if (board.getCurrentPlayer() instanceof HumanPlayer) {
 				if (board.getDisproveCard() != null) {
-					resultText.setText(board.getDisproveCard().getName() + " (from " + board.getDisprovePerson().getName() + ")");
+					resultText.setText(
+							board.getDisproveCard().getName() + " (from " + board.getDisprovePerson().getName() + ")");
 					resultText.setBackground(board.getDisprovePerson().getColer());
 				} else
-					resultText.setText("Not Disproven");
+					resultText.setText("no new clue");
 			}
 
 			else {
 				if (board.getDisproveCard() != null) {
-					resultText.setText("Disproven" + " (disproved by " + board.getDisprovePerson().getName() + ")");
+					// if this is a computer player, display the disproving player
+					resultText.setText(
+							"suggestion disproved" + " (disproved by " + board.getDisprovePerson().getName() + ")");
 					resultText.setBackground(board.getDisprovePerson().getColer());
 				} else
-					resultText.setText("Not Disproven");
+					resultText.setText("Not Disproved");
 			}
 		} else {
 			resultText.setText("");
@@ -247,6 +250,7 @@ public class GameControlPanel extends JPanel {
 	private void setGuess() {
 		Solution guess = board.getGuess();
 		if (guess != null) {
+			// display the guess made by players
 			guessText.setText(guess.getRoom().getName() + ", " + guess.getPerson().getName() + ", "
 					+ guess.getWeapon().getName());
 			guessText.setBackground(board.getCurrentPlayer().getColer());
@@ -265,19 +269,6 @@ public class GameControlPanel extends JPanel {
 		setGuessResult();
 		repaint();
 	}
-
-	/*
-	 * public static void main(String[] args) { GameControlPanel panel = new
-	 * GameControlPanel();
-	 * 
-	 * JFrame frame = new JFrame(); frame.setTitle("Clue Game");
-	 * frame.setContentPane(panel); frame.setSize(750, 800);
-	 * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); frame.setVisible(true);
-	 * 
-	 * panel.setTurn(new ComputerPlayer( "Col. Mustard", Color.orange, 0,0), 5);
-	 * panel.setGuess( "I have no guess!"); panel.setGuessResult(
-	 * "So you have nothing?"); }
-	 */
 
 	private class NextListener implements ActionListener {
 
@@ -300,25 +291,38 @@ public class GameControlPanel extends JPanel {
 	private class AccuseListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JFrame frame = new JFrame();
-			frame.setSize(300, 300);
-			frame.setTitle("Accuse");
-			createAccusationPanel(frame);
-			frame.setVisible(true);
-			// JOptionPane.showConfirmDialog(paintingChild, aaHint);
+			// if this is not human player's turn, display an error message
+			if (!(board.getCurrentPlayer() instanceof HumanPlayer) || board.isHumanMoved()) {
+				JOptionPane.showMessageDialog(null, "Please wait till your next turn to make an accusation.");
+			} else {
+				JFrame frame = new JFrame();
+				frame.setSize(300, 300);
+				frame.setTitle("Accuse");
+				createAccusationPanel(frame);
+				frame.setVisible(true);
+			}
 		}
 	}
 
 	private class SubmitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (roomBox.getSelectedItem().equals(board.getSolution().getRoom().getName())) {
-				if (personBox.getSelectedItem().equals(board.getSolution().getPerson().getName())) {
-					if (weaponBox.getSelectedItem().equals(board.getSolution().getWeapon().getName())) {
-						JOptionPane.showMessageDialog(null, "Congradulations! You won!");
+			// we check the accusation directly by their names, it seems more efficient this
+			// way
+			String roomName = board.getSolution().getRoom().getName();
+			String personName = board.getSolution().getPerson().getName();
+			String weaponName = board.getSolution().getWeapon().getName();
+			String answerMsg = "The answers are: " + roomName + ", " + personName + ", " + weaponName + ". ";
+
+			//if the accusation matches the solution, it wins
+			if (roomBox.getSelectedItem().equals(roomName)) {
+				if (personBox.getSelectedItem().equals(personName)) {
+					if (weaponBox.getSelectedItem().equals(weaponName)) {
+						JOptionPane.showMessageDialog(null, answerMsg + "Congradulations! You won!");
 					}
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "Oh no! Your accusation was wrong! You lose!");
+				//otherwise display loss message
+				JOptionPane.showMessageDialog(null, answerMsg + "Oh no! Your accusation was wrong! You lose!");
 			}
 			System.exit(0);
 		}
@@ -331,5 +335,4 @@ public class GameControlPanel extends JPanel {
 			win.dispose();
 		}
 	}
-
 }

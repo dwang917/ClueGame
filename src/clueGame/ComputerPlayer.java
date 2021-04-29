@@ -6,7 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
+	// check whether to make accusation at the start of turn or not
 	private boolean makeAccusation = false;
+	private Set<BoardCell> visited = new HashSet<BoardCell>();
 
 	public boolean isMakeAccusation() {
 		return makeAccusation;
@@ -28,6 +30,7 @@ public class ComputerPlayer extends Player {
 		this.suggestion = suggestion;
 	}
 
+	// create a suggestion based on the room in
 	public Solution createSuggestion(Card r) {
 		int cardChooser = (int) (Math.random() * notSeenCards.size());
 		Card p;
@@ -36,13 +39,11 @@ public class ComputerPlayer extends Player {
 			cardChooser = (int) (Math.random() * notSeenCards.size());
 		}
 		p = notSeenCards.get(cardChooser);
-		// seen.add(p);
 
 		while (notSeenCards.get(cardChooser).getType() != CardType.WEAPON) {
 			cardChooser = (int) (Math.random() * notSeenCards.size());
 		}
 		w = notSeenCards.get(cardChooser);
-		// seen.add(w);
 
 		suggestion = new Solution(r, p, w);
 		return suggestion;
@@ -54,6 +55,7 @@ public class ComputerPlayer extends Player {
 		ArrayList<BoardCell> targetRooms = new ArrayList<BoardCell>();
 		boolean inSeen = false;
 
+		// check if this target has been visited
 		for (BoardCell target : targets) {
 			for (Card thisCard : seenCards) {
 				if (thisCard.getName().equals((Board.roomMap.get(target.getInitial()).getName()))) {
@@ -61,7 +63,8 @@ public class ComputerPlayer extends Player {
 					break;
 				}
 			}
-			if (!inSeen && target.getInitial() != 'W') {
+			// if the target room has not been visited, add the room to targetRooms
+			if (!inSeen && target.getInitial() != 'W' && !visited.contains(target)) {
 				targetRooms.add(target);
 			}
 			inSeen = false;
@@ -72,8 +75,10 @@ public class ComputerPlayer extends Player {
 			randomNum = (int) (Math.random() * targetRooms.size());
 			chosenTarget = targetRooms.get(randomNum);
 			// keep track of rooms that the Computer Player has visited
+			visited.add(chosenTarget);
 			return chosenTarget;
 		}
+		// if there's no room option then the computer player chooses a target randomly
 		randomNum = (int) (Math.random() * targets.size());
 		int i = 0;
 		for (BoardCell cell : targets) {

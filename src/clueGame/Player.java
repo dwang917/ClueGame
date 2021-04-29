@@ -14,10 +14,11 @@ public abstract class Player {
 	protected int row, column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	protected Set<Card> seenCards = new HashSet<Card>(); // arraylist to hold all the cards that the player has
-																	// seen
+															// seen
 	protected ArrayList<Card> notSeenCards = new ArrayList<Card>();// arraylist to hold all the cards that the player
 																	// has not seen
 	private boolean calledToARoom = false;
+
 	public boolean isCalledToARoom() {
 		return calledToARoom;
 	}
@@ -63,7 +64,9 @@ public abstract class Player {
 	public void addHand(Card card) {
 		hand.add(card);
 		card.setColor(coler);
-		notSeenCards.remove(notSeenCards.indexOf(card));
+		if (notSeenCards.contains(card)) {
+			notSeenCards.remove(notSeenCards.indexOf(card));
+		}
 	}
 
 	public Card disproveSuggestion(Solution s) {
@@ -96,7 +99,7 @@ public abstract class Player {
 
 	public void addSeenCard(Card card) {
 		seenCards.add(card);
-		if(notSeenCards.contains(card))
+		if (notSeenCards.contains(card))
 			notSeenCards.remove(notSeenCards.indexOf(card));
 	}
 
@@ -154,5 +157,4 @@ public abstract class Player {
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
-
 }
