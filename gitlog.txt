@@ -1,119 +1,84 @@
-commit 1e97e13e794e0fd1b88b258b414fb00cd79e5414 (HEAD -> main)
+commit c9b2f99d7dbd1fade941cc1e749e22d670ac7d13 (HEAD -> main)
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Apr 15 22:52:06 2021 -0600
+Date:   Wed Apr 28 23:08:45 2021 -0600
 
-    Commented and refactored
+    Refactored and commented
 
-commit 05df1d697703d15f9cb4c187195e70cf0370a9ea (origin/main, origin/HEAD)
+commit 55d066109da210be7dc6110305644451279cd0c7 (origin/main, origin/HEAD)
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Apr 28 20:18:06 2021 -0600
+
+    finished the game
+
+commit 63aeea03b0ffcd93cbb7a988efafd18229489ca8
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Thu Apr 15 18:36:21 2021 -0600
+Date:   Wed Apr 28 12:58:26 2021 -0600
 
-    bug fixed: visited cells are now individual to players
+    Changed player color
 
-commit 68cfd93be62f9b6d4b42deaf5da9bcc23204269f
+commit ec9699f7aad037cd1455ac38fc8028f8f6c3508b
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Wed Apr 28 00:13:48 2021 -0600
+
+    Finished all major functionalities
+
+commit b20c8b5cc1207155faeb7f6a01f586cfd8c1c4b1
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Thu Apr 15 17:54:08 2021 -0600
+Date:   Tue Apr 27 21:09:39 2021 -0600
 
-    Fix Bug: Computer player no longer just switches between connected rooms
+    Now the overlap displays properly when calling players
 
-commit 84082c7194620cf55635f5a19b5af0b071ec8232
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Apr 15 17:29:56 2021 -0600
-
-    Added file
-
-commit 70b4aed3c4a29c437f7d782b8e2add9a5d2fa7f8
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Apr 15 17:29:05 2021 -0600
-
-    Disabled mouseclicked when the player has moved
-
-commit 7bf07512065923ca15c4752fbe162a66af464e96
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Apr 15 15:25:03 2021 -0600
-
-    show secret passages with colored squares
-
-commit 3df1915185e35934096e75de029b6e8e8c64a972
+commit 6b845438b567767202a80ce5463f441c085b6e1a
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Thu Apr 15 15:05:19 2021 -0600
+Date:   Mon Apr 26 00:09:57 2021 -0600
 
-    fix bug: computer will always chose a room if it is a target
+    Control panel shows disproven for computer players
 
-commit e4cef818fbfbd05d2f56d233a3669d061bd9a6e3
+commit 3536e181cc1c9c2bb4ca1acb2a0d9ea64ab8cd29
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Sun Apr 25 23:06:15 2021 -0600
+
+    Now player called is moved to the corresponding room
+
+commit 5404ca0a493d0b8ca85dd945192b37ba312c29e0
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Thu Apr 15 14:38:35 2021 -0600
+Date:   Sun Apr 25 21:56:25 2021 -0600
 
-    bug fix: cannot select occupied walkway
+    Control panel refreshes after human finished
 
-commit a3693d963e66aae7c1968cfc359f13a886397050
+commit b0edf2b4c58ecfc2dae7790466e71280b228a54c
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Thu Apr 15 12:31:39 2021 -0600
+Date:   Sun Apr 25 19:51:17 2021 -0600
 
-    Fixed issues with overlaps
+    Now the panels update when the human player suggests
 
-commit 265d0d89a9ba4368912f13be77e4f38630daa1ad
+commit 869aa623e1c0385ddf8526e99f63643b69c21770
+Author: Daming Wang <damingwang@mymail.mines.edu>
+Date:   Sun Apr 25 16:33:50 2021 -0600
+
+    Suggest panel works as expected
+
+commit 8e7c0545df4ad2873dffd85ea00eb0e9bc99e41f
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Thu Apr 15 12:21:30 2021 -0600
+Date:   Sat Apr 24 22:31:01 2021 -0600
 
-    Trying to set offset
+    Created suggestion combo boxes
 
-commit de5f9a1e0e9311bb1b8181c36ca92b78256680d7
+commit 7a68a29958da780b72fb8d55fad382255cce9e81
 Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Apr 14 21:39:52 2021 -0600
+Date:   Fri Apr 23 10:14:06 2021 -0600
 
-    Got the whole room to display color
+    accuse panel fully functional
 
-commit 48525efe3a89f6aebe3b8f1c6cada94e8ee90390
+commit 74b0fdebdc6e1ebe7a60d855cfb134a37693c19d
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Apr 14 21:05:37 2021 -0600
+Date:   Thu Apr 22 16:58:05 2021 -0600
 
-    computer players now move
+    Add accuse action with labels and dropdown menus
 
-commit 248032a8beedc33bb5020714c17dbfd7dd4040a8
+commit d9fc7c56815fde9ed2f04f3f8aa170a831aadb24
 Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Apr 14 19:40:52 2021 -0600
+Date:   Thu Apr 22 16:22:22 2021 -0600
 
-    Created dieRoll and nextTurn
+    AccuseListener
 
-commit bfe3e50aa2d632f1280a602bf62b10db774ba7cc
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Apr 14 19:23:19 2021 -0600
-
-    Control panel now displays the player and roll
-
-commit 8749f374cddaacfaeea8338b241a3a0809eb5d18
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Apr 14 18:08:13 2021 -0600
-
-    Added updatePlayer and error msg
-
-commit 78222b52fb5a562e683179f5cea723c3cdf31026
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Wed Apr 14 17:27:44 2021 -0600
-
-    Added player movement on the board
-
-commit 810f600e4111ce59612466608b1c72b80a55e10e
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Wed Apr 14 14:47:19 2021 -0600
-
-    Fixed the grid size and clicking targets
-
-commit 10004ad7b61a2ed8d519968569454fed3267bce6
-Author: kdetienne <kelsey.detienne@mymail.mines.edu>
-Date:   Tue Apr 13 16:49:11 2021 -0600
-
-    Created mouse listener
-
-commit d585c5ace29d2d50c4afbcacbc834f07c24bf684
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Mon Apr 12 22:29:01 2021 -0600
-
-    Added ButtonListener and highlight
-
-commit 71e9812ca06b9ec9fa0eb6ddb95a7597045a8190
-Author: Daming Wang <damingwang@mymail.mines.edu>
-Date:   Mon Apr 12 18:06:13 2021 -0600
-
-    Added the splash screen

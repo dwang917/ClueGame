@@ -446,7 +446,7 @@ public class Board extends JPanel {
 		String roomName;
 		char initial;
 
-		ArrayList<String[]> setupStrings = readFile(setupConfigFile, ", ");
+		ArrayList<String[]> setupStrings = readFile("./data/" + setupConfigFile, ", ");
 
 		for (String[] thisLine : setupStrings) {
 			// if the line provides room info but the format is wrong then throw the
@@ -561,7 +561,7 @@ public class Board extends JPanel {
 	 * refers to a room that is not in your setup file
 	 */
 	public void loadLayoutConfig() throws BadConfigFormatException {
-		ArrayList<String[]> boardStrings = readFile(layoutConfigFile, ",");
+		ArrayList<String[]> boardStrings = readFile("./data/" + layoutConfigFile, ",");
 		numRows = boardStrings.size();
 		numCols = boardStrings.get(0).length;
 		grid = new BoardCell[numRows][numCols];
